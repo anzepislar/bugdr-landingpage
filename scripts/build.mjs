@@ -5,8 +5,8 @@
 // URLs. The dev server runs without these env vars, so the
 // local experience stays at the site root.
 //
-// BASE_PATH overrides the per-build URL prefix. Defaults to
-// /BugDoctor so the original site deploys unchanged. Use
+// BASE_PATH sets the per-build URL prefix. Defaults to the
+// site root (Vercel). Use
 // `BASE_PATH=/Bug-Doctor-2 npm run build` to deploy to the
 // second repo. Both NEXT_PUBLIC_BASE_PATH (for the client
 // helper) and GITHUB_PAGES (for next.config) are set from the
@@ -22,7 +22,7 @@ import { spawnSync } from "node:child_process";
 
 const isWindows = process.platform === "win32";
 
-const basePath = process.env.BASE_PATH || "/BugDoctor";
+const basePath = process.env.BASE_PATH || "";
 
 const env = {
   ...process.env,

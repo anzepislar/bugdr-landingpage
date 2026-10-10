@@ -10,14 +10,9 @@ const nextConfig = {
     unoptimized: true,
   },
   // Serve from the configured base path when the site is hosted on
-  // GitHub Pages under a project URL (e.g. /BugDoctor or
-  // /Bug-Doctor-2). Override with the BASE_PATH env var per build;
-  // defaults to /BugDoctor when GITHUB_PAGES=1 is set without an
-  // explicit BASE_PATH. Empty in dev so /logos/foo.png resolves to
-  // the local server root.
-  basePath:
-    process.env.BASE_PATH ||
-    (process.env.GITHUB_PAGES ? "/BugDoctor" : ""),
+  // GitHub Pages under a project URL (e.g. /chatgpt-bugdr-landing-page).
+  // Set via the BASE_PATH env var; empty (site root) otherwise, e.g. Vercel.
+  basePath: process.env.BASE_PATH || "",
   trailingSlash: true,
 };
 
