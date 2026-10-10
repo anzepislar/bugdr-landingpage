@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #151618;
+  --surface: #202226;
+  --border: #383C43;
+  --primary: #8BACFF;
+  --primary-foreground: #151618;
+  --text: #F2F3F5;
+  --text-muted: #ACB2BE;
+  /* Good / warn / bad — used by the AI feedback card. Tailwind tokens
+     `good`, `warn`, `bad` and the inline `var(...)` pattern below both
+     resolve to the same hex. */
+  --good: #7BD88F;
+  --warn: #F2C14E;
+  --bad: #FF6B6B;
+}
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
+}
+
+/* Code: disable programming ligatures ("=>" → "⇒", "!=" → "≠", etc.) so
+   syntactic glyphs stay as-is. Applies to <pre>, <code>, .code-block. */
+pre,
+code,
+.code-block {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+
+/* Selection */
+::selection {
+  background: rgba(139, 172, 255, 0.25);
+  color: var(--text);
+}
+
+/* Focus ring (AA-visible) */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth scrolling. We own the scroll in lib/section-focus.ts
+   (rAF-driven easeOutCubic), so we explicitly disable the CSS
+   smooth-scroll here. If we left `scroll-behavior: smooth` on,
+   the browser would re-animate each `window.scrollTo({ behavior:
+   "instant" })` call as a fresh smooth-scroll target — chasing
+   the rAF commands one frame behind and never landing on the
+   final position. We want JS to be the single source of truth. */
+html {
+  scroll-behavior: auto;
+}
+
+/* When a hash link jumps to a section, leave room for the fixed
+   nav so the section's header is visible below the bar instead
+   of tucked behind it. Applies to all hash-link navigation. */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Disable scroll anchoring on the page-content wrapper. Otherwise
+   the browser tries to keep visible content stable while JS scrolls
+   it frame-by-frame, pulling the scroll back toward a "natural"
+   position and never letting it settle on the target. */
+#page-content {
+  overflow-anchor: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Typography utilities (Apple HIG: size-specific tracking) ─────────── */
+
+/* Display — for the largest headings (text-5xl / text-6xl, e.g. the
+   hero h1). Tighter tracking as the type grows because letters read
+   too far apart at large sizes, and a tight 1.05 leading so the lines
+   stack close. */
+.text-display {
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+/* Headline — for section-level headings (text-3xl / text-4xl / h2s).
+   A moderate negative tracking that tightens without cramping, and
+   1.15 leading so multi-line headings stay readable. */
+.text-headline {
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+/* ── Frosted material (Apple HIG: backdrop-filter translucency) ────────── */
+
+/* A named class so the `prefers-reduced-transparency` override can
+   target it specifically without affecting the waitlist card or any
+   other bright surface the user has finalized. Applied to the
+   sticky nav and the announcement bar; nothing else. */
+.frosted {
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  /* The user has asked for less transparency. Frosted surfaces become
+     fully opaque so the page reads without the visual layering. The
+     waitlist card is NOT in `.frosted` so it keeps its translucent
+     material language regardless. */
+  .frosted {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: var(--bg) !important;
+  }
+}
+
+/* Subtle grid background utility */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(56, 60, 67, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 60, 67, 0.25) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}
+
+.bg-grid-fade {
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, #000 40%, transparent 100%);
+}
+
+/* Code block subtle scanline */
+.code-scan {
+  background-image: linear-gradient(transparent 0 23px, rgba(56, 60, 67, 0.18) 23px 24px);
+  background-size: 100% 24px;
+}
+
+/* Terminal cursor blink — used by the animated terminal in the BrowserIDE
+   section. The "type" animation drives how many characters are visible;
+   this just keeps the trailing block blinking. */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s steps(1, end) infinite;
+}
+
+/* Scrollbar (webkit) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ── Section dividers ──────────────────────────────────────────────────── */
+
+/* Replaces the default 1px solid border between sections with a soft
+   gradient — the line is heavier in the middle and fades at the edges, so
+   it reads as a divider without feeling like a hard line. */
+.divider-top {
+  border-top: 1px solid transparent;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--border) 20%,
+    var(--border) 80%,
+    transparent 100%
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+/* ── In-page vacuum transition ─────────────────────────────────────────── */
+
+/* The post-nav-click "vacuum in, scroll, zoom out" transition. The
+   scale is driven from JS (rAF writing `transform: scale(...)` inline
+   on #page-content via lib/section-focus.ts), not by CSS keyframes —
+   the JS holds the scale continuously across the three phases so the
+   scroll just composes on top, with no class-swap flash between
+   "vacuum in" and "vacuum out". The transform-origin is also set
+   inline to the click-time viewport center, so the scale always
+   feels like it's pulling the screen toward what the user is
+   currently looking at.
+
+   The choreography is:
+     t=0      zoom-in  — 1 → 1.4 over ~200ms (easeInQuad)
+     t=200ms  scroll   — easeOutCubic rAF, held at scale 1.4
+     t=950ms  zoom-out — 1.4 → 1 over ~350ms (easeOutCubic)
+
+   We don't define any rules here for the wrapper itself; everything
+   lives in JS. This block is kept only as a marker so future readers
+   know where the vacuum effect is documented. */
+
+/* ── Performance utilities ──────────────────────────────────────────────── */
+
+
+
+/* Promote the hero IDE wrapper to its own GPU layer so the 3D tilt and the
+   scroll don't compete for the same paint/composite budget. */
+.gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Pulsing button glow — opacity on a pseudo, NOT box-shadow on the element.
+   Animating box-shadow repaints every frame; animating opacity composites
+   only. The button itself keeps a static shadow-glow for the base look. */
+.btn-glow-pulse {
+  position: relative;
+  isolation: isolate;
+}
+.btn-glow-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 0 24px -2px rgba(139, 172, 255, 0.45),
+    0 0 56px -8px rgba(139, 172, 255, 0.22);
+  opacity: 0.55;
+  animation: btn-glow-breathe 2.6s ease-in-out infinite;
+}
+@keyframes btn-glow-breathe {
+  0%, 100% { opacity: 0.40; }
+  50%      { opacity: 0.95; }
+}
+
+/* Pulsing text glow — same trick, opacity on a pseudo that duplicates the
+   parent's text. The data attribute carries the text so we don't have to
+   wrap every glowing phrase in JSX. */
+.text-glow-pulse {
+  position: relative;
+}
+.text-glow-pulse::after {
+  content: attr(data-glow);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  text-shadow:
+    0 0 16px rgba(59, 130, 246, 0.75),
+    0 0 40px rgba(37, 99, 235, 0.45);
+  animation: text-glow-breathe 3.2s ease-in-out infinite;
+}
+@keyframes text-glow-breathe {
+  0%, 100% { opacity: 0.50; }
+  50%      { opacity: 1.00; }
+}
+
+/* Softer variant — same pseudo-element technique but lower-opacity dark
+   blue. Use on supporting text where a full glow would compete with the
+   primary phrase. */
+.text-glow-soft {
+  position: relative;
+}
+.text-glow-soft::after {
+  content: attr(data-glow);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  text-shadow:
+    0 0 14px rgba(59, 130, 246, 0.45),
+    0 0 32px rgba(37, 99, 235, 0.25);
+  animation: text-glow-breathe 3.2s ease-in-out infinite;
+}
+
+/* Lightbox fade-in — used by ZoomableImage. The lightbox is mounted on
+   click (not in the initial SSR HTML), so a CSS animation on mount is
+   safe — no hydration mismatch, no flash. The @media reduced-motion
+   rule above also kills this. */
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.lightbox-fade-in {
+  animation: lightbox-fade-in 180ms ease-out;
+}

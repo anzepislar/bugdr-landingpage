@@ -1,0 +1,43 @@
+name: Publish Bug.dr landing page
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/configure-pages@v5
+      - run: npm ci
+      - run: npm run build
+        env:
+          BASE_PATH: /chatgpt-bugdr-landing-page
+          NEXT_PUBLIC_SITE_URL: https://znidarsicmax-lab.github.io
+          # Publishable key: public by design, RLS limits anon to INSERT.
+          NEXT_PUBLIC_SUPABASE_URL: https://bmccoegrlfuwmvmtsajn.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: sb_publishable_nYJFlTIGk1ujGaHku25aUQ_q2uZ6u8x
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: out
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
