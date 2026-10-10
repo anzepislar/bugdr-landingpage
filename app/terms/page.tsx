@@ -241,9 +241,9 @@ const sections: LegalSection[] = [
     body: (
       <p>
         These terms are governed by the laws of{" "}
-        <strong>[GOVERNING LAW AND COURT CITY]</strong>. Any dispute
+        <strong>the Republic of Slovenia</strong>. Any dispute
         will be resolved by the courts of{" "}
-        <strong>[GOVERNING LAW AND COURT CITY]</strong>, unless
+        <strong>Ljubljana</strong>, unless
         mandatory consumer law in your country of residence gives you
         the right to bring a claim in your local courts.
       </p>
