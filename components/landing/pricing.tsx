@@ -182,6 +182,12 @@ function ProCard() {
         price={annual ? "€99" : "€12.99"}
         unit={annual ? "/year" : "/month"}
       />
+      {annual && (
+        <p className="mt-1.5 text-[12px] text-muted">
+          €8.25/month · <span className="text-action">save €57 (36%)</span> vs
+          €155.88 billed monthly
+        </p>
+      )}
 
       <div
         role="group"
