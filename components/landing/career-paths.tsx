@@ -1,15 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Container } from "@/components/landing/container";
 import { ArrowRight, Check, Terminal } from "@/components/landing/icons";
+import { assetPath } from "@/lib/asset-path";
 import styles from "./career-paths.module.css";
 
+const badgeSrc = (name: string) =>
+  assetPath(`/badges/difficulty/${name.toLowerCase().replace(/ /g, "-")}.svg`);
+
 const stages = [
-  { name: "Easy", subtitle: "Find your footing", color: "#88C9A1", title: "Small bugs. Strong foundations.", description: "Trace a failure, make a focused change, and prove it works.", cases: [["AI / ML", "A prompt that exceeds the context window"], ["Backend", "An API response the client cannot parse"], ["Database", "A vector search returning duplicate results"]] },
-  { name: "Medium", subtitle: "Connect the pieces", color: "#E0B265", title: "Follow the bug across the stack.", description: "Work through problems that cross service boundaries and touch more than one file.", cases: [["Backend", "Model requests that time out under load"], ["Database", "A retrieval query slowing down the app"], ["Frontend", "A streaming response that never finishes"]] },
-  { name: "Hard", subtitle: "Handle the pressure", color: "#ED939A", title: "Production incidents. Real trade-offs.", description: "Investigate complex failures and make changes that hold up beyond the happy path.", cases: [["AI / ML", "An evaluation pipeline with inconsistent results"], ["Backend", "Retries that trigger duplicate model calls"], ["Database", "An indexing job serving stale embeddings"]] },
-  { name: "Get a job", subtitle: "Put it all together", color: "#8BACFF", title: "Show the work behind your confidence.", description: "Bring diagnosis, implementation, and verification together against the path's performance benchmarks.", cases: [["Investigate", "Understand an unfamiliar system"], ["Fix", "Use AI deliberately and own the changes"], ["Verify", "Pass the checks without breaking the app"]] },
+  { name: "Easy", badgeColor: "#22c55e", subtitle: "Find your footing", color: "#88C9A1", title: "Small bugs. Strong foundations.", description: "Trace a failure, make a focused change, and prove it works.", cases: [["AI / ML", "A prompt that exceeds the context window"], ["Backend", "An API response the client cannot parse"], ["Database", "A vector search returning duplicate results"]] },
+  { name: "Medium", badgeColor: "#f59e0b", subtitle: "Connect the pieces", color: "#E0B265", title: "Follow the bug across the stack.", description: "Work through problems that cross service boundaries and touch more than one file.", cases: [["Backend", "Model requests that time out under load"], ["Database", "A retrieval query slowing down the app"], ["Frontend", "A streaming response that never finishes"]] },
+  { name: "Hard", badgeColor: "#f97316", subtitle: "Handle the pressure", color: "#ED939A", title: "Production incidents. Real trade-offs.", description: "Investigate complex failures and make changes that hold up beyond the happy path.", cases: [["AI / ML", "An evaluation pipeline with inconsistent results"], ["Backend", "Retries that trigger duplicate model calls"], ["Database", "An indexing job serving stale embeddings"]] },
+  { name: "Get a job", badgeColor: "#ef4444", subtitle: "Put it all together", color: "#8BACFF", title: "Show the work behind your confidence.", description: "Bring diagnosis, implementation, and verification together against the path's performance benchmarks.", cases: [["Investigate", "Understand an unfamiliar system"], ["Fix", "Use AI deliberately and own the changes"], ["Verify", "Pass the checks without breaking the app"]] },
 ];
 
 export function CareerPaths() {
@@ -43,16 +48,16 @@ export function CareerPaths() {
                 else return;
                 event.preventDefault(); setSelected(next); document.getElementById(`stage-tab-${next}`)?.focus();
               }}
-              style={{ "--stage-color": item.color } as React.CSSProperties}>
+              style={{ "--stage-color": item.color, "--badge-color": item.badgeColor } as React.CSSProperties}>
               <span className={styles.stageTop}><span className={styles.number}>0{index + 1}</span><span className={styles.track} /></span>
-              <strong>{item.name}</strong><span className={styles.subtitle}>{item.subtitle}</span>
+              <strong><Image className={styles.badge} src={badgeSrc(item.name)} alt={item.name} width={132} height={132} /></strong><span className={styles.subtitle}>{item.subtitle}</span>
             </button>
           ))}
         </div>
 
         <div id="career-stage-panel" role="tabpanel" aria-labelledby={`stage-tab-${selected}`} className={styles.panel} tabIndex={0}>
           <div className={styles.stageCopy}>
-            <p className={styles.eyebrow} style={{ color: stage.color }}>STAGE 0{selected + 1} / {stage.name.toUpperCase()}</p>
+            <p className={styles.eyebrow} style={{ color: stage.color }}>STAGE 0{selected + 1} /<Image className={styles.badgeSmall} src={badgeSrc(stage.name)} alt={stage.name} width={132} height={132} /></p>
             <h3>{stage.title}</h3>
             <p>{stage.description}</p>
             <div className={styles.benchmark}><Check size={16} /><span>Pass the checks. Meet the efficiency benchmark. Move forward.</span></div>

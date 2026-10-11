@@ -16,10 +16,13 @@
 .stages button[aria-selected=true] { border-color: var(--stage-color); }
 .stageTop { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .number { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 50%; font-size: 12px; font-family: var(--font-jetbrains-mono), monospace; color: var(--text-muted); transition: background 200ms; }
-.stages button[aria-selected=true] .number { background: var(--stage-color); color: var(--bg); border-color: var(--stage-color); }
+.stages button[aria-selected=true] .number { background: var(--badge-color); color: var(--bg); border-color: var(--badge-color); }
 .track { flex: 1; height: 1px; background: var(--border); }
 .stages strong { display: block; font-size: 18px; font-weight: 500; }
 .stages button[aria-selected=true] strong { color: var(--stage-color); }
+.badge { width: 88px; height: 88px; opacity: 0.5; transition: opacity 200ms; }
+.stages button[aria-selected=true] .badge { opacity: 1; }
+.badgeSmall { width: 48px; height: 48px; }
 .subtitle { display: block; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
 .panel { display: grid; grid-template-columns: 1fr 1.15fr; gap: 60px; min-height: 276px; padding: 14px 0 32px; }
 .stageCopy h3 { font-size: 26px; line-height: 1.25; font-weight: 500; margin: 14px 0 12px; max-width: 360px; }
@@ -44,6 +47,7 @@
   .stageTop { gap: 6px; }
   .number { width: 30px; height: 30px; }
   .stages strong { font-size: 14px; }
+  .badge { width: 64px; height: 64px; }
   .subtitle { font-size: 10px; line-height: 1.5; min-height: 30px; }
   .panel { grid-template-columns: 1fr; gap: 28px; min-height: 520px; }
   .stageCopy h3 { font-size: 24px; }
