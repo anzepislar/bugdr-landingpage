@@ -7,72 +7,56 @@ import { Check, Cross } from "@/components/landing/icons";
 
 // "Simple pricing" : the Pricing section.
 //
-// Two cards side by side, centered, stacked on mobile. Free on the
-// left, Pro on the right. The Pro card is highlighted with the
-// accent border and a soft glow so it reads as the recommended
-// option. Both cards use the same frame as the rest of the site
-// (rounded-xl border border-border bg-surface shadow-card).
+// Four cards in a row on desktop (Free, Pro, Own Key, Max), two per
+// row on tablet, stacked on mobile with Pro first (CSS `order`, see
+// lower-sections.css). Pro is highlighted with the action border, a
+// "Most popular" badge and a slight lift. Own Key and Max get a
+// subtle teal / purple border accent.
 //
-// Pro has a monthly/annual toggle (default annual). The toggle is
-// a pair of pill buttons inside a rounded container; the active
-// side is filled with the action tint so the state is obvious.
-//
-// The annual price is shown as its monthly equivalent (€8.25 /month)
-// so the headline number reads small. A "Billed €99 yearly" caption
-// sits underneath so the user knows the actual charge is the full
-// year. The monthly selection stays as €12.99 /month, no caption
-// needed. The "Save €57" badge only appears on annual.
-//
-// Both cards end with a "Join waitlist" button that jumps to the
-// existing #waitlist section. No checkout, no card field, no form:
-// the note under the cards says "Payments open after launch" so
-// the user knows pricing is for display only right now.
-//
-// The "Included" and "Not included" lists use the same Check / Cross
-// icon set as the comparison table, so the visual language is
-// shared across the page.
+// Only Pro has the monthly/annual toggle (default annual). Every card
+// ends with "Join waitlist" → #waitlist. No checkout yet.
 
-type Plan = "free" | "pro";
+type Item = { label: string; included: boolean };
 
-type Item = {
-  label: string;
-  // true = check (included), false = cross (not included). The
-  // same Item shape covers both lists, so the rendering code stays
-  // the same.
-  included: boolean;
-  // Override the row text color. When included=false, the body
-  // text is muted (so a non-feature doesn't read as a hard "no"),
-  // but the Free card's "Not included" list uses `danger` to lean
-  // into the fact that those features are paywalled. Right now
-  // we render all "not included" rows in muted, so this is kept
-  // simple.
-};
+const yes = (label: string): Item => ({ label, included: true });
+const no = (label: string): Item => ({ label, included: false });
 
-const freeIncluded: Item[] = [
-  { label: "All Easy problems", included: true },
-  { label: "Basic AI assistant", included: true },
-  { label: "Efficiency scoring", included: true },
-  { label: "Public leaderboard", included: true },
-  { label: "AI feedback on Easy solves", included: true },
+const freeItems: Item[] = [
+  yes("All problems (Easy → Get a job)"),
+  yes("30 AI prompts/day"),
+  yes("Basic AI assistant (Haiku)"),
+  yes("Efficiency scoring"),
+  yes("Public leaderboard"),
+  no("Career paths"),
+  no("AI feedback after solves"),
+  no("Powerful AI model"),
 ];
 
-const freeNotIncluded: Item[] = [
-  { label: "Career paths", included: false },
-  { label: "Medium, Hard and Get a job problems", included: false },
-  { label: "Powerful AI model", included: false },
+const proItems: Item[] = [
+  yes("Everything in Free"),
+  yes("150 AI prompts/day"),
+  yes("Claude Sonnet or GPT-4o"),
+  yes("Career paths"),
+  yes("AI feedback after every solve"),
+  yes("Rank up emails with card"),
 ];
 
-const proIncluded: Item[] = [
-  { label: "Everything in Free", included: true },
-  { label: "Career paths with efficiency gating", included: true },
-  { label: "AI coaching after every solve", included: true },
-  { label: "Powerful AI model included", included: true },
-  { label: "Connect your own API key", included: true },
+const ownKeyItems: Item[] = [
+  yes("Everything in Pro"),
+  yes("Your API key — any model"),
+  yes("Unlimited prompts"),
+  yes("You control your AI costs"),
+  yes("Zero token cost to platform"),
+];
+
+const maxItems: Item[] = [
+  yes("Everything in Pro"),
+  yes("Claude Opus (most powerful model)"),
+  yes("150 prompts/day hard cap"),
+  yes("Elite efficiency scoring"),
 ];
 
 export function Pricing() {
-  const [annual, setAnnual] = useState(true);
-
   return (
     <section
       id="pricing"
@@ -85,20 +69,32 @@ export function Pricing() {
             id="pricing-heading"
             className="mt-3 text-3xl sm:text-4xl font-semibold text-headline"
           >
-            Start free. Go deeper when you&apos;re ready.
+            Simple pricing
           </h2>
           <p className="mt-4 text-muted text-lg leading-relaxed">
-            Get started with bug.dr and see how you work through a case.
+            Free to start. Upgrade when you&apos;re serious.
           </p>
         </div>
 
-        {/* Two cards side by side, centered as a group. The
-            max-w-[640px] on the wrapper keeps them compact on
-            wide screens so the visual weight of Pricing doesn't
-            outweigh the rest of the page. */}
         <div className="plan-grid">
-          <FreeCard />
-          <ProCard annual={annual} onChange={setAnnual} />
+          <PlanCard label="Free" price="€0" unit="/month" items={freeItems} />
+          <ProCard />
+          <PlanCard
+            label="Own Key"
+            price="€9.99"
+            unit="/month"
+            note="Bring your Anthropic or OpenAI API key"
+            items={ownKeyItems}
+            accent="border-[#2dd4bf]/50"
+          />
+          <PlanCard
+            label="Max"
+            price="€199"
+            unit="/month"
+            note="Claude Opus · 150 prompts/day"
+            items={maxItems}
+            accent="border-[#c084fc]/50"
+          />
         </div>
 
         <p className="mt-8 text-center text-muted text-sm">
@@ -109,21 +105,43 @@ export function Pricing() {
   );
 }
 
-function FreeCard() {
+function Price({ price, unit }: { price: string; unit: string }) {
   return (
-    <article className="rounded-xl border border-border bg-surface shadow-card p-6 sm:p-8 flex flex-col">
-      <div className="font-mono text-xs uppercase tracking-widest text-muted">
-        Free
-      </div>
-      <div className="mt-3 flex items-baseline gap-1.5">
-        <span className="text-3xl font-semibold text-headline tracking-tight">
-          €0
-        </span>
-        <span className="text-sm text-muted">/month</span>
-      </div>
+    <div className="mt-3 flex items-baseline gap-1.5">
+      <span className="text-3xl font-semibold text-headline tracking-tight">
+        {price}
+      </span>
+      <span className="text-sm text-muted">{unit}</span>
+    </div>
+  );
+}
 
-      <FeatureList heading="Included" items={freeIncluded} />
-      <FeatureList heading="Not included" items={freeNotIncluded} muted />
+function PlanCard({
+  label,
+  price,
+  unit,
+  note,
+  items,
+  accent = "border-border",
+}: {
+  label: string;
+  price: string;
+  unit: string;
+  note?: string;
+  items: Item[];
+  accent?: string;
+}) {
+  return (
+    <article
+      className={`rounded-xl border ${accent} bg-surface shadow-card p-6 sm:p-8 flex flex-col`}
+    >
+      <div className="font-mono text-xs uppercase tracking-widest text-muted">
+        {label}
+      </div>
+      <Price price={price} unit={unit} />
+      {note && <p className="mt-1.5 text-[12px] text-muted">{note}</p>}
+
+      <FeatureList items={items} />
 
       <LinkButton
         href="#waitlist"
@@ -137,34 +155,22 @@ function FreeCard() {
   );
 }
 
-function ProCard({
-  annual,
-  onChange,
-}: {
-  annual: boolean;
-  onChange: (v: boolean) => void;
-}) {
-  // Annual is displayed as the monthly equivalent (€99 / 12 = €8.25)
-  // so the headline number reads small, with a "Billed €99 yearly"
-  // caption underneath so the user knows the actual charge is the
-  // full year. Monthly shows the raw price with no caption.
-  const price = annual ? "€8.25" : "€12.99";
-  const unit = "/month";
-  const billedAnnually = annual ? "Billed €99 yearly" : null;
+function ProCard() {
+  const [annual, setAnnual] = useState(true);
 
   return (
     <article
-      className="relative rounded-xl border-2 border-action bg-surface shadow-glow p-6 sm:p-8 flex flex-col"
-      aria-label="Pro plan, highlighted"
+      className="plan-pro relative rounded-xl border-2 border-action bg-surface shadow-glow p-6 sm:p-8 flex flex-col"
+      aria-label="Pro plan, most popular"
     >
+      <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-action px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-bg">
+        Most popular
+      </span>
+
       <div className="flex items-center justify-between gap-3">
         <div className="font-mono text-xs uppercase tracking-widest text-action">
           Pro
         </div>
-        {/* The "Save" badge only on annual, top-right of the card
-            so it doesn't get covered by the toggle. Color matches
-            the accent border so the Pro card reads as one
-            highlight unit. */}
         {annual && (
           <span className="inline-flex items-center rounded-full bg-action/15 text-action px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
             Save €57
@@ -172,59 +178,35 @@ function ProCard({
         )}
       </div>
 
-      <div className="mt-3 flex items-baseline gap-1.5">
-        <span className="text-3xl font-semibold text-headline tracking-tight">
-          {price}
-        </span>
-        <span className="text-sm text-muted">{unit}</span>
-      </div>
+      <Price
+        price={annual ? "€99" : "€12.99"}
+        unit={annual ? "/year" : "/month"}
+      />
 
-      {/* When annual is selected, the small caption underneath
-          tells the user the actual charge is the full year, not
-          monthly. Hidden on the monthly selection so the card
-          doesn't grow. */}
-      <div className="mt-1.5 h-4 text-[12px] text-muted">
-        {billedAnnually}
-      </div>
-
-      {/* Monthly / annual toggle. Two pill buttons inside a
-          rounded container. The active side is filled with the
-          action tint; the inactive side is muted text. aria-pressed
-          tells assistive tech which side is currently active. */}
       <div
         role="group"
         aria-label="Billing period"
-        className="mt-5 inline-flex items-center self-start rounded-full border border-border bg-bg/40 p-1 font-mono text-[11px] uppercase tracking-wider"
+        className="mt-4 inline-flex items-center self-start rounded-full border border-border bg-bg/40 p-1 font-mono text-[11px] uppercase tracking-wider"
       >
-        <button
-          type="button"
-          onClick={() => onChange(false)}
-          aria-pressed={!annual}
-          className={[
-            "px-3 py-1 rounded-full transition-colors",
-            !annual
-              ? "bg-action/15 text-action"
-              : "text-muted hover:text-text",
-          ].join(" ")}
-        >
-          Monthly
-        </button>
-        <button
-          type="button"
-          onClick={() => onChange(true)}
-          aria-pressed={annual}
-          className={[
-            "px-3 py-1 rounded-full transition-colors",
-            annual
-              ? "bg-action/15 text-action"
-              : "text-muted hover:text-text",
-          ].join(" ")}
-        >
-          Annual
-        </button>
+        {[false, true].map((isAnnual) => (
+          <button
+            key={String(isAnnual)}
+            type="button"
+            onClick={() => setAnnual(isAnnual)}
+            aria-pressed={annual === isAnnual}
+            className={[
+              "px-3 py-1 rounded-full transition-colors",
+              annual === isAnnual
+                ? "bg-action/15 text-action"
+                : "text-muted hover:text-text",
+            ].join(" ")}
+          >
+            {isAnnual ? "Annual" : "Monthly"}
+          </button>
+        ))}
       </div>
 
-      <FeatureList heading="Included" items={proIncluded} />
+      <FeatureList items={proItems} />
 
       <LinkButton
         href="#waitlist"
@@ -238,51 +220,33 @@ function ProCard({
   );
 }
 
-function FeatureList({
-  heading,
-  items,
-  muted,
-}: {
-  heading: string;
-  items: Item[];
-  // When true (e.g. the Free card's "Not included" list), render
-  // the labels in muted color so the row reads as a non-feature
-  // without a hard "no" treatment.
-  muted?: boolean;
-}) {
+function FeatureList({ items }: { items: Item[] }) {
   return (
-    <div className="mt-6">
-      <p className="font-mono text-[11px] uppercase tracking-wider text-muted">
-        {heading}
-      </p>
-      <ul className="mt-3 space-y-2.5">
-        {items.map((item) => (
-          <li
-            key={item.label}
-            className="flex items-start gap-2.5 text-[14px] leading-snug"
+    <ul className="mt-6 space-y-2.5">
+      {items.map((item) => (
+        <li
+          key={item.label}
+          className="flex items-start gap-2.5 text-[14px] leading-snug"
+        >
+          <span
+            aria-hidden
+            className={[
+              "mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1",
+              item.included
+                ? "bg-action/15 text-action ring-action/40"
+                : "bg-diffImpossible/10 text-diffImpossible ring-diffImpossible/40",
+            ].join(" ")}
           >
-            <span
-              aria-hidden
-              className={[
-                "mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1",
-                item.included
-                  ? "bg-action/15 text-action ring-action/40"
-                  : "bg-diffImpossible/10 text-diffImpossible ring-diffImpossible/40",
-              ].join(" ")}
-            >
-              {item.included ? <Check size={11} /> : <Cross size={11} />}
+            {item.included ? <Check size={11} /> : <Cross size={11} />}
+          </span>
+          <span className={item.included ? "text-text" : "text-muted"}>
+            <span className="sr-only">
+              {item.included ? "Included: " : "Not included: "}
             </span>
-            <span className={muted && !item.included ? "text-muted" : "text-text"}>
-              {item.label}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+            {item.label}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }
-
-// Plan type re-exported so a future "billing" component (e.g. an
-// account-settings page) can reuse the same included/not-included
-// shape without re-declaring it.
-export type { Plan };
