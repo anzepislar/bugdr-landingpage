@@ -10,6 +10,7 @@ import { WaitlistCta } from "@/components/landing/waitlist-cta";
 import { RolesAndProfile } from "@/components/landing/roles-and-profile";
 import { ProblemLibrary } from "@/components/landing/problem-library";
 import { Features } from "@/components/landing/features";
+import { RanksSection } from "@/components/landing/ranks-section";
 import { Pricing } from "@/components/landing/pricing";
 import { Waitlist } from "@/components/landing/waitlist";
 import { Faq } from "@/components/landing/faq";
@@ -71,6 +72,7 @@ export default function Page() {
         <RolesAndProfile />
         <ProblemLibrary />
         <Features />
+        <RanksSection />
         <Pricing />
         <WaitlistCta line="Be the first to pick a problem when the library opens." />
         <Waitlist />

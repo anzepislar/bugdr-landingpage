@@ -1,0 +1,27 @@
+.grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px 16px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  text-align: center;
+}
+.elite {
+  border-color: rgba(139, 172, 255, 0.15);
+  background: rgba(139, 172, 255, 0.04);
+  box-shadow: 0 0 24px rgba(139, 172, 255, 0.06);
+}
+
+/* Cards are visible in the server HTML. JS sets "hidden" only after
+   mount (and never under reduced motion), then "shown" on scroll-in.
+   The transition lives on "shown" so hiding is instant. */
+.grid[data-phase="hidden"] .card { opacity: 0; transform: translateY(12px); }
+.grid[data-phase="shown"] .card {
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+  transition-delay: calc(var(--i) * 80ms);
+}
