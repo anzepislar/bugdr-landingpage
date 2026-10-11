@@ -14,6 +14,32 @@ import { Pricing } from "@/components/landing/pricing";
 import { Waitlist } from "@/components/landing/waitlist";
 import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
+import { SITE_URL } from "@/lib/site";
+
+// Structured data. No aggregateRating until there are real reviews, and
+// no SearchAction: /problems doesn't exist on this site yet.
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Bugdr",
+    url: SITE_URL,
+    description:
+      "A coding practice platform where software engineers debug real production bugs instead of toy algorithm puzzles. Features career paths, AI-powered feedback, and real-world scenarios.",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Web",
+    offers: [
+      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR" },
+      { "@type": "Offer", name: "Pro", price: "12.99", priceCurrency: "EUR" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Bugdr",
+    url: SITE_URL,
+  },
+];
 
 // Home page section order.
 //
@@ -26,6 +52,12 @@ import { Footer } from "@/components/landing/footer";
 export default function Page() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <AnnouncementBar />
       <Nav />
       <main id="top">

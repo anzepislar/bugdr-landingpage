@@ -3,7 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "./lower-sections.css";
 import { SignalBackground } from "@/components/landing/signal-background";
-import { assetPath } from "@/lib/asset-path";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,16 +27,58 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://bug.dr"),
-  title: "bug.dr | Get better at debugging with AI",
+  title: "Bugdr — The LeetCode Alternative for Real Engineers",
   description:
-    "Fix production-style bugs with AI in your browser. Practice for your role, test your changes, and learn from feedback on how you worked.",
+    "Practice debugging real production bugs instead of toy puzzles. Bugdr helps software engineers build the skills that actually matter on the job — not just interview tricks.",
+  keywords: [
+    "leetcode alternative",
+    "coding practice real world",
+    "production bug debugging",
+    "software engineer practice",
+    "backend engineer problems",
+    "real world programming challenges",
+    "leetcode for real jobs",
+    "developer skill building",
+  ],
+  authors: [{ name: "Bugdr" }],
+  creator: "Bugdr",
+  metadataBase: new URL(SITE_URL),
+  // Relative, so /privacy and /terms keep their own canonical.
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "bug.dr | Get better at debugging with AI",
-    description:
-      "Fix production-style bugs with AI in your browser. Practice for your role, test your changes, and learn from feedback on how you worked.",
     type: "website",
-    images: [assetPath("/og.png")],
+    url: SITE_URL,
+    title: "Bugdr — Debug Real Production Bugs, Not Puzzles",
+    description:
+      "Stop grinding LeetCode. Practice the bugs you will actually face as a software engineer. Real codebases, real scenarios, AI-powered feedback.",
+    siteName: "Bugdr",
+    images: [
+      {
+        url: `${SITE_URL}/og.png`,
+        width: 1200,
+        height: 630,
+        alt: "Bugdr — Real engineering practice",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bugdr — The LeetCode Alternative for Real Engineers",
+    description:
+      "Practice debugging real production bugs instead of toy puzzles. Build skills that matter on the job.",
+    images: [`${SITE_URL}/og.png`],
+    creator: "@bugdr",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
