@@ -14,7 +14,7 @@ export function SampleScore() {
       className="relative py-24 sm:py-32 divider-top"
     >
       <Container>
-        <figure className="rounded-xl border border-border bg-surface shadow-card overflow-hidden">
+        <figure className="glass overflow-hidden">
           <Image
             src={assetPath("/profile.png")}
             alt="bug.dr profile page showing progress and solved cases"

@@ -132,6 +132,87 @@ section[id] {
     backdrop-filter: none;
     background-color: var(--bg) !important;
   }
+  .glass,
+  .glass-btn,
+  .glass-nav {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--surface);
+  }
+}
+
+/* ── Glass ─────────────────────────────────────────────────────────────── */
+
+/* Decorative tinted blobs fixed behind everything so the glass surfaces
+   have color to blur. Sits at z-0 with the grid + signal canvas;
+   #page-content is z-10. */
+.glass-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(45% 45% at 8% 6%, rgba(139, 172, 255, 0.07), transparent 70%),
+    radial-gradient(45% 45% at 92% 94%, rgba(235, 165, 153, 0.06), transparent 70%),
+    radial-gradient(35% 40% at 88% 18%, rgba(139, 172, 255, 0.04), transparent 70%),
+    radial-gradient(40% 40% at 50% 50%, rgba(32, 34, 38, 0.5), rgba(32, 34, 38, 0) 70%);
+}
+
+/* In the components layer so Tailwind utilities on the same element
+   (e.g. a border-color accent) still win. */
+@layer components {
+  .glass {
+    position: relative;
+    isolation: isolate;
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+  }
+  /* Inner highlight. z-index -1 inside the isolated card paints it
+     above the card background but below its content. */
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .glass-pro {
+    background: rgba(139, 172, 255, 0.08);
+    border-color: rgba(139, 172, 255, 0.25);
+  }
+  .glass-nav {
+    background: rgba(21, 22, 24, 0.75);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .glass-btn {
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glass-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* Default transition for interactive elements. Base layer, so any
+   explicit Tailwind transition utility on an element still wins. */
+@layer base {
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  }
 }
 
 /* Subtle grid background utility */

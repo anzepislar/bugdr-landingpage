@@ -83,14 +83,14 @@ export function Faq() {
           {faqs.map((item, i) => (
             <div
               key={item.q}
-              className={i !== 0 ? "border-t border-border" : ""}
+              className="glass overflow-hidden"
             >
               <button
                 type="button"
                 onClick={() => setOpen(open === i ? null : i)}
                 aria-expanded={open === i}
                 aria-controls={`faq-panel-${i}`}
-                className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-surface/80 transition-colors"
+                className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.04] transition-colors"
               >
                 <span className="text-[15px] font-medium">{item.q}</span>
                 <ChevronDown

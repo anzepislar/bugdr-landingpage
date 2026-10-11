@@ -66,7 +66,7 @@ export function Waitlist() {
                 sits behind the form for texture, like the FinalCta did. */}
             <form
               onSubmit={submit}
-              className="signup-form relative overflow-hidden rounded-lg border border-action/30 bg-action text-bg p-6 sm:p-8"
+              className="signup-form relative overflow-hidden rounded-2xl border border-action/30 bg-action text-bg p-6 sm:p-8"
               aria-label="Join the bug.dr waitlist"
             >
               <div
@@ -161,7 +161,7 @@ export function Waitlist() {
 // text for readability on the dark surface, with a subtle light border
 // that defines the box against the blue.
 const inputClassLight =
-  "block w-full h-11 rounded-md border border-white/10 bg-bg/90 px-3 text-sm text-text placeholder:text-muted focus:border-white/40 focus:outline-none disabled:opacity-60";
+  "block w-full h-11 rounded-[10px] border border-white/10 bg-bg/90 px-3 text-sm text-text placeholder:text-muted focus:border-white/40 focus:outline-none disabled:opacity-60";
 
 function Field({
   label,

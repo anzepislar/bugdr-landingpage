@@ -412,7 +412,7 @@ export function HeroIDE() {
         ref={cardRef}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        className="rounded-xl border border-border bg-surface shadow-card overflow-hidden"
+        className="rounded-2xl border border-border bg-surface shadow-card overflow-hidden"
         style={{
           rotateX: reduce ? 0 : rotateX,
           rotateY: reduce ? 0 : rotateY,
@@ -608,7 +608,7 @@ export function HeroIDE() {
 
 export function HeroScreenshot() {
   return (
-    <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-card">
+    <div className="overflow-hidden rounded-2xl border border-border bg-surface shadow-card">
       <ZoomableImage
         src={assetPath("/screenshots/workspace.png")}
         alt="bug.dr workspace: payment retry assignment, incident logs, acceptance checks and checkout code"

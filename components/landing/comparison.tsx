@@ -77,7 +77,7 @@ export function Comparison() {
         </div>
 
         {/* Comparison table */}
-        <div className="mt-12 rounded-xl border border-border bg-surface shadow-card overflow-hidden">
+        <div className="mt-12 glass overflow-hidden">
           {/* Header row */}
           <div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-4 border-b border-border font-mono text-xs uppercase tracking-wider text-muted">
             <div className="col-span-4">Dimension</div>

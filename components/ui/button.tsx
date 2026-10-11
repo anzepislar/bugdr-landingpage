@@ -4,16 +4,16 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-150 " +
+  "inline-flex items-center justify-center gap-2 font-medium rounded-xl [transition:background_0.15s_ease,border-color_0.15s_ease,color_0.15s_ease,transform_0.1s_ease] " +
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action focus-visible:ring-offset-2 " +
   "focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none " +
-  "leading-none whitespace-nowrap active:scale-[0.98]";
+  "leading-none whitespace-nowrap active:translate-y-0";
 
 const variants: Record<Variant, string> = {
   primary:
     "bg-action text-bg hover:bg-[#a3bcff] hover:-translate-y-px active:bg-[#7a9cff] active:translate-y-0 shadow-glow btn-glow-pulse",
   secondary:
-    "bg-surface text-text border border-border hover:border-action hover:text-action hover:-translate-y-px",
+    "glass-btn text-text hover:-translate-y-px",
   ghost: "bg-transparent text-text-muted hover:text-text",
 };
 

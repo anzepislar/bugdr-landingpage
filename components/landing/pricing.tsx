@@ -122,7 +122,7 @@ function PlanCard({
   unit,
   note,
   items,
-  accent = "border-border",
+  accent = "",
 }: {
   label: string;
   price: string;
@@ -133,7 +133,7 @@ function PlanCard({
 }) {
   return (
     <article
-      className={`rounded-xl border ${accent} bg-surface shadow-card p-6 sm:p-8 flex flex-col`}
+      className={`glass ${accent} p-6 sm:p-8 flex flex-col`}
     >
       <div className="font-mono text-xs uppercase tracking-widest text-muted">
         {label}
@@ -160,10 +160,10 @@ function ProCard() {
 
   return (
     <article
-      className="plan-pro relative rounded-xl border-2 border-action bg-surface shadow-glow p-6 sm:p-8 flex flex-col"
+      className="plan-pro glass glass-pro p-6 sm:p-8 flex flex-col"
       aria-label="Pro plan, most popular"
     >
-      <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-action px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-bg">
+      <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-action px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-bg">
         Most popular
       </span>
 
@@ -172,7 +172,7 @@ function ProCard() {
           Pro
         </div>
         {annual && (
-          <span className="inline-flex items-center rounded-full bg-action/15 text-action px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
+          <span className="inline-flex items-center rounded-md bg-action/15 text-action px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
             Save €57
           </span>
         )}
@@ -186,7 +186,7 @@ function ProCard() {
       <div
         role="group"
         aria-label="Billing period"
-        className="mt-4 inline-flex items-center self-start rounded-full border border-border bg-bg/40 p-1 font-mono text-[11px] uppercase tracking-wider"
+        className="mt-4 inline-flex items-center self-start rounded-[10px] border border-border bg-bg/40 p-1 font-mono text-[11px] uppercase tracking-wider"
       >
         {[false, true].map((isAnnual) => (
           <button
@@ -195,7 +195,7 @@ function ProCard() {
             onClick={() => setAnnual(isAnnual)}
             aria-pressed={annual === isAnnual}
             className={[
-              "px-3 py-1 rounded-full transition-colors",
+              "px-3 py-1 rounded-md transition-colors",
               annual === isAnnual
                 ? "bg-action/15 text-action"
                 : "text-muted hover:text-text",

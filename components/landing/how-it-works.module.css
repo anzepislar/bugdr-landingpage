@@ -20,7 +20,7 @@
 .visuals { position: relative; height: min(560px, 65svh); min-width: 0; }
 .visual { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(16px) scale(.985); transition: opacity 500ms ease, transform 600ms cubic-bezier(.22,1,.36,1); pointer-events: none; }
 .visual[data-active="true"] { opacity: 1; transform: none; pointer-events: auto; z-index: 1; }
-.visual > div { width: 100%; border-radius: 8px; }
+.visual > div { width: 100%; border-radius: 16px; }
 .visual img { max-height: min(560px, 65svh); object-fit: contain; }
 @media (max-width: 767px) {
   .sticky { padding: 84px 0 20px; }

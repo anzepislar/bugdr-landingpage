@@ -65,6 +65,7 @@ export default function RootLayout({
           aria-hidden
           className="pointer-events-none fixed inset-0 z-0 bg-grid bg-grid-fade opacity-20"
         />
+        <div aria-hidden className="glass-blobs" />
         <SignalBackground />
         {/* The post-nav-click "vacuum in, spit out" transition
             (see lib/section-focus.ts) scales this wrapper, not the

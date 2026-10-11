@@ -117,7 +117,7 @@ function ProblemDetailShot() {
   // mock. Wrapped in ZoomableImage so the user can open it fullscreen to
   // read the assignment.
   return (
-    <div className="rounded-xl border border-border bg-surface shadow-card overflow-hidden">
+    <div className="glass overflow-hidden">
       <ZoomableImage
         src={assetPath("/screenshots/problem-detail.png")}
         alt="Payment retries problem page showing the assignment, incident log and acceptance checks."
@@ -131,7 +131,7 @@ function ProblemDetailShot() {
 
 function WorkspaceShot() {
   return (
-    <div className="rounded-xl border border-border bg-surface shadow-card overflow-hidden">
+    <div className="glass overflow-hidden">
       <Image
         src={assetPath("/solve-page-ai-chat.png")}
         alt="bug.dr workspace showing the editor, terminal and AI assistant"
@@ -202,7 +202,7 @@ const diffLines: Line[] = [
 function StaticDiffCard() {
   return (
     <div
-      className="rounded-xl border border-border bg-surface shadow-card overflow-hidden max-w-xl"
+      className="glass overflow-hidden max-w-xl"
       data-testid="static-diff-card"
     >
       {/* Diff header. Matches the hero card's header so the two visuals
@@ -242,7 +242,7 @@ function StaticDiffCard() {
 function StaticChecksCard() {
   return (
     <div
-      className="rounded-xl border border-border bg-surface shadow-card overflow-hidden max-w-xl"
+      className="glass overflow-hidden max-w-xl"
       data-testid="static-checks-card"
     >
       <div className="border-b border-border bg-bg/30 px-4 py-3">

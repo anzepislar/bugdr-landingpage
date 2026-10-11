@@ -59,16 +59,8 @@ function isLinkActive(linkHref: string, pathname: string): boolean {
 }
 
 export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() ?? "/";
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Start the hashchange -> section-spotlight pipeline. The same
   // tracker that handles in-page # links on the home page also
@@ -86,12 +78,7 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
     setMenuOpen(false);
   }, [pathname]);
 
-  const headerClass = [
-    "sticky top-0 z-50 transition-colors duration-200",
-    scrolled
-      ? "bg-bg/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/60 frosted"
-      : "bg-transparent border-b border-transparent",
-  ].join(" ");
+  const headerClass = "sticky top-0 z-50 glass-nav";
 
   if (variant === "legal") {
     return (
@@ -173,7 +160,7 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-surface/60 text-text hover:border-action transition-colors"
+            className="sm:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl glass-btn text-text"
           >
             {menuOpen ? <Close size={20} /> : <Menu size={20} />}
           </button>
