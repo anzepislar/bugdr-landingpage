@@ -62,10 +62,14 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <AnnouncementBar />
+      {/* Hero-only redesign: everything else is hidden, not deleted. */}
+      <div className="hidden">
+        <AnnouncementBar />
+      </div>
       <Nav />
       <main id="top">
         <Hero />
+        <div className="hidden">
         <Comparison />
         <HowItWorks />
         <SampleScore />
@@ -80,8 +84,11 @@ export default function Page() {
         <WaitlistCta line="Be the first to pick a problem when the library opens." />
         <Waitlist />
         <Faq />
+        </div>
       </main>
-      <Footer />
+      <div className="hidden">
+        <Footer />
+      </div>
     </>
   );
 }

@@ -112,8 +112,9 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
     );
   }
 
+  // Home: transparent, no blur, floating over the hero background.
   return (
-    <header className={headerClass}>
+    <header className="fixed inset-x-0 top-0 z-50">
       <div className="px-6 md:px-10">
         <div className="h-16 flex items-center justify-between gap-4">
           <div className="-ml-1">

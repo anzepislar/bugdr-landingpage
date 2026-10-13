@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -9,12 +9,12 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { LinkButton } from "@/components/ui/button";
-import { ArrowRight, Check } from "@/components/landing/icons";
+import { Check } from "@/components/landing/icons";
 import { type Line, TONE_CLASS } from "@/components/landing/code-block";
 import { SPRING_GENTLE } from "@/lib/motion";
 import { assetPath } from "@/lib/asset-path";
 import { ZoomableImage } from "@/components/ui/zoomable-image";
+import { WaitlistModal } from "@/components/landing/WaitlistModal";
 
 // ── Hero ──────────────────────────────────────────────────────────────────
 //
@@ -22,14 +22,9 @@ import { ZoomableImage } from "@/components/ui/zoomable-image";
 // measures how well an engineer uses AI to investigate a codebase, fix a bug
 // and verify it.
 //
-// Layout: text on the left (H1, subhead, buttons, meta, checklist) and the
-// square workspace screenshot on the right, stacking below the copy on mobile.
-
-const checklist = [
-  "Real-world engineering, not toy puzzles",
-  "Code, terminal and AI in one place",
-  "Clear checks for every fix",
-];
+// Layout: centered H1, subhead and one CTA over a full-viewport animated
+// background: floating code, agent and solve panels (.hero-bg in globals.css).
+// The CTA opens WaitlistModal.
 
 // Real acceptance checks from the Payment retries problem. Exported so the
 // static "How it works" step 3 card can reuse the same seven names without
@@ -44,134 +39,396 @@ export const acceptanceChecks: { label: string }[] = [
   { label: "Keep failed jobs visible in the queue" },
 ];
 
+// ── Floating panel world background ─────────────────────────────────────
+//
+// ~24 glass panels drifting upward at three depths: code, AI agent
+// terminals and solve cards. DOM elements, not a canvas: each panel needs
+// its own CSS 3D tilt inside the perspective container. One rAF loop
+// moves them by writing transforms directly (no React re-renders per
+// frame).
+
+const CODE_POOL = `async function validateSession(token: string) {
+const user = await db.users.findOne({ id: userId })
+if (!user) return null
+return jwt.verify(token, process.env.SECRET)
+}
+export const getServerSideProps = async (ctx) => {
+const { data, error } = await supabase
+  .from('submissions').select('*')
+  .eq('user_id', session.user.id)
+interface BugReport {
+  id: string
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  stackTrace: string[]
+  resolvedAt: Date | null
+}
+const result = await Promise.all(
+  tasks.map(t => executor.run(t))
+)
+// TODO: handle edge case when user is null
+// this has been here for 3 years
+try {
+  await processPayment(order.total)
+} catch (err) {
+  logger.error('Payment failed', err)
+}
+type Difficulty = 'easy'|'medium'|'hard'|'get_a_job'
+const score = Math.round(elapsed / benchmark * 100)
+return res.status(200).json({ success: true })
+const ref = useRef<HTMLDivElement>(null)
+useEffect(() => { fetchUserRank() }, [userId])
+throw new Error('Unexpected state reached')`.split("\n");
+
+const KEYWORD = /^(async|function|const|return|if|await|export|import|type|interface|try|catch|throw)$/;
+const LITERAL = /^(\d+|true|false|null)$/;
+
+function highlight(line: string) {
+  if (line.trimStart().startsWith("//"))
+    return <span className="text-[rgba(172,178,190,0.45)]">{line}</span>;
+  return line.split(/('[^']*'|\.\w+|\b\w+\b)/).map((tok, i) => {
+    const cls = tok.startsWith("'")
+      ? "text-[rgba(34,197,94,0.85)]"
+      : tok.startsWith(".")
+        ? "text-[rgba(139,172,255,0.6)]"
+        : KEYWORD.test(tok)
+          ? "text-action"
+          : LITERAL.test(tok)
+            ? "text-[rgba(245,158,11,0.75)]"
+            : undefined;
+    return cls ? <span key={i} className={cls}>{tok}</span> : tok;
+  });
+}
+
+// Agent scenarios: "◆" steps, "→" findings, last line ends in the score.
+const AGENT_SCENARIOS = [
+  `◆ Analyzing stack trace...
+→ Null reference at auth.ts:47
+→ Checking session context...
+◆ Hypothesis: token expires before
+middleware validates request
+◆ Suggested fix: move token refresh
+above route handler
+Confidence: 87%`,
+  `◆ Running memory profiler...
+→ Heap usage: 847MB / 1024MB
+→ Leak detected in useEffect
+◆ Root cause: missing cleanup fn
+EventListener not removed
+◆ Patch ready — 3 lines changed
+Confidence: 94%`,
+  `◆ Tracing API timeout...
+→ 3 downstream services
+→ Redis timeout: 5012ms
+◆ Bottleneck: connection pool
+exhausted under load
+◆ Scaling pool 20 → 50
+Estimated fix: 91%`,
+  `◆ Reviewing failed tests...
+→ 1 of 47 tests failing
+→ OrderService.create:88
+◆ Race condition detected
+async write before commit
+◆ Adding transaction lock...
+Confidence: 89%`,
+].map((s) => s.split("\n"));
+
+const SOLVE_CARDS = [
+  { time: "4m 32s", problem: "Memory leak · useEffect cleanup", meta: "Senior · Hard", score: 94 },
+  { time: "11m 07s", problem: "Null ref · auth middleware", meta: "Mid-level · Medium", score: 78 },
+  { time: "2m 19s", problem: "Race condition · async write", meta: "Senior · Get a job", score: 97 },
+  { time: "18m 44s", problem: "API timeout · connection pool", meta: "Beginner · Easy", score: 61 },
+  { time: "6m 55s", problem: "Heap overflow · event listener", meta: "Mid-level · Hard", score: 88 },
+];
+
+const PANEL_LAYERS = [
+  { count: 8, opacity: 0.22, scale: 0.62, speed: 0.1, font: 10, blur: true },
+  { count: 9, opacity: 0.42, scale: 0.82, speed: 0.2, font: 11, blur: false },
+  { count: 7, opacity: 0.62, scale: 1, speed: 0.32, font: 12, blur: false },
+];
+
+type PanelBody =
+  | { kind: "code"; lines: string[] }
+  | { kind: "agent"; lines: string[] }
+  | { kind: "card"; card: (typeof SOLVE_CARDS)[number] };
+
+type Panel = { layer: number; w: number; h: number; rx: number; ry: number; body: PanelBody };
+
+const rand = (min: number, max: number) => min + Math.random() * (max - min);
+const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)];
+
+function makeBody(kind: PanelBody["kind"]): { w: number; h: number; body: PanelBody } {
+  if (kind === "agent")
+    return { w: rand(320, 420), h: rand(220, 300), body: { kind, lines: pick(AGENT_SCENARIOS) } };
+  if (kind === "card")
+    return { w: rand(240, 320), h: rand(130, 160), body: { kind, card: pick(SOLVE_CARDS) } };
+  // A contiguous run from the pool (wrapping) reads more like real code
+  // than unrelated lines.
+  const start = Math.floor(Math.random() * CODE_POOL.length);
+  const n = 9 + Math.floor(Math.random() * 5);
+  const lines = Array.from({ length: n }, (_, i) => CODE_POOL[(start + i) % CODE_POOL.length]);
+  return { w: rand(300, 500), h: rand(200, 320), body: { kind, lines } };
+}
+
+// ~50% code, ~30% agent terminals, ~20% solve cards, shuffled across
+// layers. Phones get about a third of the panels: two dozen panels up to
+// 500px wide bury a 390px screen.
+function makePanels(): Panel[] {
+  const share = window.innerWidth < 768 ? 0.35 : 1;
+  const slots = PANEL_LAYERS.flatMap((l, layer) =>
+    Array.from({ length: Math.ceil(l.count * share) }, () => layer),
+  );
+  const code = Math.round(slots.length * 0.5);
+  const cards = Math.round(slots.length * 0.21); // 24 panels → 12 / 7 / 5
+  const kinds = slots.map((_, i): PanelBody["kind"] =>
+    i < code ? "code" : i < slots.length - cards ? "agent" : "card",
+  );
+  for (let i = kinds.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [kinds[i], kinds[j]] = [kinds[j], kinds[i]];
+  }
+  return slots.map((layer, i) => ({
+    layer,
+    rx: rand(-8, 8),
+    ry: rand(-14, 14),
+    ...makeBody(kinds[i]),
+  }));
+}
+
+function PanelContent({ body, font }: { body: PanelBody; font: number }) {
+  if (body.kind === "code")
+    return (
+      <div className="hero-panel-body" style={{ fontSize: font }}>
+        {body.lines.map((line, j) => (
+          <div key={j}>{highlight(line)}</div>
+        ))}
+      </div>
+    );
+  if (body.kind === "agent")
+    return (
+      <>
+        <div className="hero-agent-bar">
+          <span className="flex gap-1.5">
+            <i /> <i /> <i />
+          </span>
+          <span className="text-[0.6rem] text-action">agent · analyzing</span>
+        </div>
+        <div className="hero-panel-body" style={{ fontSize: font }}>
+          {body.lines.map((line, j) => {
+            const lastLine = j === body.lines.length - 1;
+            if (lastLine)
+              return (
+                <div key={j} className="text-[rgba(34,197,94,0.8)]">
+                  {line} <span className="hero-cursor">▌</span>
+                </div>
+              );
+            if (line.startsWith("◆"))
+              return (
+                <div key={j}>
+                  <span className="font-semibold text-action">◆</span>
+                  {line.slice(1)}
+                </div>
+              );
+            if (line.startsWith("→"))
+              return (
+                <div key={j} className="pl-3 text-[rgba(172,178,190,0.7)]">
+                  {line}
+                </div>
+              );
+            return (
+              <div key={j} className="pl-4">
+                {line}
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  const { card } = body;
+  return (
+    <div className="hero-panel-body">
+      <div className="flex items-baseline gap-2">
+        <span className="text-[1rem] font-bold text-[#22c55e]">✓</span>
+        <span className="text-[0.8rem] text-[rgba(242,243,245,0.8)]">solved in {card.time}</span>
+      </div>
+      <div className="mt-2.5 text-[0.75rem] text-muted">{card.problem}</div>
+      <div className="text-[0.7rem] text-muted/60">{card.meta}</div>
+      <div className="mt-2 text-[0.7rem] text-action/70">efficiency  {card.score}</div>
+    </div>
+  );
+}
+
+function FloatingPanels() {
+  // Random content is generated after mount so SSR and hydration agree.
+  const [panels, setPanels] = useState<Panel[]>([]);
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => setPanels(makePanels()), []);
+
+  useEffect(() => {
+    if (!panels.length) return;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let last = 0;
+    const state = panels.map(() => ({ x: 0, y: 0, dir: 1, flipAt: 0 }));
+
+    const place = (i: number) => {
+      const p = panels[i];
+      const el = refs.current[i];
+      if (el)
+        el.style.transform = `translate3d(${state[i].x}px, ${state[i].y}px, 0) rotateX(${p.rx}deg) rotateY(${p.ry}deg) scale(${PANEL_LAYERS[p.layer].scale})`;
+    };
+
+    const init = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      const now = performance.now();
+      panels.forEach((p, i) => {
+        state[i] = {
+          x: rand(-p.w * 0.3, width - p.w * 0.7),
+          y: rand(-p.h * 0.5, height),
+          dir: Math.random() < 0.5 ? -1 : 1,
+          flipAt: now + rand(7000, 14000),
+        };
+        place(i);
+      });
+    };
+
+    const tick = (now: number) => {
+      frame = requestAnimationFrame(tick);
+      const dt = now - last;
+      if (dt < 1000 / 61) return; // cap at 60fps
+      last = now;
+      const steps = Math.min(dt, 64) / (1000 / 60);
+      panels.forEach((p, i) => {
+        const s = state[i];
+        s.y -= PANEL_LAYERS[p.layer].speed * steps;
+        if (now >= s.flipAt) {
+          s.dir *= -1;
+          s.flipAt = now + rand(7000, 14000);
+        }
+        s.x += 0.03 * s.dir * steps;
+        // Fully above the top: re-enter just below the bottom.
+        if (s.y + p.h < 0) {
+          s.y = height + rand(0, 80);
+          s.x = rand(-p.w * 0.3, width - p.w * 0.7);
+        }
+        place(i);
+      });
+    };
+
+    const start = () => {
+      cancelAnimationFrame(frame);
+      if (reduced || document.visibilityState !== "visible") return;
+      last = performance.now();
+      frame = requestAnimationFrame(tick);
+    };
+
+    init();
+    start();
+    window.addEventListener("resize", init);
+    document.addEventListener("visibilitychange", start);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", init);
+      document.removeEventListener("visibilitychange", start);
+    };
+  }, [panels]);
+
+  return (
+    <div className="hero-panels">
+      {panels.map((p, i) => {
+        const l = PANEL_LAYERS[p.layer];
+        return (
+          <div
+            key={i}
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
+            className={`hero-panel hero-panel-${p.body.kind}`}
+            style={{
+              width: p.w,
+              height: p.h,
+              opacity: l.opacity,
+              filter: l.blur ? "blur(1.8px)" : undefined,
+            }}
+          >
+            <PanelContent body={p.body} font={l.font} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function Hero() {
   const reduce = useReducedMotion();
+  const [showWaitlistModal, setShowWaitlistModal] = useState(false);
+  const enter = (delay: number) =>
+    reduce
+      ? { duration: 0.2, ease: "easeOut" as const, delay }
+      : { delay, ...SPRING_GENTLE };
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-10">
-      {/* Radial glow (the page-wide grid is in the layout root) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[480px] w-[820px] max-w-[100vw] rounded-full blur-3xl opacity-30"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(139,172,255,0.35), transparent 70%)",
-        }}
-      />
-
-      <div className="relative w-full max-w-[1200px] mx-auto">
-        {/* Centered text content */}
-        <div className="max-w-3xl mx-auto text-center space-y-10">
-          <motion.h1
-            className="text-4xl sm:text-5xl lg:text-7xl font-semibold text-display leading-tight"
-            initial={reduce ? false : { opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduce
-                ? { duration: 0.2, ease: "easeOut" as const }
-                : { ...SPRING_GENTLE }
-            }
-          >
-            AI can write the code.{" "}
-            <motion.span
-              className="text-muted inline-block text-glow-pulse"
-              data-glow="Can you fix it when it breaks?"
-              initial={reduce ? false : { opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={
-                reduce
-                  ? { duration: 0.2, ease: "easeOut" as const, delay: 0.15 }
-                  : { delay: 0.15, ...SPRING_GENTLE }
-              }
-            >
-              Can you fix it when it breaks?
-            </motion.span>
-          </motion.h1>
-
-          <motion.p
-            className="text-xl md:text-2xl text-muted leading-relaxed max-w-2xl mx-auto"
-            initial={reduce ? false : { opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduce
-                ? { duration: 0.2, ease: "easeOut" as const, delay: 0.35 }
-                : { delay: 0.35, ...SPRING_GENTLE }
-            }
-          >
-            Not vibecoding. <span className="brand">bug.dr</span> drops you into real production bugs
-            with an AI assistant in your editor. You investigate, fix and
-            verify, following career paths for your role.{" "}
-            <span
-              className="text-text font-medium"
-              data-glow="We score how well you did it."
-            >
-              <span className="brand">bug.dr</span> scores how well you did it.
-            </span>
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={reduce ? false : { opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduce
-                ? { duration: 0.2, ease: "easeOut" as const, delay: 0.5 }
-                : { delay: 0.5, ...SPRING_GENTLE }
-            }
-          >
-            <LinkButton href="#waitlist" size="lg">
-              Join the waitlist
-              <ArrowRight size={16} />
-            </LinkButton>
-            <LinkButton
-              href="#how-it-works"
-              variant="secondary"
-              size="lg"
-            >
-              See how it works
-            </LinkButton>
-          </motion.div>
-
-          <motion.div
-            className="flex items-center justify-center gap-6 text-sm md:text-base text-muted font-mono flex-wrap"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={
-              reduce
-                ? { duration: 0.2, ease: "easeOut" as const, delay: 0.65 }
-                : { delay: 0.65, ...SPRING_GENTLE }
-            }
-          >
-            <span className="text-text">Launching October 21</span>
-            <span aria-hidden className="h-3 w-px bg-border" />
-            <span>Runs in your browser</span>
-            <span aria-hidden className="h-3 w-px bg-border" />
-            <span>AI included</span>
-          </motion.div>
-
-          <motion.ul
-            className="space-y-4 inline-flex flex-col items-start mx-auto"
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduce
-                ? { duration: 0.2, ease: "easeOut" as const, delay: 0.8 }
-                : { delay: 0.8, ...SPRING_GENTLE }
-            }
-          >
-            {checklist.map((item) => (
-              <li
-                key={item}
-                className="flex items-center gap-3 text-base md:text-lg text-text/90"
-              >
-                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-action/15 text-action ring-1 ring-action/40">
-                  <Check size={12} />
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </motion.ul>
-        </div>
+    <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
+      <div aria-hidden className="hero-bg">
+        <div className="hero-blob hero-blob-blue" />
+        <div className="hero-blob hero-blob-indigo" />
+        <FloatingPanels />
+        <div className="hero-vignette" />
       </div>
+
+      <div className="relative z-10 w-full max-w-[640px] mx-auto text-center">
+        {/* Soft dark wash so panel text never fights the copy. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-x-16 -inset-y-20 -z-10 bg-[radial-gradient(closest-side,rgba(8,10,12,0.8),transparent)]"
+        />
+        <motion.div
+          aria-hidden
+          className="mx-auto mb-7 h-px w-14 bg-[rgba(139,172,255,0.45)]"
+          initial={reduce ? false : { opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={enter(0)}
+        />
+        <motion.h1
+          className="font-extrabold text-text leading-[1.1] tracking-[-0.03em] text-[clamp(2.4rem,5vw,4.8rem)] [text-shadow:0_0_80px_rgba(139,172,255,0.2),0_2px_40px_rgba(0,0,0,0.95)]"
+          initial={reduce ? false : { opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={enter(0.1)}
+        >
+          Your title doesn&apos;t fix bugs.
+        </motion.h1>
+
+        <motion.p
+          className="mt-4 font-normal leading-[1.6] text-muted text-[clamp(0.95rem,1.6vw,1.15rem)] [text-shadow:0_1px_20px_rgba(0,0,0,0.8)]"
+          initial={reduce ? false : { opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={enter(0.3)}
+        >
+          Real production bugs. AI available. Prove you can ship.
+        </motion.p>
+
+        <motion.div
+          className="mt-8 flex justify-center"
+          initial={reduce ? false : { opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={enter(0.45)}
+        >
+          <button
+            type="button"
+            onClick={() => setShowWaitlistModal(true)}
+            className="glass-action"
+          >
+            Get early access
+          </button>
+        </motion.div>
+      </div>
+
+      <WaitlistModal
+        isOpen={showWaitlistModal}
+        onClose={() => setShowWaitlistModal(false)}
+      />
     </section>
   );
 }

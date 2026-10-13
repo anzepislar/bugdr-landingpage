@@ -396,3 +396,142 @@ section[id] {
   color: #8bacff;
   text-shadow: 0 0 10px rgba(139, 172, 255, 0.45);
 }
+
+/* ── Hero background ───────────────────────────────────────────────────── */
+
+/* Layers, back to front: #080A0C base, pulsing blobs, floating code
+   panels, vignette. Fixed at -z-10 so it covers the layout-level
+   backgrounds and sits behind the nav and hero content. */
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: #080a0c;
+}
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  animation: hero-blob-pulse ease-in-out infinite;
+  will-change: transform;
+}
+.hero-blob-blue {
+  width: 1000px; height: 1000px; top: 20%; left: 20%;
+  margin: -500px 0 0 -500px;
+  background: radial-gradient(closest-side, #8bacff, transparent);
+  opacity: 0.1;
+  animation-duration: 8s;
+}
+.hero-blob-indigo {
+  width: 800px; height: 800px; bottom: -300px; right: -300px;
+  background: radial-gradient(closest-side, rgb(99, 102, 241), transparent);
+  opacity: 0.07;
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+@keyframes hero-blob-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.hero-panels {
+  position: absolute;
+  inset: 0;
+  perspective: 1400px;
+}
+.hero-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: rgba(20, 22, 26, 0.55);
+  border: 1px solid rgba(139, 172, 255, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(139, 172, 255, 0.02);
+  color: rgba(242, 243, 245, 0.65);
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+  line-height: 19px;
+  will-change: transform;
+}
+.hero-panel-body {
+  padding: 16px 18px;
+  white-space: pre;
+}
+.hero-panel-agent {
+  background: rgba(12, 14, 18, 0.7);
+  border-color: rgba(139, 172, 255, 0.12);
+  color: rgba(242, 243, 245, 0.6);
+}
+.hero-agent-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 28px;
+  padding: 0 12px;
+  background: rgba(139, 172, 255, 0.06);
+  border-bottom: 1px solid rgba(139, 172, 255, 0.08);
+}
+.hero-agent-bar i {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.hero-panel-card {
+  background: rgba(34, 197, 94, 0.03);
+  border-top: 2px solid rgba(34, 197, 94, 0.15);
+}
+.hero-cursor {
+  color: #8bacff;
+  animation: hero-cursor-blink 1.06s steps(1) infinite;
+}
+@keyframes hero-cursor-blink {
+  50% { opacity: 0; }
+}
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(8, 10, 12, 0.65), transparent 110px),
+    linear-gradient(to top, rgba(8, 10, 12, 0.92), transparent 150px),
+    radial-gradient(ellipse at center, transparent 20%, rgba(8, 10, 12, 0.9) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob,
+  .hero-cursor {
+    animation: none;
+  }
+}
+
+@layer components {
+  .glass-action {
+    background: rgba(139, 172, 255, 0.12);
+    border: 1px solid rgba(139, 172, 255, 0.35);
+    color: #8bacff;
+    border-radius: 8px;
+    padding: 13px 32px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 0 28px rgba(139, 172, 255, 0.18);
+    transition: all 0.2s ease;
+  }
+  .glass-action:hover {
+    background: rgba(139, 172, 255, 0.2);
+    border-color: rgba(139, 172, 255, 0.55);
+    box-shadow: 0 0 44px rgba(139, 172, 255, 0.28);
+  }
+}
+
+/* WaitlistModal animations */
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
