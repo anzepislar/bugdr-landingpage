@@ -97,14 +97,14 @@ export function Hero() {
                 : { delay: 0.35, ...SPRING_GENTLE }
             }
           >
-            Not another LeetCode. bug.dr drops you into real production bugs
+            Not vibecoding. <span className="brand">bug.dr</span> drops you into real production bugs
             with an AI assistant in your editor. You investigate, fix and
             verify, following career paths for your role.{" "}
             <span
               className="text-text font-medium"
               data-glow="We score how well you did it."
             >
-              bug.dr scores how well you did it.
+              <span className="brand">bug.dr</span> scores how well you did it.
             </span>
           </motion.p>
 

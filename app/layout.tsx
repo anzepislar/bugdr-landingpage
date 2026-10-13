@@ -5,22 +5,22 @@ import "./lower-sections.css";
 import { SignalBackground } from "@/components/landing/signal-background";
 import { SITE_URL } from "@/lib/site";
 
-// Self-hosted (latin subset, variable weight) instead of next/font/google:
+// Geist + Geist Mono (full variable fonts from the official `geist` package), self-hosted instead of next/font/google:
 // Turbopack fails the build with "Can't resolve
 // '@vercel/turbopack-next/internal/font/google/font'" when the build
 // machine can't reach Google Fonts.
-const inter = localFont({
-  src: "./fonts/inter-latin.woff2",
-  variable: "--font-inter",
+const geist = localFont({
+  src: "./fonts/geist.woff2",
+  variable: "--font-geist",
   display: "swap",
-  weight: "400 600",
+  weight: "100 900",
 });
 
-const jetbrainsMono = localFont({
-  src: "./fonts/jetbrains-mono-latin.woff2",
-  variable: "--font-jetbrains-mono",
+const geistMono = localFont({
+  src: "./fonts/geist-mono.woff2",
+  variable: "--font-geist-mono",
   display: "swap",
-  weight: "400 500",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
@@ -93,7 +93,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${geist.variable} ${geistMono.variable}`}
     >
       <body className="bg-bg text-text font-sans antialiased min-h-screen relative">
         {/* Page-wide grid background — same "cubes" the hero uses, but

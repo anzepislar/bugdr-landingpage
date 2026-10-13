@@ -70,7 +70,7 @@ export function Comparison() {
           </h2>
           <p className="mt-4 text-muted text-lg leading-relaxed">
             AI can suggest a fix in seconds. Knowing whether it's the right fix
-            takes practice. On bug.dr, you work on bugs, making sense of the code,
+            takes practice. On <span className="brand">bug.dr</span>, you work on bugs, making sense of the code,
             and checking that your changes solve the problem without creating another
             one.
           </p>
@@ -83,7 +83,7 @@ export function Comparison() {
             <div className="col-span-4">Dimension</div>
             <div className="col-span-4">Coding puzzle</div>
             <div className="col-span-4 relative text-action">
-              bug.dr
+              <span className="brand">bug.dr</span>
               <span
                 aria-hidden
                 className="absolute -bottom-1 left-0 h-0.5 w-full bg-action/60"

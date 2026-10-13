@@ -19,28 +19,31 @@ import { SITE_URL } from "@/lib/site";
 
 // Structured data. No aggregateRating until there are real reviews, and
 // no SearchAction: /problems doesn't exist on this site yet.
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Bugdr",
-    url: SITE_URL,
-    description:
-      "A coding practice platform where software engineers debug real production bugs instead of toy algorithm puzzles. Features career paths, AI-powered feedback, and real-world scenarios.",
-    applicationCategory: "DeveloperApplication",
-    operatingSystem: "Web",
-    offers: [
-      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR" },
-      { "@type": "Offer", name: "Pro", price: "12.99", priceCurrency: "EUR" },
-    ],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Bugdr",
-    url: SITE_URL,
-  },
-];
+// One object with @graph rather than a top-level array: some JSON-LD
+// readers (browser extensions) assume `data["@context"]` exists and crash.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      name: "Bugdr",
+      url: SITE_URL,
+      description:
+        "A coding practice platform where software engineers debug real production bugs instead of toy algorithm puzzles. Features career paths, AI-powered feedback, and real-world scenarios.",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web",
+      offers: [
+        { "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR" },
+        { "@type": "Offer", name: "Pro", price: "12.99", priceCurrency: "EUR" },
+      ],
+    },
+    {
+      "@type": "WebSite",
+      name: "Bugdr",
+      url: SITE_URL,
+    },
+  ],
+};
 
 // Home page section order.
 //

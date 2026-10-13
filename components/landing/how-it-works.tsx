@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./how-it-works.module.css";
 import { Container } from "@/components/landing/container";
 import { type Line, TONE_CLASS } from "@/components/landing/code-block";
-import { Check } from "@/components/landing/icons";
+import { Check, ChevronDown } from "@/components/landing/icons";
 import { ZoomableImage } from "@/components/ui/zoomable-image";
 import Image from "next/image";
 import { assetPath } from "@/lib/asset-path";
@@ -106,6 +106,7 @@ export function HowItWorks() {
             </div>
           </div>
         </Container>
+        <ChevronDown size={20} className={styles.scrollHint} data-hidden={active === 2} aria-hidden="true" />
       </div>
     </section>
   );

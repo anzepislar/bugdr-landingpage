@@ -41,7 +41,7 @@ export function AIFeedback() {
               <p>It passes. What could I have done better?</p>
             </div>
             <div className={styles.assistant}>
-              <div className={styles.author}><Sparkle size={16} /><span>bug.dr coach</span></div>
+              <div className={styles.author}><Sparkle size={16} /><span><span className="brand">bug.dr</span> coach</span></div>
               <p><strong>You fixed it.</strong> Your change passed every acceptance check. The next thing to work on is how you get to the fix.</p>
               <div className={styles.metrics}>
                 <div className={styles.metricHeader}><span>This session</span><span>You</span><span>Top performers</span></div>

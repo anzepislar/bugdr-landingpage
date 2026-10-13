@@ -18,12 +18,12 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          These terms govern your use of bug.dr, operated by{" "}
+          These terms govern your use of <span className="brand">bug.dr</span>, operated by{" "}
           <strong>{operator.name}</strong> (the "operator", "we", "us"),
           with a registered address of <strong>{operator.address}</strong>.
         </p>
         <p>
-          By creating an account or using bug.dr, you agree to these
+          By creating an account or using <span className="brand">bug.dr</span>, you agree to these
           terms and to our <a href="/privacy">Privacy Policy</a>. If you
           do not agree, do not use the service.
         </p>
@@ -36,7 +36,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          You must be at least 16 years old to use bug.dr. By using the
+          You must be at least 16 years old to use <span className="brand">bug.dr</span>. By using the
           service, you confirm that you are.
         </p>
         <p>
@@ -51,10 +51,10 @@ const sections: LegalSection[] = [
     title: "What bug.dr is",
     body: (
       <p>
-        bug.dr is a practice environment for engineers. You work on
+        <span className="brand">bug.dr</span> is a practice environment for engineers. You work on
         production-style problems with an AI assistant in your editor,
         submit your work, and receive a score based on correctness,
-        code quality, verification, time and AI efficiency. bug.dr is{" "}
+        code quality, verification, time and AI efficiency. <span className="brand">bug.dr</span> is{" "}
         <strong>not a hiring service</strong>. We do not guarantee
         interviews, job offers, or any other outcome from your use of
         the platform.
@@ -67,7 +67,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          Scores are calculated by bug.dr from your submission, the
+          Scores are calculated by <span className="brand">bug.dr</span> from your submission, the
           acceptance checks, and how you worked. The exact method may
           change over time as we improve the product.
         </p>
@@ -98,11 +98,11 @@ const sections: LegalSection[] = [
     title: "Acceptable use",
     body: (
       <>
-        <p>When using bug.dr you must not:</p>
+        <p>When using <span className="brand">bug.dr</span> you must not:</p>
         <ul className="list-disc pl-5 space-y-1.5">
           <li>
             Do not publish or share solutions to problems anywhere
-            outside the bug.dr discussion area. The discussion for a
+            outside the <span className="brand">bug.dr</span> discussion area. The discussion for a
             problem opens only after you have solved it.
           </li>
           <li>
@@ -149,8 +149,8 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          You keep ownership of the code and solutions you write in
-          bug.dr. We do not claim ownership of your work.
+          You keep ownership of the code and solutions you write in{" "}
+          <span className="brand">bug.dr</span>. We do not claim ownership of your work.
         </p>
         <p>
           You give us a limited licence to host, process, score and
@@ -168,7 +168,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         The problems, the acceptance checks, the scoring engine, the
-        UI, the brand and the platform itself are owned by bug.dr or
+        UI, the brand and the platform itself are owned by <span className="brand">bug.dr</span> or
         our licensors. You may use them only as allowed by these
         terms.
       </p>
@@ -179,7 +179,7 @@ const sections: LegalSection[] = [
     title: "Availability",
     body: (
       <p>
-        bug.dr is new and under active development. We may add, change
+        <span className="brand">bug.dr</span> is new and under active development. We may add, change
         or remove features at any time. The service may be
         interrupted for maintenance, updates, or reasons outside our
         control. We aim to give notice for planned downtime, but we
@@ -193,7 +193,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          You can stop using bug.dr at any time and delete your account
+          You can stop using <span className="brand">bug.dr</span> at any time and delete your account
           from your account settings. How long we keep your data after
           deletion is explained in the{" "}
           <a href="/privacy/#how-long-we-keep-it">Privacy Policy</a>.
@@ -213,7 +213,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          bug.dr is provided "as is" and "as available". To the fullest
+          <span className="brand">bug.dr</span> is provided "as is" and "as available". To the fullest
           extent allowed by law, we exclude all warranties, conditions
           and terms, whether express or implied.
         </p>
@@ -255,7 +255,7 @@ const sections: LegalSection[] = [
         We may update these terms. When we do, we will change the
         "Last updated" date at the top and, for material changes,
         email affected users or show a notice in the app. Continued
-        use of bug.dr after a change means you accept the new terms.
+        use of <span className="brand">bug.dr</span> after a change means you accept the new terms.
         If you do not accept the new terms, you can stop using the
         service and delete your account.
       </p>

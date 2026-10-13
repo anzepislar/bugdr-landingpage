@@ -3,7 +3,7 @@
 .identity { display: flex; align-items: center; gap: 10px; font-size: 14px; }
 .identity svg { color: var(--primary); }
 .identity strong { font-weight: 500; }
-.example { font-size: 10px; color: var(--text-muted); font-family: var(--font-jetbrains-mono), monospace; }
+.example { font-size: 10px; color: var(--text-muted); font-family: var(--font-geist-mono), monospace; }
 .case { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px; font-size: 11px; background: #17191c; }
 .case > span:last-child { display: flex; align-items: center; gap: 6px; color: var(--good); }
 .conversation { padding: 24px; }
@@ -19,12 +19,12 @@
 .metrics > div > :not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
 .metrics > div > span:last-child { color: var(--text-muted); }
 .metricHeader { font-size: 10px; color: var(--text-muted); }
-.metrics strong { color: #e0b265; font-family: var(--font-jetbrains-mono), monospace; }
+.metrics strong { color: #e0b265; font-family: var(--font-geist-mono), monospace; }
 .advice { margin: 22px 0; padding-left: 16px; border-left: 2px solid var(--primary); }
 .advice h3 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
 .advice ol { display: grid; gap: 10px; list-style: none; margin: 0; }
 .advice li { display: flex; align-items: baseline; gap: 10px; font-size: 13px; color: #c4c9d2; line-height: 1.6; }
-.advice li span { color: var(--primary); font-size: 10px; font-family: var(--font-jetbrains-mono), monospace; }
+.advice li span { color: var(--primary); font-size: 10px; font-family: var(--font-geist-mono), monospace; }
 .assistant > .takeaway { color: var(--text-muted); font-size: 12px; }
 .footer { border-top: 1px solid var(--border); padding: 12px 24px; color: var(--text-muted); font-size: 10px; }
 @media(max-width:600px) {

@@ -16,7 +16,7 @@ import { operator } from "@/lib/operator";
 export function OperatorLine({ className }: { className?: string }) {
   return (
     <p className={className ?? "font-mono text-[11px] text-muted"}>
-      bug.dr is operated by {operator.name}, {operator.address}
+      <span className="brand">bug.dr</span> is operated by {operator.name}, {operator.address}
       {operator.registrationId ? (
         <>
           , registration no. <span>{operator.registrationId}</span>

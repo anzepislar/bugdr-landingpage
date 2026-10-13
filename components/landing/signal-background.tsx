@@ -27,7 +27,7 @@ export function SignalBackground() {
     const draw = () => {
       context.clearRect(0, 0, width, height);
       const mobile = width < 768;
-      const count = mobile ? 560 : 1800;
+      const count = mobile ? 320 : 1800;
       const spread = mobile ? 42 : Math.min(170, width * .09);
       const phase = reduced.matches ? 0 : position * .00065 + drift;
       for (let side = 0; side < 2; side++) {
@@ -58,6 +58,8 @@ export function SignalBackground() {
       drift += dt * (width < 768 ? .00007 : .00011);
       position += (target - position) * (1 - Math.exp(-dt / 110));
       draw();
+      // Phones only redraw while the scroll is settling, not every frame forever.
+      if (width < 768 && Math.abs(target - position) < .5) { lastTime = 0; return; }
       frame = requestAnimationFrame(animate);
     };
     const scroll = () => {
@@ -65,8 +67,13 @@ export function SignalBackground() {
       if (!reduced.matches && !frame && !document.hidden) frame = requestAnimationFrame(animate);
     };
     const resize = () => {
+      // On phones the address bar changes innerHeight while scrolling; size to
+      // the full screen height once so those changes don't rebuild the canvas.
+      const nextHeight = window.innerWidth < 768 ? Math.max(window.innerHeight, screen.height) : window.innerHeight;
+      if (window.innerWidth === width && nextHeight === height) return;
       width = window.innerWidth;
-      height = window.innerHeight;
+      height = nextHeight;
+      element.style.height = `${height}px`;
       const ratio = Math.min(devicePixelRatio || 1, 1.5);
       element.width = Math.round(width * ratio);
       element.height = Math.round(height * ratio);

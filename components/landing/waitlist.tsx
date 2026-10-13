@@ -55,7 +55,7 @@ export function Waitlist() {
               Your first case is coming.
             </h2>
             <p className="mt-4 text-muted text-lg leading-relaxed">
-              We&apos;re opening bug.dr on October 21. Leave your email and we&apos;ll send
+              We&apos;re opening <span className="brand">bug.dr</span> on October 21. Leave your email and we&apos;ll send
               you a reminder the night before and a link when it&apos;s live.
             </p>
           </div>

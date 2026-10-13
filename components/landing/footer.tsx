@@ -22,7 +22,7 @@ export function Footer() {
           <OperatorLine />
           <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
             <p className="font-mono text-[11px] text-muted">
-              Use AI. Own the code. © 2026 bug.dr
+              Use AI. Own the code. © 2026 <span className="brand">bug.dr</span>
             </p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] text-muted">
               {legalLinks.map((l) => (

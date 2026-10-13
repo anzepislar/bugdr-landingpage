@@ -56,7 +56,7 @@ const faqs = [
   },
   {
     q: "I'm hiring. Can we talk?",
-    a: "Yes. Join the waitlist and we'll reach out about using bug.dr with your team.",
+    a: <>Yes. Join the waitlist and we&apos;ll reach out about using <span className="brand">bug.dr</span> with your team.</>,
   },
 ];
 

@@ -3,7 +3,7 @@
 .lower-section h3 { letter-spacing: 0; }
 .lower-section > div > div:first-child > p:first-child:not(:last-child), .section-kicker { font-size: 11px; letter-spacing: 0; }
 .lower-section p.text-lg { font-size: 16px; line-height: 1.75; }
-.section-kicker { color: var(--primary); font-family: var(--font-jetbrains-mono), monospace; margin-bottom: 16px; }
+.section-kicker { color: var(--primary); font-family: var(--font-geist-mono), monospace; margin-bottom: 16px; }
 #feedback > div { display: grid; grid-template-columns: .8fr 1.2fr; grid-template-rows: min-content 1fr; column-gap: 64px; align-items: start; }
 #feedback > div > div:first-child { padding-top: 32px; }
 #feedback > div > div:nth-child(2) { margin: 0; max-width: none; border-radius: 16px; box-shadow: none; grid-column: 2; grid-row: 1 / 3; }

@@ -45,7 +45,7 @@ export function LegalPage({
                 className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted hover:text-text transition-colors"
               >
                 <span aria-hidden>←</span>
-                <span>Back to bug.dr</span>
+                <span>Back to <span className="brand">bug.dr</span></span>
               </Link>
 
               <h1 className="mt-6 text-4xl sm:text-5xl font-semibold text-headline text-display">

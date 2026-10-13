@@ -5,7 +5,7 @@ Marketing site for bug.dr. Single page, App Router, Next.js 16 + React 19.
 ## Stack
 - Next.js 16 (App Router) + React 19
 - TypeScript, Tailwind CSS, framer-motion
-- next/font: Inter (UI) + JetBrains Mono (code, wordmark)
+- next/font/local: Geist (UI) + Geist Mono (code, wordmark), self-hosted in app/fonts (from the `geist` npm package)
 - Tokens: `tailwind.config.ts` (colors, fonts, radii, shadows)
 
 ## Run

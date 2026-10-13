@@ -39,9 +39,9 @@ export default {
         scoreWarm: "#E0B265",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-geist)", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: [
-          "var(--font-jetbrains-mono)",
+          "var(--font-geist-mono)",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",

@@ -1,6 +1,6 @@
 .section { padding: 100px 0; position: relative; letter-spacing: 0; }
 .intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: end; margin-bottom: 54px; }
-.eyebrow { font-family: var(--font-jetbrains-mono), monospace; font-size: 11px; color: var(--primary); display: flex; align-items: center; gap: 16px; }
+.eyebrow { font-family: var(--font-geist-mono), monospace; font-size: 11px; color: var(--primary); display: flex; align-items: center; gap: 16px; }
 .eyebrow span { color: var(--text-muted); border-left: 1px solid var(--border); padding-left: 16px; }
 .intro h2 { font-size: 42px; line-height: 1.15; font-weight: 600; margin-top: 18px; }
 .intro h2 span { color: var(--primary); }
@@ -8,14 +8,14 @@
 .pathHeader { border-top: 1px solid var(--border); padding: 28px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .role { display: flex; align-items: center; gap: 16px; }
 .role > svg { color: var(--primary); }
-.role span { font-size: 10px; color: var(--text-muted); font-family: var(--font-jetbrains-mono), monospace; }
+.role span { font-size: 10px; color: var(--text-muted); font-family: var(--font-geist-mono), monospace; }
 .role h3 { font-size: 23px; font-weight: 500; margin-top: 4px; }
 .pathHeader > p { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
 .stages { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 8px 0 32px; }
 .stages button { text-align: left; padding: 16px 20px 18px 0; min-width: 0; border-bottom: 2px solid var(--border); transition: border-color 200ms; }
 .stages button[aria-selected=true] { border-color: var(--stage-color); }
 .stageTop { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-.number { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 50%; font-size: 12px; font-family: var(--font-jetbrains-mono), monospace; color: var(--text-muted); transition: background 200ms; }
+.number { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 50%; font-size: 12px; font-family: var(--font-geist-mono), monospace; color: var(--text-muted); transition: background 200ms; }
 .stages button[aria-selected=true] .number { background: var(--badge-color); color: var(--bg); border-color: var(--badge-color); }
 .track { flex: 1; height: 1px; background: var(--border); }
 .stages strong { display: block; font-size: 18px; font-weight: 500; }
@@ -29,8 +29,8 @@
 .stageCopy > p:not(.eyebrow) { font-size: 14px; line-height: 1.7; color: var(--text-muted); max-width: 390px; }
 .benchmark { display: flex; align-items: flex-start; gap: 10px; margin-top: 24px; font-size: 12px; line-height: 1.6; color: var(--text-muted); }
 .benchmark svg { color: var(--good); flex-shrink: 0; margin-top: 2px; }
-.caseHeading { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-jetbrains-mono), monospace; font-size: 10px; color: var(--text-muted); margin: 2px 0 12px; }
-.caseHeading span { font-family: var(--font-inter), sans-serif; }
+.caseHeading { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-geist-mono), monospace; font-size: 10px; color: var(--text-muted); margin: 2px 0 12px; }
+.caseHeading span { font-family: var(--font-geist), sans-serif; }
 .case { display: grid; grid-template-columns: 78px 1fr 16px; align-items: center; gap: 14px; padding: 18px 0; border-top: 1px solid var(--border); min-height: 68px; }
 .case > span { font-size: 11px; color: var(--primary); }
 .case p { font-size: 14px; line-height: 1.5; }

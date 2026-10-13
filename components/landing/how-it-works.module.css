@@ -22,6 +22,12 @@
 .visual[data-active="true"] { opacity: 1; transform: none; pointer-events: auto; z-index: 1; }
 .visual > div { width: 100%; border-radius: 16px; }
 .visual img { max-height: min(560px, 65svh); object-fit: contain; }
+/* Scroll hint: margin-left centers it so the bounce keyframes own `transform`. */
+.scrollHint { position: absolute; bottom: 24px; left: 50%; margin-left: -10px; width: 20px; height: 20px; color: rgba(172, 178, 190, 0.6); pointer-events: none; transition: opacity 0.3s ease; animation: bounce 1.6s ease-in-out infinite; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
 @media (max-width: 767px) {
   .sticky { padding: 84px 0 20px; }
   .heading { font-size: 30px; margin-bottom: 20px; }
@@ -41,11 +47,17 @@
   .body { font-size: 12px; }
   .copy h3 { font-size: 18px; }
 }
-@media (prefers-reduced-motion: reduce) { .visual, .copy, .number { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .visual, .copy, .number { transition: none; }
+  .scrollHint { animation: none; opacity: 0.5; }
+}
+/* After the reduced-motion rule so the last step still hides it. */
+.scrollHint[data-hidden="true"] { animation: none; opacity: 0; }
 @media print {
   .section { height: auto; }
   .sticky { position: static; padding: 32px 0; }
   .visuals { height: auto; }
   .visual { position: static; opacity: 1; transform: none; margin-bottom: 20px; }
   .copy { opacity: 1; }
+  .scrollHint { display: none; }
 }

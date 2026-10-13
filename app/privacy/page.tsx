@@ -19,10 +19,10 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          bug.dr is a service for practicing how to fix production bugs with
+          <span className="brand">bug.dr</span> is a service for practicing how to fix production bugs with
           an AI assistant. It is operated by{" "}
-          <strong>{operator.name}</strong> (the "operator"), trading as
-          bug.dr. The operator's registered address is{" "}
+          <strong>{operator.name}</strong> (the "operator"), trading as{" "}
+          <span className="brand">bug.dr</span>. The operator's registered address is{" "}
           <strong>{operator.address}</strong>.
         </p>
       </>
@@ -100,7 +100,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          We use a small number of processors to run bug.dr. Each one
+          We use a small number of processors to run <span className="brand">bug.dr</span>. Each one
           receives only the data it needs to do its job, under a written
           data-processing agreement.
         </p>
@@ -233,7 +233,7 @@ const sections: LegalSection[] = [
     title: "Children",
     body: (
       <p>
-        bug.dr is not for people under 16. If you believe a child has
+        <span className="brand">bug.dr</span> is not for people under 16. If you believe a child has
         signed up, we will delete the account.
       </p>
     ),

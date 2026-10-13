@@ -11,6 +11,10 @@
   backdrop-filter: blur(12px);
   text-align: center;
 }
+/* No live blur on phones (matches the .glass fallback in globals.css). */
+@media (max-width: 767px) {
+  .card { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--surface); }
+}
 .elite {
   border-color: rgba(139, 172, 255, 0.15);
   background: rgba(139, 172, 255, 0.04);

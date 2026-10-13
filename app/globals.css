@@ -122,7 +122,9 @@ section[id] {
   backdrop-filter: blur(24px) saturate(150%);
 }
 
-@media (prefers-reduced-transparency: reduce) {
+/* Phones get the same opaque fallback: dozens of live backdrop blurs
+   over the animated signal canvas make mobile scrolling lag. */
+@media (prefers-reduced-transparency: reduce), (max-width: 767px) {
   /* The user has asked for less transparency. Frosted surfaces become
      fully opaque so the page reads without the visual layering. The
      waitlist card is NOT in `.frosted` so it keeps its translucent
@@ -330,12 +332,12 @@ section[id] {
   box-shadow:
     0 0 24px -2px rgba(139, 172, 255, 0.45),
     0 0 56px -8px rgba(139, 172, 255, 0.22);
-  opacity: 0.55;
+  opacity: 0.4;
   animation: btn-glow-breathe 2.6s ease-in-out infinite;
 }
 @keyframes btn-glow-breathe {
-  0%, 100% { opacity: 0.40; }
-  50%      { opacity: 0.95; }
+  0%, 100% { opacity: 0.28; }
+  50%      { opacity: 0.65; }
 }
 
 /* Pulsing text glow — same trick, opacity on a pseudo that duplicates the
@@ -356,8 +358,8 @@ section[id] {
   animation: text-glow-breathe 3.2s ease-in-out infinite;
 }
 @keyframes text-glow-breathe {
-  0%, 100% { opacity: 0.50; }
-  50%      { opacity: 1.00; }
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.70; }
 }
 
 /* Softer variant — same pseudo-element technique but lower-opacity dark
@@ -388,4 +390,9 @@ section[id] {
 }
 .lightbox-fade-in {
   animation: lightbox-fade-in 180ms ease-out;
+}
+/* Product name in running text: action blue with a soft static glow. */
+.brand {
+  color: #8bacff;
+  text-shadow: 0 0 10px rgba(139, 172, 255, 0.45);
 }
