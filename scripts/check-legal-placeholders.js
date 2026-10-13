@@ -28,11 +28,8 @@ const path = require("path");
 // from this script).
 //
 // `lib/operator.ts` is included so a placeholder value in the
-// operator config (e.g. `email: "[CONTACT EMAIL]"`) is caught
-// here, the same way a placeholder hardcoded in the page copy
-// would be. The two render paths (OperatorLine, ContactEmail)
-// both branch on `isPlaceholder()`, so the literal placeholder
-// text only appears in this file and in the rendered HTML.
+// operator config (e.g. `address: "[ADDRESS]"`) is caught here,
+// the same way a placeholder hardcoded in the page copy would be.
 const SCAN_FILES = [
   "app/privacy/page.tsx",
   "app/terms/page.tsx",

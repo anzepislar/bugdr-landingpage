@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/landing/legal-page";
 import { operator } from "@/lib/operator";
-import { ContactEmail } from "@/components/landing/operator-line";
 
 export const metadata: Metadata = {
   title: "Privacy Policy · bug.dr",
@@ -12,9 +11,7 @@ export const metadata: Metadata = {
 
 const LAST_UPDATED = "Last updated: October 9, 2026";
 
-// "Who we are" reads from `lib/operator.ts` (name, address, email).
-// ContactEmail flips between a plain span and a real `mailto:` link
-// once the placeholder is replaced.
+// "Who we are" reads from `lib/operator.ts` (name, address).
 const sections: LegalSection[] = [
   {
     slug: "who-we-are",
@@ -27,10 +24,6 @@ const sections: LegalSection[] = [
           <strong>{operator.name}</strong> (the "operator"), trading as
           bug.dr. The operator's registered address is{" "}
           <strong>{operator.address}</strong>.
-        </p>
-        <p>
-          If you have any questions about this policy or your data, email
-          us at <ContactEmail />. We aim to reply within a few working days.
         </p>
       </>
     ),
@@ -209,8 +202,8 @@ const sections: LegalSection[] = [
           </li>
         </ul>
         <p>
-          To exercise any of these rights, email <ContactEmail />. We will
-          reply within one month.
+          To exercise any of these rights, write to the operator at the
+          address above. We will reply within one month.
         </p>
       </>
     ),

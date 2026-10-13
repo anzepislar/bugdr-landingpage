@@ -2,9 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/landing/container";
 import { OperatorLine } from "@/components/landing/operator-line";
 
-// Minimal footer. The operator / contact line is rendered by
-// OperatorLine (which also handles the mailto link and the
-// optional registration id). Copyright and Privacy / Terms links
+// Minimal footer. The operator line is rendered by OperatorLine
+// (which also handles the optional registration id). Copyright and Privacy / Terms links
 // sit on a second row. Used on the home page and on the legal
 // pages — on mobile the nav links collapse, so this footer is the
 // only way users reach Privacy and Terms.

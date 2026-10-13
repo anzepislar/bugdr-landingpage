@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/landing/legal-page";
 import { operator } from "@/lib/operator";
-import { ContactEmail } from "@/components/landing/operator-line";
 
 export const metadata: Metadata = {
   title: "Terms of Service · bug.dr",
@@ -42,8 +41,7 @@ const sections: LegalSection[] = [
         </p>
         <p>
           Keep your account credentials safe. You are responsible for
-          activity on your account. Tell us promptly at <ContactEmail />{" "}
-          if you think someone else has used your account.
+          activity on your account. Tell us promptly if you think someone else has used your account.
         </p>
       </>
     ),
