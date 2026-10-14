@@ -60,13 +60,13 @@ export function Features() {
     <section
       id="features"
       aria-labelledby="features-heading"
-      className="lower-section relative divider-top"
+      className="relative py-24 md:py-32"
     >
       <Container>
         <div className="max-w-2xl">
           <h2
             id="features-heading"
-            className="mt-3 text-3xl sm:text-4xl font-semibold text-headline"
+            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
           >
             Keep your next challenge in sight.
           </h2>
@@ -76,8 +76,22 @@ export function Features() {
           </p>
         </div>
 
-        <div className="product-switcher" role="group" aria-label="Product preview">
-          {features.map((feature, index) => <button key={feature.label} type="button" aria-pressed={selected === index} onClick={() => setSelected(index)}>{feature.label}</button>)}
+        <div className="mt-8 inline-flex gap-1 p-1 bg-white/[0.04] rounded-xl border border-white/[0.06]" role="group" aria-label="Product preview">
+          {features.map((feature, index) => (
+            <button
+              key={feature.label}
+              type="button"
+              aria-pressed={selected === index}
+              onClick={() => setSelected(index)}
+              className={
+                selected === index
+                  ? "glass-action rounded-lg px-4 py-2 text-action text-sm font-semibold"
+                  : "text-muted text-sm px-4 py-2 rounded-lg border border-transparent hover:text-text transition-colors cursor-pointer"
+              }
+            >
+              {feature.label}
+            </button>
+          ))}
         </div>
         <FeatureCard key={features[selected].src} feature={features[selected]} />
       </Container>
@@ -87,30 +101,28 @@ export function Features() {
 
 function FeatureCard({ feature }: { feature: Feature }) {
   return (
-    <figure className="feature-showcase">
-      <div className="feature-description">
-        <p className="font-mono text-xs uppercase tracking-widest text-action">
+    <figure className="mt-8 grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:items-center lg:gap-12 animate-fade-in-up">
+      <div>
+        <p className="font-mono text-xs uppercase tracking-widest text-action/70 mb-3">
           {feature.label}
         </p>
-        <h3 className="mt-2 text-2xl font-semibold text-headline">
+        <h3 className="text-2xl font-semibold text-text tracking-[-0.02em]">
           {feature.title}
         </h3>
-        <p className="mt-2 text-muted text-[15px] leading-relaxed">
+        <p className="mt-3 text-muted leading-relaxed">
           {feature.body}
         </p>
       </div>
-      <ZoomableImage
-        src={assetPath(feature.src)}
-        alt={feature.alt}
-        width={feature.width}
-        height={feature.height}
-        sizes="(min-width: 1024px) 1200px, 100vw"
-        // Library and dashboard cards are the ones the user is most
-        // likely to want to read at full size; show the tap-to-enlarge
-        // badge on those. The contests card is smaller and the badge
-        // would just be visual noise.
-        showEnlargeHint={feature.label === "Dashboard"}
-      />
+      <div className="glass rounded-xl overflow-hidden">
+        <ZoomableImage
+          src={assetPath(feature.src)}
+          alt={feature.alt}
+          width={feature.width}
+          height={feature.height}
+          sizes="(min-width: 1024px) 800px, 100vw"
+          showEnlargeHint={feature.label === "Dashboard"}
+        />
+      </div>
     </figure>
   );
 }

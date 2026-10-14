@@ -1,9 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
-/** Flowing edge ribbons with scroll response; the center stays clear. */
-export function SignalBackground() {
+/** Flowing edge ribbons with scroll response; the center stays clear.
+ *  The homepage renders its own instance inside the hero background (so the
+ *  ribbons sit above the floating panels); the layout instance covers every
+ *  other page. `home` picks which one is live, so only one canvas runs. */
+export function SignalBackground({ home = false }: { home?: boolean }) {
+  const onHome = (usePathname() ?? "/").replace(/\/+$/, "") === "";
+  return onHome === home ? <SignalCanvas /> : null;
+}
+
+function SignalCanvas() {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

@@ -51,45 +51,38 @@ export function RolesAndProfile() {
     <section
       id="profile"
       aria-labelledby="profile-heading"
-      className="lower-section relative divider-top"
+      className="relative py-24 md:py-32"
     >
       <Container>
         <div className="max-w-2xl">
           <h2
             id="profile-heading"
-            className="text-2xl sm:text-3xl font-semibold text-headline"
+            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
           >
             Practice the work you want to do.
           </h2>
-          <p className="mt-3 text-muted text-lg leading-relaxed">
+          <p className="mt-4 text-muted text-lg leading-relaxed">
             Choose your role and start with cases that fit your experience. Build
             confidence with easier fixes, then take on problems that need a deeper
             investigation.
           </p>
         </div>
 
-        <div className="role-showcase">
-          {/* Left: 3x2 role chips */}
-          <div className="role-list">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-14">
+          <ul className="space-y-4">
             {roles.map((r) => (
-              <div
-                key={r.name}
-                className="role-row"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[11px] text-action border border-action/40 bg-action/10 rounded px-1.5 py-0.5">
-                    {r.icon}
-                  </span>
-                  <span className="text-sm font-medium">{r.name}</span>
-                </div>
-                <div className="mt-2 text-[12px] text-text/90 leading-snug">
+              <li key={r.name}>
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-muted text-sm font-mono hover:border-action/30 hover:text-action hover:bg-action/[0.05] transition-all cursor-default">
+                  <span className="text-action/70">{r.icon}</span>
+                  {r.name}
+                </span>
+                <p className="mt-2 pl-1 text-[13px] leading-relaxed text-muted">
                   {r.example}
-                </div>
-              </div>
+                </p>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          {/* Right: profile screenshot */}
           <ProfileShot />
         </div>
       </Container>
@@ -99,13 +92,13 @@ export function RolesAndProfile() {
 
 function ProfileShot() {
   return (
-    <figure className="profile-preview overflow-hidden">
+    <figure className="glass rounded-xl overflow-hidden">
       <ZoomableImage
         src={assetPath("/screenshots/profile.png")}
         alt="bug.dr profile page showing points, current level, current streak, a twelve-month activity grid and a list of solved problems."
         width={1600}
         height={1329}
-        sizes="(min-width: 1024px) 500px, 100vw"
+        sizes="(min-width: 1024px) 700px, 100vw"
       />
     </figure>
   );

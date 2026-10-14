@@ -15,21 +15,24 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface/30">
+    <footer className="border-t border-[rgba(255,255,255,0.06)]">
       <Container>
         <div className="py-10 flex flex-col gap-4">
-          <div className="footer-brand"><span>bug<span className="text-action">.</span>dr</span><p>Use AI. Own the code.</p></div>
-          <OperatorLine />
+          <div className="flex items-center justify-between gap-6 border-b border-[rgba(255,255,255,0.06)] pb-6 mb-2">
+            <span className="text-2xl text-text font-semibold">bug<span className="text-action">.</span>dr</span>
+            <p className="text-muted text-sm">Use AI. Own the code.</p>
+          </div>
+          <OperatorLine className="text-muted/40 text-xs" />
           <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-            <p className="font-mono text-[11px] text-muted">
+            <p className="text-muted/40 text-xs">
               Use AI. Own the code. © 2026 <span className="brand">bug.dr</span>
             </p>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] text-muted">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
               {legalLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="hover:text-text transition-colors"
+                  className="text-muted/60 text-sm hover:text-text transition-colors"
                 >
                   {l.label}
                 </Link>

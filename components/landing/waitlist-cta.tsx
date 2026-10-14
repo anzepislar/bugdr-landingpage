@@ -27,7 +27,7 @@ export function WaitlistCta({ line }: Props) {
           <p className="text-muted text-[15px] sm:text-base leading-relaxed max-w-md">
             {line}
           </p>
-          <LinkButton href="#waitlist" size="lg" className="mt-5">
+          <LinkButton href="#waitlist" variant="primary" size="lg" className="mt-5">
             Join the waitlist
             <ArrowRight size={16} />
           </LinkButton>

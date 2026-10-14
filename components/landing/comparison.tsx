@@ -1,4 +1,3 @@
-import { Check, Cross } from "@/components/landing/icons";
 import { Container } from "@/components/landing/container";
 
 // The "Interview vs bug.dr" comparison table.
@@ -57,14 +56,13 @@ export function Comparison() {
     <section
       id="problems"
       aria-labelledby="comparison-heading"
-      className="relative pt-16 pb-24 sm:pt-20 sm:pb-32"
+      className="relative py-24 md:py-32"
     >
       <Container>
-        {/* Section header */}
         <div className="max-w-2xl">
           <h2
             id="comparison-heading"
-            className="mt-3 text-3xl sm:text-4xl font-semibold text-headline"
+            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
           >
             The job changed. The coding test barely did.
           </h2>
@@ -76,18 +74,12 @@ export function Comparison() {
           </p>
         </div>
 
-        {/* Comparison table */}
-        <div className="mt-12 glass overflow-hidden">
-          {/* Header row */}
-          <div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-4 border-b border-border font-mono text-xs uppercase tracking-wider text-muted">
-            <div className="col-span-4">Dimension</div>
-            <div className="col-span-4">Coding puzzle</div>
-            <div className="col-span-4 relative text-action">
+        <div className="mt-12 glass rounded-2xl overflow-hidden">
+          <div className="hidden sm:grid grid-cols-3 gap-4 px-6 py-3 bg-white/[0.04] border-b border-white/[0.06] font-mono text-[11px] uppercase tracking-widest text-muted">
+            <div>Dimension</div>
+            <div className="text-muted">Coding puzzle</div>
+            <div className="text-action font-semibold">
               <span className="brand">bug.dr</span>
-              <span
-                aria-hidden
-                className="absolute -bottom-1 left-0 h-0.5 w-full bg-action/60"
-              />
             </div>
           </div>
 
@@ -102,27 +94,19 @@ export function Comparison() {
 
 function ComparisonRow({ row }: { row: Row }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 px-6 py-5 border-b border-border last:border-b-0 relative">
-      <div className="sm:col-span-4 font-mono text-xs uppercase tracking-wider text-muted">
-        {row.label}
-      </div>
-      <div className="sm:col-span-4 text-muted flex items-start gap-2">
-        <span
-          aria-hidden
-          className="mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-diffImpossible/10 text-diffImpossible ring-1 ring-diffImpossible/40"
-        >
-          <Cross size={11} />
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 px-6 py-4 border-b border-white/[0.04] last:border-b-0 items-center text-sm">
+      <div className="text-muted">{row.label}</div>
+      <div className="flex items-start gap-2 text-muted">
+        <span aria-hidden className="text-base leading-5 text-failed/70">
+          ✗
         </span>
-        <span className="text-[15px]">{row.interview}</span>
+        <span>{row.interview}</span>
       </div>
-      <div className="sm:col-span-4 flex items-start gap-2 relative">
-        <span
-          aria-hidden
-          className="mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-action/15 text-action ring-1 ring-action/40"
-        >
-          <Check size={11} />
+      <div className="flex items-start gap-2 text-text">
+        <span aria-hidden className="text-base leading-5 text-passed">
+          ✓
         </span>
-        <span className="text-[15px] text-text">{row.bugdr}</span>
+        <span>{row.bugdr}</span>
       </div>
     </div>
   );

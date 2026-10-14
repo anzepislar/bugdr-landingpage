@@ -62,33 +62,46 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      {/* Hero-only redesign: everything else is hidden, not deleted. */}
+      {/* Launch announcement: hidden for now, kept for later. */}
       <div className="hidden">
         <AnnouncementBar />
       </div>
       <Nav />
       <main id="top">
         <Hero />
-        <div className="hidden">
+        <Divider />
         <Comparison />
+        <Divider />
         <HowItWorks />
         <SampleScore />
+        <Divider />
         <WaitlistCta line="Get the link in your inbox the day we open." />
+        <Divider />
         <CareerPaths />
+        <Divider />
         <AIFeedback />
+        <Divider />
         <RolesAndProfile />
+        <Divider />
         <ProblemLibrary />
+        <Divider />
         <Features />
+        <Divider />
         <RanksSection />
+        <Divider />
         <Pricing />
+        <Divider />
         <WaitlistCta line="Be the first to pick a problem when the library opens." />
+        <Divider />
         <Waitlist />
+        <Divider />
         <Faq />
-        </div>
       </main>
-      <div className="hidden">
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
+}
+
+function Divider() {
+  return <div className="border-t border-white/[0.06]" />;
 }

@@ -67,56 +67,56 @@ export function Faq() {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="lower-section relative divider-top"
+      className="relative py-24 md:py-32"
     >
       <Container>
-        <div className="max-w-2xl">
+        <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
           <h2
             id="faq-heading"
-            className="mt-3 text-3xl sm:text-4xl font-semibold text-headline"
+            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
           >
             A few things you might be wondering.
           </h2>
-        </div>
 
-        <div className="faq-list">
-          {faqs.map((item, i) => (
-            <div
-              key={item.q}
-              className="glass overflow-hidden"
-            >
-              <button
-                type="button"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-                aria-controls={`faq-panel-${i}`}
-                className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.04] transition-colors"
-              >
-                <span className="text-[15px] font-medium">{item.q}</span>
-                <ChevronDown
-                  size={18}
-                  className={[
-                    "shrink-0 text-muted transition-transform duration-300",
-                    open === i ? "rotate-180 text-action" : "",
-                  ].join(" ")}
-                />
-              </button>
+          <div>
+            {faqs.map((item, i) => (
               <div
-                id={`faq-panel-${i}`}
-                role="region"
-                className={[
-                  "grid transition-[grid-template-rows] duration-300 ease-out",
-                  open === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-                ].join(" ")}
+                key={item.q}
+                className="border-b border-white/[0.06] last:border-b-0"
               >
-                <div className="overflow-hidden">
-                  <p className="px-6 pb-6 text-muted leading-relaxed">
-                    {item.a}
-                  </p>
+                <button
+                  type="button"
+                  onClick={() => setOpen(open === i ? null : i)}
+                  aria-expanded={open === i}
+                  aria-controls={`faq-panel-${i}`}
+                  className="w-full flex items-center justify-between gap-4 py-5 text-left text-text font-medium hover:text-action/90 transition-colors"
+                >
+                  <span>{item.q}</span>
+                  <ChevronDown
+                    size={18}
+                    className={[
+                      "shrink-0 text-muted transition-transform duration-200",
+                      open === i ? "rotate-180" : "rotate-0",
+                    ].join(" ")}
+                  />
+                </button>
+                <div
+                  id={`faq-panel-${i}`}
+                  role="region"
+                  className={[
+                    "grid transition-[grid-template-rows] duration-300 ease-out",
+                    open === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                  ].join(" ")}
+                >
+                  <div className="overflow-hidden">
+                    <p className="text-muted text-sm leading-relaxed pb-5">
+                      {item.a}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Container>
     </section>

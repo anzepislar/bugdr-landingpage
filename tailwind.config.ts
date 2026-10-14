@@ -10,20 +10,28 @@ export default {
       colors: {
         // Brand palette (per design)
         bg: "#151618",
+        canvas: "#151618",
         surface: "#202226",
+        surface2: "#26292f",
         border: "#383C43",
         action: "#8BACFF",
         text: "#F2F3F5",
         muted: "#ACB2BE",
+        muted2: "#6B7280",
         // Status colors derived from base palette
-        success: "#8BACFF",     // pass / healthy = the brand blue
-        warning: "#ACB2BE",     // pending / degraded = muted
-        danger: "#F2F3F5",      // fail / error = high-contrast text-on-bg
+        success: "#22c55e",
+        warning: "#f59e0b",
+        danger: "#ef4444",
+        // Check states (Graphite Signal)
+        passed: "#22c55e",
+        pending: "#f59e0b",
+        failed: "#ef4444",
+        severe: "#f97316",
         // Difficulty scale — 4 steps, consistent across cards/badges/score
-        diffEasy: "#88C9A1",        // muted green
-        diffMedium: "#E0B265",      // amber
-        diffHard: "#E58958",        // orange
-        diffImpossible: "#E5739A",  // pink / red
+        diffEasy: "#22c55e",        // Easy
+        diffMedium: "#f59e0b",      // Medium
+        diffHard: "#f97316",        // Hard
+        diffImpossible: "#ef4444",  // Get a job
         // Good / warn / bad — used by the AI feedback card to color the
         // "your" bars and the delta chips (better/worse-than-top-performers).
         good: "#7BD88F",

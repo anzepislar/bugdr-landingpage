@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/landing/container";
 import { assetPath } from "@/lib/asset-path";
-import styles from "./ranks-section.module.css";
 
 // "Earn your rank" : the progression section, between Features and
 // Pricing. Aspirational only: no points, no locked state.
@@ -73,16 +72,16 @@ export function RanksSection() {
     <section
       id="ranks"
       aria-labelledby="ranks-heading"
-      className="lower-section relative divider-top"
+      className="relative py-24 md:py-32"
     >
       <Container>
         <div className="max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted">
+          <p className="font-mono text-xs uppercase tracking-widest text-action/70 mb-3">
             Progression system
           </p>
           <h2
             id="ranks-heading"
-            className="mt-3 text-3xl sm:text-4xl font-semibold text-headline"
+            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
           >
             Earn your rank. Prove it with code.
           </h2>
@@ -92,26 +91,37 @@ export function RanksSection() {
           </p>
         </div>
 
-        <ul ref={grid} className={styles.grid} data-phase={phase}>
-          {RANKS.map((rank, i) => (
-            <li
-              key={rank.id}
-              className={`${styles.card} ${rank.tier === "elite" ? styles.elite : ""}`}
-              style={{ "--i": i } as React.CSSProperties}
-            >
-              <Image
-                src={assetPath(`/badges/${rank.id}.svg`)}
-                alt=""
-                width={92}
-                height={80}
-                className="mx-auto"
-              />
-              <h3 className="mt-4 font-semibold text-text">{rank.name}</h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-muted">
-                {rank.description}
-              </p>
-            </li>
-          ))}
+        <ul ref={grid} className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-10">
+          {RANKS.map((rank, i) => {
+            const elite = rank.tier === "elite";
+            // Visible in the server HTML; "hidden" is set after mount only.
+            const reveal =
+              phase === "hidden"
+                ? "opacity-0 translate-y-4"
+                : "opacity-100 translate-y-0";
+            return (
+              <li
+                key={rank.id}
+                className={`${elite ? "glass-heavy" : "glass"} relative overflow-hidden rounded-xl p-6 text-center flex flex-col items-center transition-all duration-300 ${reveal}`}
+                style={phase === "shown" ? { transitionDelay: `${i * 60}ms` } : undefined}
+              >
+                {elite && (
+                  <div className="accent-stripe rounded-t-xl absolute top-0 left-0 right-0" />
+                )}
+                <Image
+                  src={assetPath(`/badges/${rank.id}.svg`)}
+                  alt=""
+                  width={92}
+                  height={80}
+                  className="mx-auto"
+                />
+                <h3 className="mt-4 font-semibold text-text">{rank.name}</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                  {rank.description}
+                </p>
+              </li>
+            );
+          })}
         </ul>
 
         <p className="mt-8 text-center text-sm text-muted">

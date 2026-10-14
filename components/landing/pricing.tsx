@@ -61,13 +61,13 @@ export function Pricing() {
     <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      className="lower-section relative divider-top"
+      className="relative py-24 md:py-32"
     >
       <Container>
-        <div className="max-w-2xl">
+        <div className="max-w-2xl mx-auto text-center">
           <h2
             id="pricing-heading"
-            className="mt-3 text-3xl sm:text-4xl font-semibold text-headline"
+            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
           >
             Simple pricing
           </h2>
@@ -76,7 +76,8 @@ export function Pricing() {
           </p>
         </div>
 
-        <div className="plan-grid">
+        {/* Pro sits first on phones, second from sm up. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 items-stretch">
           <PlanCard label="Free" price="€0" unit="/month" items={freeItems} />
           <ProCard />
           <PlanCard
@@ -85,7 +86,6 @@ export function Pricing() {
             unit="/month"
             note="Bring your Anthropic or OpenAI API key"
             items={ownKeyItems}
-            accent="border-[#2dd4bf]/50"
           />
           <PlanCard
             label="Max"
@@ -93,7 +93,6 @@ export function Pricing() {
             unit="/month"
             note="Claude Opus · 150 prompts/day"
             items={maxItems}
-            accent="border-[#c084fc]/50"
           />
         </div>
 
@@ -108,10 +107,10 @@ export function Pricing() {
 function Price({ price, unit }: { price: string; unit: string }) {
   return (
     <div className="mt-3 flex items-baseline gap-1.5">
-      <span className="text-3xl font-semibold text-headline tracking-tight">
+      <span className="text-3xl font-bold text-text tracking-tight">
         {price}
       </span>
-      <span className="text-sm text-muted">{unit}</span>
+      <span className="text-muted text-sm">{unit}</span>
     </div>
   );
 }
@@ -122,19 +121,15 @@ function PlanCard({
   unit,
   note,
   items,
-  accent = "",
 }: {
   label: string;
   price: string;
   unit: string;
   note?: string;
   items: Item[];
-  accent?: string;
 }) {
   return (
-    <article
-      className={`glass ${accent} p-6 sm:p-8 flex flex-col`}
-    >
+    <article className="glass rounded-xl p-6 flex flex-col">
       <div className="font-mono text-xs uppercase tracking-widest text-muted">
         {label}
       </div>
@@ -147,7 +142,7 @@ function PlanCard({
         href="#waitlist"
         variant="secondary"
         size="md"
-        className="mt-8 w-full"
+        className="mt-auto w-full"
       >
         Join waitlist
       </LinkButton>
@@ -160,92 +155,89 @@ function ProCard() {
 
   return (
     <article
-      className="plan-pro glass glass-pro p-6 sm:p-8 flex flex-col"
+      className="glass-heavy relative rounded-xl overflow-hidden flex flex-col order-first sm:order-none"
       aria-label="Pro plan, most popular"
     >
-      <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-action px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-bg">
+      <div className="accent-stripe" />
+      <span className="absolute top-3 right-3 text-[10px] font-mono uppercase tracking-widest text-action bg-action/10 border border-action/25 rounded-md px-2 py-0.5">
         Most popular
       </span>
 
-      <div className="flex items-center justify-between gap-3">
-        <div className="font-mono text-xs uppercase tracking-widest text-action">
-          Pro
+      <div className="p-6 flex flex-1 flex-col">
+        <div className="flex items-center gap-2">
+          <div className="font-mono text-xs uppercase tracking-widest text-action">
+            Pro
+          </div>
+          {annual && (
+            <span className="inline-flex items-center rounded-md bg-passed/10 text-passed px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
+              Save €57
+            </span>
+          )}
         </div>
+
+        <Price
+          price={annual ? "€99" : "€12.99"}
+          unit={annual ? "/year" : "/month"}
+        />
         {annual && (
-          <span className="inline-flex items-center rounded-md bg-action/15 text-action px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
-            Save €57
-          </span>
+          <p className="mt-1.5 text-[12px] text-muted">
+            €8.25/month · <span className="text-action">save €57 (36%)</span> vs
+            €155.88 billed monthly
+          </p>
         )}
+
+        <div
+          role="group"
+          aria-label="Billing period"
+          className="mt-4 inline-flex items-center self-start gap-1 rounded-lg border border-white/[0.06] bg-white/[0.04] p-1 font-mono text-[11px] uppercase tracking-wider"
+        >
+          {[false, true].map((isAnnual) => (
+            <button
+              key={String(isAnnual)}
+              type="button"
+              onClick={() => setAnnual(isAnnual)}
+              aria-pressed={annual === isAnnual}
+              className={[
+                "px-3 py-1 rounded-md border text-[11px] transition-colors",
+                annual === isAnnual
+                  ? "glass-action text-action"
+                  : "border-transparent text-muted hover:text-text",
+              ].join(" ")}
+            >
+              {isAnnual ? "Annual" : "Monthly"}
+            </button>
+          ))}
+        </div>
+
+        <FeatureList items={proItems} />
+
+        <LinkButton
+          href="#waitlist"
+          variant="primary"
+          size="md"
+          className="mt-auto w-full"
+        >
+          Join waitlist
+        </LinkButton>
       </div>
-
-      <Price
-        price={annual ? "€99" : "€12.99"}
-        unit={annual ? "/year" : "/month"}
-      />
-      {annual && (
-        <p className="mt-1.5 text-[12px] text-muted">
-          €8.25/month · <span className="text-action">save €57 (36%)</span> vs
-          €155.88 billed monthly
-        </p>
-      )}
-
-      <div
-        role="group"
-        aria-label="Billing period"
-        className="mt-4 inline-flex items-center self-start rounded-[10px] border border-border bg-bg/40 p-1 font-mono text-[11px] uppercase tracking-wider"
-      >
-        {[false, true].map((isAnnual) => (
-          <button
-            key={String(isAnnual)}
-            type="button"
-            onClick={() => setAnnual(isAnnual)}
-            aria-pressed={annual === isAnnual}
-            className={[
-              "px-3 py-1 rounded-md transition-colors",
-              annual === isAnnual
-                ? "bg-action/15 text-action"
-                : "text-muted hover:text-text",
-            ].join(" ")}
-          >
-            {isAnnual ? "Annual" : "Monthly"}
-          </button>
-        ))}
-      </div>
-
-      <FeatureList items={proItems} />
-
-      <LinkButton
-        href="#waitlist"
-        variant="primary"
-        size="md"
-        className="mt-8 w-full"
-      >
-        Join waitlist
-      </LinkButton>
     </article>
   );
 }
 
 function FeatureList({ items }: { items: Item[] }) {
   return (
-    <ul className="mt-6 space-y-2.5">
+    <ul className="mt-6 mb-8">
       {items.map((item) => (
         <li
           key={item.label}
-          className="flex items-start gap-2.5 text-[14px] leading-snug"
+          className="flex items-center gap-2 text-sm text-muted py-1"
         >
-          <span
-            aria-hidden
-            className={[
-              "mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1",
-              item.included
-                ? "bg-action/15 text-action ring-action/40"
-                : "bg-diffImpossible/10 text-diffImpossible ring-diffImpossible/40",
-            ].join(" ")}
-          >
-            {item.included ? <Check size={11} /> : <Cross size={11} />}
-          </span>
-          <span className={item.included ? "text-text" : "text-muted"}>
+          {item.included ? (
+            <Check aria-hidden className="w-3.5 h-3.5 text-passed flex-shrink-0" />
+          ) : (
+            <Cross aria-hidden className="w-3.5 h-3.5 text-failed/70 flex-shrink-0" />
+          )}
+          <span className={item.included ? "" : "text-muted/50"}>
             <span className="sr-only">
               {item.included ? "Included: " : "Not included: "}
             </span>

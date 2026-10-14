@@ -60,7 +60,22 @@ function isLinkActive(linkHref: string, pathname: string): boolean {
 
 export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname() ?? "/";
+
+  // Home variant: transparent over the hero, solid once the hero has
+  // scrolled away (64px = the bar's own height).
+  useEffect(() => {
+    if (variant !== "home") return;
+    const update = () => setScrolled(window.scrollY > window.innerHeight - 64);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [variant]);
 
   // Start the hashchange -> section-spotlight pipeline. The same
   // tracker that handles in-page # links on the home page also
@@ -112,9 +127,16 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
     );
   }
 
-  // Home: transparent, no blur, floating over the hero background.
+  // Home: transparent over the hero, dark blurred bar past it.
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header
+      className={[
+        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+        scrolled || menuOpen
+          ? "bg-[rgba(8,10,12,0.78)] backdrop-blur-xl border-white/[0.06]"
+          : "border-transparent",
+      ].join(" ")}
+    >
       <div className="px-6 md:px-10">
         <div className="h-16 flex items-center justify-between gap-4">
           <div className="-ml-1">

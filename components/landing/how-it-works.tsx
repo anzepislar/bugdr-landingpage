@@ -82,7 +82,7 @@ export function HowItWorks() {
     <section ref={section} id="how-it-works" aria-labelledby="how-heading" className={styles.section}>
       <div className={styles.sticky}>
         <Container>
-          <h2 id="how-heading" className={styles.heading}>How it <span>works</span></h2>
+          <h2 id="how-heading" className={`${styles.heading} text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]`}>How it <span>works</span></h2>
           <div className={styles.layout}>
             <ol className={styles.steps}>
               {items.map((item, index) => (
@@ -118,7 +118,7 @@ function ProblemDetailShot() {
   // mock. Wrapped in ZoomableImage so the user can open it fullscreen to
   // read the assignment.
   return (
-    <div className="glass overflow-hidden">
+    <div className="glass rounded-xl overflow-hidden">
       <ZoomableImage
         src={assetPath("/screenshots/problem-detail.png")}
         alt="Payment retries problem page showing the assignment, incident log and acceptance checks."
@@ -132,7 +132,7 @@ function ProblemDetailShot() {
 
 function WorkspaceShot() {
   return (
-    <div className="glass overflow-hidden">
+    <div className="glass rounded-xl overflow-hidden">
       <Image
         src={assetPath("/solve-page-ai-chat.png")}
         alt="bug.dr workspace showing the editor, terminal and AI assistant"
@@ -203,7 +203,7 @@ const diffLines: Line[] = [
 function StaticDiffCard() {
   return (
     <div
-      className="glass overflow-hidden max-w-xl"
+      className="glass rounded-xl overflow-hidden max-w-xl"
       data-testid="static-diff-card"
     >
       {/* Diff header. Matches the hero card's header so the two visuals
@@ -243,7 +243,7 @@ function StaticDiffCard() {
 function StaticChecksCard() {
   return (
     <div
-      className="glass overflow-hidden max-w-xl"
+      className="glass rounded-xl overflow-hidden max-w-xl"
       data-testid="static-checks-card"
     >
       <div className="border-b border-border bg-bg/30 px-4 py-3">

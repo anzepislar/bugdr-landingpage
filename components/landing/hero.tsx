@@ -365,13 +365,28 @@ function FloatingPanels() {
 export function Hero() {
   const reduce = useReducedMotion();
   const [showWaitlistModal, setShowWaitlistModal] = useState(false);
+  const bg = useRef<HTMLDivElement>(null);
+
+  // The background stays fixed behind the whole page; dim the panels once
+  // the hero is half scrolled away so they don't compete with body text.
+  useEffect(() => {
+    const update = () =>
+      bg.current?.setAttribute("data-dim", String(window.scrollY > window.innerHeight * 0.5));
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
   const enter = (delay: number) =>
     reduce
       ? { duration: 0.2, ease: "easeOut" as const, delay }
       : { delay, ...SPRING_GENTLE };
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
-      <div aria-hidden className="hero-bg">
+      <div ref={bg} aria-hidden className="hero-bg">
         <div className="hero-blob hero-blob-blue" />
         <div className="hero-blob hero-blob-indigo" />
         <FloatingPanels />

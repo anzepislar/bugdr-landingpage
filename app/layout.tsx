@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./lower-sections.css";
-import { SignalBackground } from "@/components/landing/signal-background";
 import { SITE_URL } from "@/lib/site";
 
 // Geist + Geist Mono (full variable fonts from the official `geist` package), self-hosted instead of next/font/google:
@@ -104,8 +103,8 @@ export default function RootLayout({
           aria-hidden
           className="pointer-events-none fixed inset-0 z-0 bg-grid bg-grid-fade opacity-20"
         />
+        <div aria-hidden="true" className="stars-bg" />
         <div aria-hidden className="glass-blobs" />
-        <SignalBackground />
         {/* The post-nav-click "vacuum in, spit out" transition
             (see lib/section-focus.ts) scales this wrapper, not the
             body. The id is the anchor the Web Animations API uses,
