@@ -34,7 +34,7 @@ const jsonLd = {
       operatingSystem: "Web",
       offers: [
         { "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR" },
-        { "@type": "Offer", name: "Pro", price: "12.99", priceCurrency: "EUR" },
+        { "@type": "Offer", name: "Pro", price: "19.99", priceCurrency: "EUR" },
       ],
     },
     {

@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "What's included in Pro?",
-    a: "Pro adds a personalized AI debrief after each solve and structured career paths. It costs €12.99 a month or €99 a year.",
+    a: "Pro adds a personalized AI debrief after each solve and structured career paths. It costs €19.99 a month or €149 a year.",
   },
   {
     q: "Will completing a path get me a job?",

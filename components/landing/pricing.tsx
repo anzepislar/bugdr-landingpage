@@ -82,7 +82,7 @@ export function Pricing() {
           <ProCard />
           <PlanCard
             label="Own Key"
-            price="€9.99"
+            price="€12.99"
             unit="/month"
             note="Bring your Anthropic or OpenAI API key"
             items={ownKeyItems}
@@ -170,19 +170,19 @@ function ProCard() {
           </div>
           {annual && (
             <span className="inline-flex items-center rounded-md bg-passed/10 text-passed px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
-              Save €57
+              Save €91
             </span>
           )}
         </div>
 
         <Price
-          price={annual ? "€99" : "€12.99"}
+          price={annual ? "€149" : "€19.99"}
           unit={annual ? "/year" : "/month"}
         />
         {annual && (
           <p className="mt-1.5 text-[12px] text-muted">
-            €8.25/month · <span className="text-action">save €57 (36%)</span> vs
-            €155.88 billed monthly
+            €12.42/month · <span className="text-action">save €91 (38%)</span> vs
+            €239.88 billed monthly
           </p>
         )}
 
