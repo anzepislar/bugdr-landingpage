@@ -1,0 +1,61 @@
+# Bugdr — Full Reference
+
+## Product
+
+Bugdr (https://bugdr.app) is a production bug-fixing platform for software
+engineers. Problems on Bugdr are real bugs extracted from open-source GitHub
+repositories — not hand-crafted puzzles. Each problem is a self-contained
+Node.js codebase (no dependencies, no setup) that reproduces a real bug.
+Engineers fix the bug and submit; automated Docker-based checks verify the
+fix passes and the buggy version fails.
+
+## Problem format
+
+Each problem contains:
+- A title and description explaining the bug and its real-world context
+- A self-contained codebase (files the engineer can run locally)
+- Hidden automated checks that validate the fix
+- Metadata: difficulty, category, career path, points, source PR link
+
+## Difficulty levels
+
+- Easy (100 points): Clear, isolated bugs. Single function or small module.
+- Medium (250 points): Multi-file bugs requiring understanding of interactions.
+- Hard (500 points): Complex system bugs. Race conditions, edge cases, performance.
+- Get a Job (1000 points): Staff-level bugs. Architecture issues, subtle regressions.
+
+## Categories
+
+JavaScript, TypeScript, Node.js, Python, Ruby, Go, Rust, PHP, Java,
+Frontend, Backend, Full Stack, Mobile, DevOps/Infra, and more.
+
+## Career paths
+
+Frontend Engineer, Backend Engineer, Full Stack Engineer,
+Mobile Engineer, DevOps / Infra Engineer, Staff Engineer.
+
+## Why Bugdr vs LeetCode
+
+LeetCode trains algorithm thinking. Bugdr trains debugging — reading
+unfamiliar code, understanding context, isolating a fault, and writing
+a targeted fix. These are the skills engineers use daily on the job
+and in real technical interviews at product companies.
+
+## Tech stack (for developers evaluating the platform)
+
+- Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS
+- Backend: Node.js, Express 5, PostgreSQL 17
+- Problem validation: Docker-based automated check runner
+- Bug sourcing: GitHub PR scraper + AI enrichment pipeline
+
+## Target audience
+
+- Self-taught developers preparing for their first engineering job
+- Junior engineers aiming for senior-level roles
+- Engineers who want a portfolio of real debugging work
+- Bootcamp graduates who need beyond-tutorial experience
+
+## Links
+
+- Landing page: https://bugdr.app
+- Platform: https://app.bugdr.app

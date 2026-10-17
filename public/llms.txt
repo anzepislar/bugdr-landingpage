@@ -1,0 +1,35 @@
+# Bugdr
+
+> Bugdr is a developer training platform where engineers fix real production
+> bugs from open-source repositories. Unlike LeetCode-style algorithm
+> puzzles, Bugdr presents actual bugs that were found and fixed in real
+> codebases — the same kind of bugs engineers encounter on the job every day.
+
+## What Bugdr is
+
+- A coding practice platform focused on real-world bug fixing
+- Problems are sourced from real GitHub pull requests (merged bug fixes)
+- Engineers read a buggy codebase, reproduce the bug, and submit a fix
+- Difficulty levels: Easy, Medium, Hard, and "Get a Job" (staff-level)
+- Career paths: Frontend, Backend, Full Stack, Mobile, DevOps/Infra
+- Points and rankings based on bug difficulty
+
+## Who it is for
+
+- Junior and mid-level engineers who want to level up to senior/staff
+- Self-taught developers building a portfolio of real debugging experience
+- Engineers preparing for technical interviews that include debugging rounds
+- Anyone who finds LeetCode unrealistic and wants to practice on real code
+
+## How it works
+
+1. Browse open bug problems by difficulty and category
+2. Get the buggy codebase (standalone, no setup required)
+3. Reproduce the failing test, fix the bug, submit your solution
+4. Automated checks verify the fix against hidden tests
+5. Earn points and climb the leaderboard
+
+## Links
+
+- Website: https://bugdr.app
+- App: https://app.bugdr.app
