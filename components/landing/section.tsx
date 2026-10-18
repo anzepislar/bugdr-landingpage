@@ -61,19 +61,34 @@ export const DIFFICULTY_COLOR = {
 export type Difficulty = keyof typeof DIFFICULTY_COLOR;
 
 // Product screenshot in a glass frame. Files live in public/screenshots/
-// (2000x1250 WebP, converted from 2880x1800 captures).
-// Links to the full-size file: on phones the in-page image is too small to read.
+// as WebP, cropped from 2880x1800 captures to the part each section is about.
+// Pixel sizes of each crop: they set the aspect ratio before load, and half
+// the width caps the frame so the 2x capture stays sharp and isn't upscaled.
+const SCREENSHOT_SIZES: Record<string, [number, number]> = {
+  "workspace-checks": [2128, 1705],
+  "ai-feedback": [1454, 1259],
+  "career-path": [1449, 1202],
+  "problems": [1434, 1449],
+  "dashboard": [2390, 827],
+  "leaderboard": [1497, 799],
+};
+
+// Links to the full-size file: on phones the in-page image can still be small.
 export function Screenshot({ name, alt }: { name: string; alt: string }) {
   const src = assetPath(`/screenshots/${name}.webp`);
+  const [width, height] = SCREENSHOT_SIZES[name];
   return (
-    <figure className="glass mt-12 overflow-hidden rounded-card p-1.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] md:p-2">
+    <figure
+      className="glass mx-auto mt-12 overflow-hidden rounded-card p-1.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] md:p-2"
+      style={{ maxWidth: width / 2 + 16 }}
+    >
       <a href={src} target="_blank" rel="noopener" className="block cursor-zoom-in" aria-label={`${alt} Open full size.`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, images unoptimized */}
         <img
           src={src}
           alt={alt}
-          width={2000}
-          height={1250}
+          width={width}
+          height={height}
           loading="lazy"
           decoding="async"
           className="block h-auto w-full rounded-[10px]"
