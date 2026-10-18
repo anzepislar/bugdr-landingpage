@@ -1,15 +1,15 @@
 import { Nav } from "@/components/landing/nav";
-import { AnnouncementBar } from "@/components/landing/announcement-bar";
 import { Hero } from "@/components/landing/hero";
+import { Sky } from "@/components/landing/sky";
+import { Belief } from "@/components/landing/belief";
 import { Comparison } from "@/components/landing/comparison";
 import { HowItWorks } from "@/components/landing/how-it-works";
-import { SampleScore } from "@/components/landing/sample-score";
-import { CareerPaths } from "@/components/landing/career-paths";
 import { AIFeedback } from "@/components/landing/ai-feedback";
-import { WaitlistCta } from "@/components/landing/waitlist-cta";
-import { RolesAndProfile } from "@/components/landing/roles-and-profile";
+import { CareerPaths } from "@/components/landing/career-paths";
+import { Roles } from "@/components/landing/roles-and-profile";
 import { ProblemLibrary } from "@/components/landing/problem-library";
-import { Features } from "@/components/landing/features";
+import { Contests } from "@/components/landing/contests";
+import { Hackathons } from "@/components/landing/hackathons";
 import { RanksSection } from "@/components/landing/ranks-section";
 import { Pricing } from "@/components/landing/pricing";
 import { Waitlist } from "@/components/landing/waitlist";
@@ -45,14 +45,6 @@ const jsonLd = {
   ],
 };
 
-// Home page section order.
-//
-// Hero, How it works, then the example scorecard and a CTA
-// before Career Paths and AI Feedback, then the role chips
-// and the problem library + dashboard, then Pricing and
-// another CTA, then the waitlist form and the FAQ, then
-// the footer. The two CTAs are spread out so the user has
-// multiple chances to convert without a sticky banner.
 export default function Page() {
   return (
     <>
@@ -62,46 +54,25 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      {/* Launch announcement: hidden for now, kept for later. */}
-      <div className="hidden">
-        <AnnouncementBar />
-      </div>
+      <Sky />
       <Nav />
       <main id="top">
         <Hero />
-        <Divider />
+        <Belief />
         <Comparison />
-        <Divider />
         <HowItWorks />
-        <SampleScore />
-        <Divider />
-        <WaitlistCta line="Get the link in your inbox the day we open." />
-        <Divider />
-        <CareerPaths />
-        <Divider />
         <AIFeedback />
-        <Divider />
-        <RolesAndProfile />
-        <Divider />
+        <CareerPaths />
+        <Roles />
         <ProblemLibrary />
-        <Divider />
-        <Features />
-        <Divider />
+        <Contests />
+        <Hackathons />
         <RanksSection />
-        <Divider />
         <Pricing />
-        <Divider />
-        <WaitlistCta line="Be the first to pick a problem when the library opens." />
-        <Divider />
         <Waitlist />
-        <Divider />
         <Faq />
       </main>
       <Footer />
     </>
   );
-}
-
-function Divider() {
-  return <div className="border-t border-white/[0.06]" />;
 }

@@ -1,121 +1,102 @@
-"use client";
+import { Paras, Screenshot, Section, ShareCard } from "@/components/landing/section";
 
-import { Container } from "@/components/landing/container";
-import { Check, Sparkle } from "@/components/landing/icons";
-
-const metrics = [
-  { label: "Prompts", you: "12", top: "4" },
-  { label: "Tokens", you: "3,840", top: "1,200" },
-  { label: "First-run pass", you: "No", top: "68%" },
-];
-
-const advice = [
-  "Read the full stack trace.",
-  "Find the likely failure point.",
-  "Ask for one targeted change, then test it.",
+const stats = [
+  ["Prompts", "12", "4"],
+  ["Tokens", "3,840", "1,200"],
+  ["First-run pass", "No", "68%"],
 ];
 
 export function AIFeedback() {
   return (
-    <section
+    <Section
       id="feedback"
-      aria-labelledby="feedback-heading"
-      className="relative py-24 md:py-32"
+      label="Session feedback"
+      heading="It passes. Now understand how you got there."
+      intro={
+        <Paras>
+          {[
+            "After a solve, your session debrief looks at your prompts, tokens, and test runs. Compare your approach with other participants on that case and find something useful to try next time.",
+            "A working fix matters. So does learning a process you can repeat.",
+          ]}
+        </Paras>
+      }
     >
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:items-start">
-          <div className="lg:pt-8">
-            <h2
-              id="feedback-heading"
-              className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
-            >
-              You fixed it. Now learn from it.
-            </h2>
-            <p className="mt-4 text-muted text-lg leading-relaxed">
-              After each solve, get a debrief based on your session. See how many prompts,
-              tokens, and test runs you used, how you compare with other people on that
-              case, and what you could try differently next time.
-            </p>
-            <p className="mt-6 font-mono text-[11px] text-muted">
-              Generated automatically after every solve. Free tier includes
-              feedback on Easy solves.
-            </p>
+      <div className="glass mt-12 max-w-[760px] rounded-card p-6 md:p-8">
+        <p className="label">Example debrief</p>
+        <h3 className="mt-3 font-mono text-xl text-text">payment retries</h3>
+
+        <div className="mt-6 space-y-3 text-sm">
+          <div className="ml-auto w-fit max-w-[85%] rounded-xl rounded-br-sm bg-action/[0.12] px-4 py-2.5 text-text">
+            <span className="sr-only">You: </span>It passes. What could I do better?
           </div>
-
-          <div className="glass-heavy rounded-2xl p-6" aria-label="Example AI feedback conversation">
-            <header className="flex items-center justify-between mb-4">
-              <span className="flex items-center gap-2 text-text font-semibold">
-                <Sparkle size={18} className="text-action" />
-                Session debrief
-              </span>
-              <span className="text-muted text-sm">Example session</span>
-            </header>
-
-            <div className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.03] border border-white/[0.06] px-4 py-2.5 font-mono text-[11px]">
-              <span className="text-muted">Payment retries</span>
-              <span className="flex items-center gap-1.5 text-passed">
-                <Check size={13} />7 / 7 checks passed
-              </span>
-            </div>
-
-            <div className="mt-6 flex flex-col items-end text-right">
-              <span className="text-[11px] text-muted mb-2">You</span>
-              <p className="max-w-[85%] rounded-lg rounded-br-sm bg-action/[0.12] border border-action/20 px-4 py-3 text-left text-sm text-text">
-                It passes. What could I have done better?
-              </p>
-            </div>
-
-            <div className="mt-6">
-              <div className="flex items-center gap-2 text-[11px] text-muted mb-3">
-                <Sparkle size={14} className="text-action" />
-                <span><span className="brand">bug.dr</span> coach</span>
-              </div>
-              <div className="space-y-4 text-sm leading-relaxed text-muted">
-                <p>
-                  <strong className="text-text font-semibold">You fixed it.</strong> Your change passed every acceptance check. The next thing to work on is how you get to the fix.
-                </p>
-
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-                  <div className="grid grid-cols-3 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-white/[0.06] pb-2 mb-2">
-                    <span>This session</span>
-                    <span>You</span>
-                    <span>Top performers</span>
-                  </div>
-                  {metrics.map((m) => (
-                    <div key={m.label} className="grid grid-cols-3 py-2 text-sm border-b border-white/[0.04] last:border-b-0">
-                      <span className="text-muted">{m.label}</span>
-                      <strong className="text-action font-semibold">{m.you}</strong>
-                      <span className="text-passed">{m.top}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <p>
-                  You ran tests <strong className="text-text font-semibold">8 times before your first passing run.</strong> Next time, spend a little longer on the logs before asking AI for a change.
-                </p>
-
-                <div>
-                  <h3 className="text-text font-semibold">Try this on your next case</h3>
-                  <ul className="mt-1">
-                    {advice.map((item) => (
-                      <li key={item} className="flex items-start gap-2 py-2 text-sm text-muted">
-                        <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-action/50 mt-1.5 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <p className="text-text">A working fix is the start. A repeatable approach is what you take into the next problem.</p>
-              </div>
-            </div>
-
-            <footer className="mt-6 border-t border-white/[0.06] pt-4 font-mono text-[10px] text-muted/60">
-              Illustrative feedback and benchmark data.
-            </footer>
+          <div className="w-fit max-w-[85%] rounded-xl rounded-bl-sm border border-white/[0.07] bg-surface2 px-4 py-2.5 text-text">
+            <span className="mb-1 block text-xs font-medium text-action">Bugdr</span>
+            You fixed the failure. Now tighten the investigation.
           </div>
         </div>
-      </Container>
-    </section>
+
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[320px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-white/[0.09] text-xs uppercase tracking-[0.12em] text-muted2">
+                <th scope="col" className="py-2.5 pr-4 font-medium">Measure</th>
+                <th scope="col" className="py-2.5 pr-4 font-medium">You</th>
+                <th scope="col" className="py-2.5 font-medium">Comparison group</th>
+              </tr>
+            </thead>
+            <tbody className="font-mono">
+              {stats.map(([m, you, group]) => (
+                <tr key={m} className="border-b border-white/[0.06] last:border-0">
+                  <th scope="row" className="py-3 pr-4 font-sans font-normal text-muted">{m}</th>
+                  <td className="py-3 pr-4 text-text">{you}</td>
+                  <td className="py-3 text-muted">{group}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-6 text-sm leading-relaxed text-muted">
+          Eight test runs before the first pass. Next time, inspect the logs
+          before asking AI for another change.
+        </p>
+
+        <div className="mt-6 rounded-xl border border-white/[0.07] bg-canvas/60 p-4">
+          <p className="text-xs font-medium uppercase tracking-[0.12em] text-action">On your next case</p>
+          <p className="mt-2 text-sm leading-relaxed text-text/90">
+            Read the full stack trace. Identify the likely failure point. Ask
+            for one targeted change. Test the hypothesis.
+          </p>
+        </div>
+
+        <p className="mt-6 text-xs italic text-muted2">
+          Illustrative feedback and benchmark data. Fewer tokens alone do not
+          mean a better fix.
+        </p>
+      </div>
+
+      <Screenshot
+        name="ai-feedback"
+        alt="AI feedback after a solve: what you did well, how your prompts and tokens compare with typical solvers, and what to try next time."
+      />
+
+      {/* Solve result cards; phones show only the first. */}
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <ShareCard
+          name="solve-medium"
+          alt="Solve card for Payment retries disappear, Medium: 2 prompts, 4,730 tokens, 17 minutes, efficiency score 2.0x."
+        />
+        <ShareCard
+          name="solve-hard"
+          className="hidden sm:block"
+          alt="Solve card for Transfers that lock each other out, Hard: 3 prompts, 6,912 tokens, 31 minutes, efficiency score 1.8x."
+        />
+        <ShareCard
+          name="solve-get-a-job"
+          className="hidden sm:block"
+          alt="Solve card for Every request is a cache miss, Get a job: 4 prompts, 11,240 tokens, 1 hour 52 minutes, efficiency score 1.9x."
+        />
+      </div>
+    </Section>
   );
 }

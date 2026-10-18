@@ -36,7 +36,7 @@ export function LegalPage({
   return (
     <>
       <Nav variant="legal" />
-      <main>
+      <main className="pt-16">
         <section className="relative py-16 sm:py-24">
           <Container>
             <div className="max-w-3xl">

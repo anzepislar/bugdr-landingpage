@@ -1,71 +1,60 @@
-import { Container } from "@/components/landing/container";
-import { Badge } from "@/components/ui/badge";
+import { DIFFICULTY_COLOR, type Difficulty, Paras, Screenshot, Section } from "@/components/landing/section";
 
-// "What the problems look like" section.
-//
-// Earlier versions used framer-motion's `whileInView` to fade and slide
-// the section header and the screenshot in as the user scrolled. On the
-// static export the SSR HTML rendered them at `opacity:0` with a
-// translate, and the IntersectionObserver only fired for content that
-// was actually in the viewport. Off-screen content stayed invisible in
-// fullPage screenshots, for crawlers, and for anyone trying to print the
-// page. The fix: render plain HTML. The content is always visible.
-
-// Placeholder rows showing the list pattern. Not real data.
-const SAMPLE_PROBLEMS = [
-  { title: "Duplicate charge on checkout", category: "payments", tone: "hard", role: "Backend" },
-  { title: "Slow dashboard query", category: "database", tone: "medium", role: "Backend" },
-  { title: "Failed deployment rollback", category: "devops", tone: "hard", role: "DevOps" },
-  { title: "Race condition in job queue", category: "async", tone: "hard", role: "Backend" },
-  { title: "Broken OAuth redirect", category: "auth", tone: "medium", role: "Fullstack" },
-  { title: "Memory leak in image pipeline", category: "perf", tone: "hard", role: "Backend" },
-] as const;
+const problems: { title: string; tags: string[]; difficulty: Difficulty }[] = [
+  { title: "Duplicate charge on checkout", tags: ["Backend", "Payments"], difficulty: "Hard" },
+  { title: "Slow dashboard query", tags: ["Backend", "Database"], difficulty: "Medium" },
+  { title: "Failed deployment rollback", tags: ["DevOps"], difficulty: "Hard" },
+  { title: "Race condition in job queue", tags: ["Backend", "Async"], difficulty: "Hard" },
+  { title: "Broken OAuth redirect", tags: ["Full-stack", "Auth"], difficulty: "Medium" },
+  { title: "Memory leak in image pipeline", tags: ["Backend", "Performance"], difficulty: "Hard" },
+];
 
 export function ProblemLibrary() {
   return (
-    <section
+    <Section
       id="library"
-      aria-labelledby="library-heading"
-      className="relative py-24 md:py-32"
+      label="Problem library"
+      heading="Something's broken. Pick your case."
+      intro={
+        <Paras>
+          {[
+            "Duplicate charges. Slow queries. Failed deployments.",
+            "Browse by role, topic, and difficulty. Every case gives you a brief and acceptance checks, so you know what the fix needs to achieve.",
+          ]}
+        </Paras>
+      }
     >
-      <Container>
-        <div className="grid gap-4 md:grid-cols-2 md:gap-16">
-          <h2
-            id="library-heading"
-            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
-          >
-            Something's broken. Pick your case.
-          </h2>
-          <p className="text-muted text-lg leading-relaxed">
-            Duplicate charges. Slow queries. Failed deployments. Browse by role, topic,
-            and difficulty to find something worth working through. Every case includes
-            a brief and the checks you need to pass, so you know what a working fix
-            needs to do before you start.
-          </p>
-        </div>
-
-        <div className="mt-12 glass rounded-2xl overflow-hidden">
-          {SAMPLE_PROBLEMS.map((p) => (
-            <div
-              key={p.title}
-              className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_6rem_8rem] gap-x-4 items-center px-6 py-4 border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02] transition-colors"
-            >
-              <div className="min-w-0">
-                <p className="text-text text-sm">{p.title}</p>
-                <p className="text-muted/60 text-xs font-mono">{p.category}</p>
+      <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {problems.map((p) => {
+          const color = DIFFICULTY_COLOR[p.difficulty];
+          return (
+            <li key={p.title} className="card flex flex-col gap-3 p-5">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-[15px] font-medium text-text">{p.title}</h3>
+                <span
+                  className="shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+                  style={{ color, background: `${color}1a` }}
+                >
+                  {p.difficulty}
+                </span>
               </div>
-              <div className="text-center">
-                <Badge tone={p.tone}>{p.tone}</Badge>
-              </div>
-              <div className="hidden sm:block text-right text-muted text-xs">{p.role}</div>
-            </div>
-          ))}
-        </div>
+              <p className="text-xs text-muted">
+                {[...p.tags, p.difficulty].join(" · ")}
+              </p>
+            </li>
+          );
+        })}
+      </ul>
 
-        <p className="mt-4 text-center text-sm text-muted/50">
-          More problems coming at launch — October 21.
-        </p>
-      </Container>
-    </section>
+      <Screenshot
+        name="problems"
+        alt="The problem library: filters for role, difficulty, topic and status above a grid of cases tagged by difficulty and stack."
+      />
+
+      <div className="mt-8 flex flex-col items-center gap-3 text-center">
+        <p className="text-sm text-muted">More cases coming at launch, October 21.</p>
+        <a href="#waitlist" className="link-action">Get the launch link →</a>
+      </div>
+    </Section>
   );
 }

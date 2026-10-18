@@ -18,6 +18,7 @@ export default {
         text: "#F2F3F5",
         muted: "#ACB2BE",
         muted2: "#6B7280",
+        highlight: "#EBA599",
         // Status colors derived from base palette
         success: "#22c55e",
         warning: "#f59e0b",
@@ -47,7 +48,8 @@ export default {
         scoreWarm: "#E0B265",
       },
       fontFamily: {
-        sans: ["var(--font-geist)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-syne)", "var(--font-inter)", "ui-sans-serif", "sans-serif"],
         mono: [
           "var(--font-geist-mono)",
           "ui-monospace",
@@ -62,7 +64,11 @@ export default {
         md: "0.5rem",
         lg: "0.625rem",
         xl: "0.75rem",
-        "2xl": "1rem",
+        // Design system: 10 base / 12 buttons / 16 cards / 20 modals / 28 2xl.
+        btn: "12px",
+        card: "16px",
+        modal: "20px",
+        "2xl": "28px",
       },
       boxShadow: {
         card: "0 0 0 1px #383C43, 0 12px 32px -16px rgba(0,0,0,0.6)",

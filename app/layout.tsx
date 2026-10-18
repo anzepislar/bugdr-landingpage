@@ -1,18 +1,30 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import "./lower-sections.css";
 import { SITE_URL } from "@/lib/site";
 
-// Geist + Geist Mono (full variable fonts from the official `geist` package), self-hosted instead of next/font/google:
-// Turbopack fails the build with "Can't resolve
-// '@vercel/turbopack-next/internal/font/google/font'" when the build
-// machine can't reach Google Fonts.
-const geist = localFont({
-  src: "./fonts/geist.woff2",
-  variable: "--font-geist",
+// Inter (body) and Syne (display), downloaded from Google Fonts and
+// self-hosted instead of next/font/google: Turbopack fails the build with
+// "Can't resolve '@vercel/turbopack-next/internal/font/google/font'" when
+// the build machine can't reach Google Fonts. Geist Mono stays for code.
+const inter = localFont({
+  src: [
+    { path: "./fonts/inter-400.woff2", weight: "400" },
+    { path: "./fonts/inter-500.woff2", weight: "500" },
+    { path: "./fonts/inter-600.woff2", weight: "600" },
+  ],
+  variable: "--font-inter",
   display: "swap",
-  weight: "100 900",
+});
+
+const syne = localFont({
+  src: [
+    { path: "./fonts/syne-600.woff2", weight: "600" },
+    { path: "./fonts/syne-700.woff2", weight: "700" },
+    { path: "./fonts/syne-800.woff2", weight: "800" },
+  ],
+  variable: "--font-syne",
+  display: "swap",
 });
 
 const geistMono = localFont({
@@ -92,29 +104,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${syne.variable} ${geistMono.variable}`}
     >
-      <body className="bg-bg text-text font-sans antialiased min-h-screen relative">
-        {/* Page-wide grid background — same "cubes" the hero uses, but
-            fixed to the viewport so it stays present as the user scrolls
-            and frames every section the same way. The radial mask in
-            .bg-grid-fade keeps the corners clean. */}
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 z-0 bg-grid bg-grid-fade opacity-20"
-        />
-        <div aria-hidden="true" className="stars-bg" />
-        <div aria-hidden className="glass-blobs" />
-        {/* The post-nav-click "vacuum in, spit out" transition
-            (see lib/section-focus.ts) scales this wrapper, not the
-            body. The id is the anchor the Web Animations API uses,
-            and keeping the transform on this element — instead of
-            on <body> — leaves the body's containing block and
-            stacking context untouched, so click hit-testing on the
-            nav and other in-page buttons stays correct mid-animation. */}
-        <div id="page-content" className="relative z-10">
-          {children}
-        </div>
+      <body className="text-text font-sans antialiased min-h-screen">
+        {children}
       </body>
     </html>
   );

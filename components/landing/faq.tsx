@@ -1,34 +1,20 @@
-"use client";
-
-import { useState } from "react";
 import { Container } from "@/components/landing/container";
-import { ChevronDown } from "@/components/landing/icons";
 
-// FAQ — accordion.
-//
-// Earlier versions used framer-motion's `whileInView` to slide each
-// row in from alternating sides, and a `motion.p` for the open/close
-// answer animation. On the static export the SSR HTML rendered the
-// section header and rows at `opacity:0` with a translate, and the
-// IntersectionObserver only fired for content that was actually in the
-// viewport. Off-screen content stayed invisible in fullPage screenshots,
-// for crawlers, and for anyone trying to print the page. The fix:
-// render plain HTML for the section chrome and the row entries. The
-// open/close answer uses a CSS grid-row transition (no framer-motion
-// needed for that), so the accordion still feels smooth.
+// Native <details name="faq"> gives a one-open-at-a-time accordion with no
+// JS (browsers without exclusive-details support just allow several open).
 
 const faqs = [
   {
     q: "Can I use AI?",
-    a: "Yes. There's an AI assistant in the workspace. Use it to explore the code, ask questions, and work on your fix. You still need to understand the changes and check that they work.",
+    a: "Yes. Use the workspace assistant to explore code, ask questions, and work on a fix. You still need to understand the changes and check that they work. Use AI. Own the code.",
   },
   {
-    q: "Are these real production codebases?",
-    a: "They're practice codebases built around bugs and failures you could encounter at work. You get the context of a production incident in an environment where you can investigate and make changes.",
+    q: "Are these actual production codebases?",
+    a: "They're practice codebases built around failures you could encounter at work. You get incident context and room to investigate without touching a live customer system.",
   },
   {
     q: "Which languages and tools are covered?",
-    a: "The library covers cases using Node.js, TypeScript, Python, Go, React, Next.js, PostgreSQL, Redis, JWT, and WebSockets. Check each case for its stack before you start.",
+    a: "The listed library stacks include Node.js, TypeScript, Python, Go, React, Next.js, PostgreSQL, Redis, JWT, and WebSockets. Check the individual case before starting.",
   },
   {
     q: "Do I need to install anything?",
@@ -36,87 +22,37 @@ const faqs = [
   },
   {
     q: "What affects my score?",
-    a: "A working, reliable fix matters most. We also look at code quality, how you test your changes, time, and AI usage. Using fewer tokens or writing fewer lines doesn't automatically make a fix better.",
+    a: "A working, reliable fix matters most. Scoring also considers code quality, testing, time, and AI usage. Fewer tokens or fewer lines do not automatically mean better engineering.",
   },
   {
-    q: "Can I retry a case for a better score?",
-    a: "Your first successful result is final. You can learn from it and take that experience into your next case.",
+    q: "Can I retry for a better score?",
+    a: "Your first successful result is final. Take the lesson into your next case.",
   },
   {
-    q: "What's included in Pro?",
-    a: "Pro adds a personalized AI debrief after each solve and structured career paths. It costs €19.99 a month or €149 a year.",
+    q: "What does Pro include?",
+    a: "Career paths, AI feedback after each solve, additional daily prompts, and the listed Pro model options. €19.99 monthly or €159 yearly.",
   },
   {
-    q: "Will completing a path get me a job?",
-    a: "No platform can promise that. A path helps you build experience and see how your work compares with its benchmarks. Hiring decisions still belong to employers.",
-  },
-  {
-    q: "When can I try it?",
-    a: "October 21, 2026. Join the waitlist and we'll send you the link when we open.",
-  },
-  {
-    q: "I'm hiring. Can we talk?",
-    a: <>Yes. Join the waitlist and we&apos;ll reach out about using <span className="brand">bug.dr</span> with your team.</>,
+    q: "Will a path get me a job?",
+    a: "A path gives you relevant practice and benchmarks. It cannot promise employment. Hiring decisions belong to employers.",
   },
 ];
 
 export function Faq() {
-  const [open, setOpen] = useState<number | null>(0);
-
   return (
-    <section
-      id="faq"
-      aria-labelledby="faq-heading"
-      className="relative py-24 md:py-32"
-    >
+    <section id="faq" aria-label="FAQ" className="py-16 md:py-20">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
-          <h2
-            id="faq-heading"
-            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
-          >
-            A few things you might be wondering.
-          </h2>
-
-          <div>
-            {faqs.map((item, i) => (
-              <div
-                key={item.q}
-                className="border-b border-white/[0.06] last:border-b-0"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpen(open === i ? null : i)}
-                  aria-expanded={open === i}
-                  aria-controls={`faq-panel-${i}`}
-                  className="w-full flex items-center justify-between gap-4 py-5 text-left text-text font-medium hover:text-action/90 transition-colors"
-                >
-                  <span>{item.q}</span>
-                  <ChevronDown
-                    size={18}
-                    className={[
-                      "shrink-0 text-muted transition-transform duration-200",
-                      open === i ? "rotate-180" : "rotate-0",
-                    ].join(" ")}
-                  />
-                </button>
-                <div
-                  id={`faq-panel-${i}`}
-                  role="region"
-                  className={[
-                    "grid transition-[grid-template-rows] duration-300 ease-out",
-                    open === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-                  ].join(" ")}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-muted text-sm leading-relaxed pb-5">
-                      {item.a}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <p className="label">FAQ</p>
+        <div className="mt-8 max-w-[760px] divide-y divide-white/[0.08] border-y border-white/[0.08]">
+          {faqs.map((f) => (
+            <details key={f.q} name="faq" className="faq group">
+              <summary className="flex cursor-pointer items-center justify-between gap-6 py-5 text-left text-base font-medium text-text transition-colors hover:text-action md:text-lg">
+                {f.q}
+                <span aria-hidden className="faq-icon text-xl leading-none text-muted">+</span>
+              </summary>
+              <p className="max-w-[65ch] pb-6 leading-relaxed text-muted">{f.a}</p>
+            </details>
+          ))}
         </div>
       </Container>
     </section>

@@ -1,133 +1,75 @@
-"use client";
+import { Paras, Screenshot, Section, ShareCard } from "@/components/landing/section";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { Container } from "@/components/landing/container";
-import { assetPath } from "@/lib/asset-path";
-
-// "Earn your rank" : the progression section, between Features and
-// Pricing. Aspirational only: no points, no locked state.
-
-const RANKS = [
-  {
-    id: "intern",
-    name: "Intern",
-    description: "You're finding your footing in real codebases.",
-    tier: "entry",
-  },
-  {
-    id: "junior",
-    name: "Junior Engineer",
-    description: "You can read a stack trace and know where to start.",
-    tier: "entry",
-  },
-  {
-    id: "mid",
-    name: "Mid Engineer",
-    description: "Production bugs slow you down, but they don't stop you.",
-    tier: "mid",
-  },
-  {
-    id: "senior",
-    name: "Senior Engineer",
-    description: "Production incidents don't scare you anymore.",
-    tier: "mid",
-  },
-  {
-    id: "staff",
-    name: "Staff Engineer",
-    description: "You see the system, not just the bug.",
-    tier: "elite",
-  },
-  {
-    id: "principal",
-    name: "Principal Engineer",
-    description:
-      "The rarest debuggers. You leave codebases better than you found them.",
-    tier: "elite",
-  },
+const ranks = [
+  ["Intern", "Find your footing in unfamiliar code."],
+  ["Junior Engineer", "Build a reliable investigation habit."],
+  ["Mid Engineer", "Work through more demanding failures."],
+  ["Senior Engineer", "Practice cases with deeper interactions."],
+  ["Staff Engineer", "Look beyond the symptom to the system."],
+  ["Principal Engineer", "Take on the platform's toughest cases."],
 ];
 
 export function RanksSection() {
-  const grid = useRef<HTMLUListElement>(null);
-  const [phase, setPhase] = useState<"static" | "hidden" | "shown">("static");
-
-  useEffect(() => {
-    const el = grid.current;
-    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setPhase("hidden");
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setPhase("shown");
-        observer.disconnect();
-      },
-      { threshold: 0.2 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
+    <Section
       id="ranks"
-      aria-labelledby="ranks-heading"
-      className="relative py-24 md:py-32"
+      label="Progression"
+      heading="Earn the rank. Keep learning."
+      intro={
+        <Paras>
+          {[
+            "Progress through Bugdr's practice ranks as you complete cases.",
+            "A rank reflects your progress on the platform. It does not certify your job level or overall engineering ability.",
+          ]}
+        </Paras>
+      }
     >
-      <Container>
-        <div className="max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-widest text-action/70 mb-3">
-            Progression system
-          </p>
-          <h2
-            id="ranks-heading"
-            className="text-3xl sm:text-4xl font-semibold text-text leading-tight tracking-[-0.02em]"
-          >
-            Earn your rank. Prove it with code.
-          </h2>
-          <p className="mt-4 text-muted text-lg leading-relaxed">
-            Every rank represents real engineering ability — not hours spent on
-            toy puzzles. Debug your way from Intern to Principal.
-          </p>
+      <ol className="relative mt-12 max-w-[560px] space-y-7 pl-9">
+        {/* Connecting line, brightening toward the top rank. */}
+        <span
+          aria-hidden
+          className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-border via-border to-action/70"
+        />
+        {ranks.map(([rank, line], i) => (
+          <li key={rank} className="relative">
+            <span
+              aria-hidden
+              className="absolute -left-9 top-1 flex h-[15px] w-[15px] items-center justify-center rounded-full border bg-canvas"
+              style={{
+                borderColor: `rgba(139,172,255,${0.3 + i * 0.14})`,
+                boxShadow: i === ranks.length - 1 ? "0 0 12px rgba(139,172,255,0.4)" : undefined,
+              }}
+            >
+              <span className="h-[5px] w-[5px] rounded-full bg-action" style={{ opacity: 0.35 + i * 0.13 }} />
+            </span>
+            <h3 className="font-display text-lg font-bold text-text">{rank}</h3>
+            <p className="mt-1 text-sm text-muted">{line}</p>
+          </li>
+        ))}
+      </ol>
+
+      <Screenshot
+        name="leaderboard"
+        alt="The Bugdr leaderboard: top engineers by points, with level, problems solved and AI efficiency."
+      />
+
+      <figure className="mx-auto mt-16 max-w-[760px]">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <ShareCard
+            name="rank-staff"
+            alt="Rank-up card: Staff, ranked up from Senior. 15 problems, 7,640 points, 12-day streak."
+          />
+          <ShareCard
+            name="rank-principal"
+            alt="Rank-up card: Principal, ranked up from Staff. 31 problems, 15,140 points, 29-day streak."
+          />
         </div>
+        <figcaption className="mt-4 text-center text-sm text-muted">
+          Every rank-up comes with a card worth sharing.
+        </figcaption>
+      </figure>
 
-        <ul ref={grid} className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-10">
-          {RANKS.map((rank, i) => {
-            const elite = rank.tier === "elite";
-            // Visible in the server HTML; "hidden" is set after mount only.
-            const reveal =
-              phase === "hidden"
-                ? "opacity-0 translate-y-4"
-                : "opacity-100 translate-y-0";
-            return (
-              <li
-                key={rank.id}
-                className={`${elite ? "glass-heavy" : "glass"} relative overflow-hidden rounded-xl p-6 text-center flex flex-col items-center transition-all duration-300 ${reveal}`}
-                style={phase === "shown" ? { transitionDelay: `${i * 60}ms` } : undefined}
-              >
-                {elite && (
-                  <div className="accent-stripe rounded-t-xl absolute top-0 left-0 right-0" />
-                )}
-                <Image
-                  src={assetPath(`/badges/${rank.id}.svg`)}
-                  alt=""
-                  width={92}
-                  height={80}
-                  className="mx-auto"
-                />
-                <h3 className="mt-4 font-semibold text-text">{rank.name}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-muted">
-                  {rank.description}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-
-        <p className="mt-8 text-center text-sm text-muted">
-          Start at the bottom. Climb by shipping fixes.
-        </p>
-      </Container>
-    </section>
+      <p className="mt-16 font-display text-2xl font-bold text-text">One verified fix at a time.</p>
+    </Section>
   );
 }
