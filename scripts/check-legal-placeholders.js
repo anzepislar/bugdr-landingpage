@@ -45,7 +45,8 @@ const SCAN_FILES = [
 //       "[CONFIRM safeguards, e.g. ...]" marker.
 //   B — the short [CONFIRM] tag (covered by A but matched
 //       separately so the report can group them).
-const PLACEHOLDER_RE = /\[[A-Z0-9][A-Z0-9 _,\.\(\)\-:]*\]/g;
+// First char must be a letter: Tailwind arbitrary values like `[0.07]` are not placeholders.
+const PLACEHOLDER_RE = /\[[A-Z][A-Z0-9 _,\.\(\)\-:]*\]/g;
 const CONFIRM_RE = /\[CONFIRM\]/g;
 
 const repoRoot = path.resolve(__dirname, "..");
