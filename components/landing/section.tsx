@@ -73,7 +73,6 @@ const SCREENSHOT_SIZES: Record<string, [number, number]> = {
   "leaderboard": [1497, 799],
 };
 
-// Links to the full-size file: on phones the in-page image can still be small.
 export function Screenshot({ name, alt }: { name: string; alt: string }) {
   const src = assetPath(`/screenshots/${name}.webp`);
   const [width, height] = SCREENSHOT_SIZES[name];
@@ -82,18 +81,16 @@ export function Screenshot({ name, alt }: { name: string; alt: string }) {
       className="glass mx-auto mt-12 overflow-hidden rounded-card p-1.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] md:p-2"
       style={{ maxWidth: width / 2 + 16 }}
     >
-      <a href={src} target="_blank" rel="noopener" className="block cursor-zoom-in" aria-label={`${alt} Open full size.`}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- static export, images unoptimized */}
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="lazy"
-          decoding="async"
-          className="block h-auto w-full rounded-[10px]"
-        />
-      </a>
+      {/* eslint-disable-next-line @next/next/no-img-element -- static export, images unoptimized */}
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        className="block h-auto w-full rounded-[10px]"
+      />
     </figure>
   );
 }
