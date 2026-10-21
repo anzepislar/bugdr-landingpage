@@ -7,7 +7,7 @@ import { assetPath } from "@/lib/asset-path";
 import { Countdown } from "@/components/landing/countdown";
 
 // Sticky top nav. "home": transparent over the hero, glass once the page
-// scrolls; section links hide on mobile, the CTA stays. "legal": logo and
+// scrolls; section links hide on mobile. "legal": logo and
 // a link back home (privacy / terms pages).
 
 const links = [
@@ -104,9 +104,6 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
                   {l.label}
                 </a>
               ))}
-              <a href="#waitlist" className="btn-action px-4 py-2">
-                Get early access
-              </a>
             </nav>
           </>
         )}

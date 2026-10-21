@@ -1,12 +1,14 @@
 import { DIFFICULTY_COLOR, type Difficulty, Paras, Screenshot, Section } from "@/components/landing/section";
+import { APP_URL } from "@/lib/site";
 
-const problems: { title: string; tags: string[]; difficulty: Difficulty }[] = [
-  { title: "Duplicate charge on checkout", tags: ["Backend", "Payments"], difficulty: "Hard" },
-  { title: "Slow dashboard query", tags: ["Backend", "Database"], difficulty: "Medium" },
-  { title: "Failed deployment rollback", tags: ["DevOps"], difficulty: "Hard" },
-  { title: "Race condition in job queue", tags: ["Backend", "Async"], difficulty: "Hard" },
-  { title: "Broken OAuth redirect", tags: ["Full-stack", "Auth"], difficulty: "Medium" },
-  { title: "Memory leak in image pipeline", tags: ["Backend", "Performance"], difficulty: "Hard" },
+// Live problems in the app (titles, difficulty and stack from its API).
+const problems: { slug: string; title: string; tags: string[]; difficulty: Difficulty }[] = [
+  { slug: "conversation-compaction-runner", title: "Conversation Compaction Runner", tags: ["AI / LLM", "Python"], difficulty: "Easy" },
+  { slug: "autocast-aware-variable-store", title: "Autocast-aware Variable Store", tags: ["AI / LLM", "Python"], difficulty: "Medium" },
+  { slug: "chat-history-truncation-reducer", title: "Chat History Truncation Reducer", tags: ["AI / LLM", "Python"], difficulty: "Medium" },
+  { slug: "tool-invocation-helpers-for-llm-tool-calls", title: "Tool Invocation Helpers for LLM Tool Calls", tags: ["AI / LLM", "Python"], difficulty: "Medium" },
+  { slug: "google-ai-service-client-initialization", title: "Google AI Service Client Initialization", tags: ["AI / LLM", "Python"], difficulty: "Medium" },
+  { slug: "geo-distance-formula-scoring", title: "Geo distance formula scoring", tags: ["AI / LLM", "Python"], difficulty: "Easy" },
 ];
 
 export function ProblemLibrary() {
@@ -28,19 +30,32 @@ export function ProblemLibrary() {
         {problems.map((p) => {
           const color = DIFFICULTY_COLOR[p.difficulty];
           return (
-            <li key={p.title} className="card flex flex-col gap-3 p-5">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-[15px] font-medium text-text">{p.title}</h3>
-                <span
-                  className="shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
-                  style={{ color, background: `${color}1a` }}
-                >
-                  {p.difficulty}
-                </span>
-              </div>
-              <p className="text-xs text-muted">
-                {[...p.tags, p.difficulty].join(" · ")}
-              </p>
+            <li key={p.slug}>
+              <a
+                href={`${APP_URL}/problems/${p.slug}`}
+                className="card group flex h-full flex-col gap-3 p-5"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-[15px] font-medium text-text">{p.title}</h3>
+                  <span
+                    className="shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+                    style={{ color, background: `${color}1a` }}
+                  >
+                    {p.difficulty}
+                  </span>
+                </div>
+                <div className="mt-auto flex items-end justify-between gap-3">
+                  <p className="text-xs text-muted">
+                    {[...p.tags, p.difficulty].join(" · ")}
+                  </p>
+                  <span
+                    aria-hidden
+                    className="text-action transition-transform duration-200 group-hover:translate-x-0.5"
+                  >
+                    →
+                  </span>
+                </div>
+              </a>
             </li>
           );
         })}

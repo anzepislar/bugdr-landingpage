@@ -1,6 +1,7 @@
 import { Section } from "@/components/landing/section";
+import { APP_URL } from "@/lib/site";
 
-// Pre-launch: every CTA joins the waitlist. At launch, paid plans link to
+// Every plan's CTA opens the app. Paid plans could later deep-link to
 // app.bugdr.app/checkout?plan=own-key|pro|max.
 
 type Plan = {
@@ -105,14 +106,14 @@ export function Pricing() {
             </ul>
 
             <a
-              href="#waitlist"
+              href={APP_URL}
               className={
                 p.featured
                   ? "btn-action mt-auto w-full"
                   : "mt-auto inline-flex w-full items-center justify-center rounded-btn border border-white/[0.12] px-5 py-3 text-sm font-semibold text-text transition-colors hover:border-action/50 hover:text-action"
               }
             >
-              Join the waitlist
+              Start now
             </a>
           </article>
         ))}
