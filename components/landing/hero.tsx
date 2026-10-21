@@ -1,3 +1,5 @@
+import { APP_URL } from "@/lib/site";
+
 // Full-viewport hero. Transparent, so the fixed night sky (sky.tsx) shows through.
 export function Hero() {
   return (
@@ -10,8 +12,8 @@ export function Hero() {
           AI can write your code. Bugdr challenges you to understand it, find
           what broke, and prove your fix works.
         </p>
-        <a href="#waitlist" className="btn-action mt-10 px-6 py-3.5 text-base">
-          Get early access
+        <a href={APP_URL} className="btn-action mt-10 px-6 py-3.5 text-base">
+          Start now
         </a>
       </div>
 
