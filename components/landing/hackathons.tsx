@@ -1,4 +1,5 @@
 import { Paras, Section } from "@/components/landing/section";
+import { APP_URL } from "@/lib/site";
 
 const details = [
   "Same case for every participant.",
@@ -39,8 +40,8 @@ export function Hackathons() {
             </li>
           ))}
         </ul>
-        <a href="#waitlist" className="link-action mt-8 inline-block">
-          Join the waitlist to compete →
+        <a href={APP_URL} className="link-action mt-8 inline-block">
+          Start now →
         </a>
       </article>
       <p className="mt-4 text-xs italic text-muted2">Hackathon details revealed at launch.</p>

@@ -23,11 +23,12 @@ export function CareerPaths() {
       }
     >
       <div className="glass mt-12 rounded-card p-6 md:p-8">
-        <ol className="flex flex-wrap items-center gap-2 text-sm" aria-label="Difficulty progression">
+        {/* Always one line: pills shrink with the viewport instead of wrapping. */}
+        <ol className="flex flex-nowrap items-center gap-1 text-[clamp(9px,2.8vw,14px)] sm:gap-2" aria-label="Difficulty progression">
           {stages.map((d, i) => (
-            <li key={d} className="flex items-center gap-2">
+            <li key={d} className="flex shrink-0 items-center gap-1 sm:gap-2">
               <span
-                className="rounded-full border px-3 py-1 font-medium"
+                className="whitespace-nowrap rounded-full border px-1.5 py-0.5 font-medium min-[400px]:px-2 sm:px-3 sm:py-1"
                 style={{ color: DIFFICULTY_COLOR[d], borderColor: `${DIFFICULTY_COLOR[d]}55` }}
               >
                 {d}
