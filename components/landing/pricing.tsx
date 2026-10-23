@@ -44,19 +44,6 @@ const plans: Plan[] = [
     featured: true,
   },
   {
-    name: "Own Key",
-    price: "€12.99",
-    unit: "/month",
-    lead: "Your key. Your model. Your AI bill.",
-    items: [
-      "Everything in Pro.",
-      "Bring your Anthropic or OpenAI API key.",
-      "Choose a supported model through your provider.",
-      "Unlimited prompts on Bugdr, subject to your provider's limits.",
-      "Provider AI usage charges are paid separately.",
-    ],
-  },
-  {
     name: "Max",
     price: "€199",
     unit: "/month",
@@ -66,6 +53,19 @@ const plans: Plan[] = [
       "Claude Opus.",
       "150 AI prompts per day, with a hard cap.",
       "Elite efficiency scoring.",
+    ],
+  },
+  {
+    name: "Own Key",
+    price: "€12.99",
+    unit: "/month",
+    lead: "For engineers who run their own AI stack.",
+    items: [
+      "Everything in Pro.",
+      "Bring your Anthropic or OpenAI API key.",
+      "Choose a supported model through your provider.",
+      "Unlimited prompts on Bugdr, subject to your provider's limits.",
+      "Provider AI usage charges are paid separately.",
     ],
   },
 ];
