@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "@/lib/asset-path";
 import { Countdown } from "@/components/landing/countdown";
+import { CtaButton } from "@/components/landing/cta-button";
 
 // Sticky top nav. "home": transparent over the hero, glass once the page
 // scrolls; section links hide on mobile. "legal": logo and
@@ -64,10 +65,15 @@ function Logo({ href }: { href: string }) {
 
 export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
   const [scrolled, setScrolled] = useState(variant === "legal");
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     if (variant !== "home") return;
-    const update = () => setScrolled(window.scrollY > 8);
+    // Hero is one viewport tall (100svh); past it minus the 64px bar = hero is gone.
+    const update = () => {
+      setScrolled(window.scrollY > 8);
+      setPastHero(window.scrollY > window.innerHeight - 64);
+    };
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
@@ -104,6 +110,7 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
                   {l.label}
                 </a>
               ))}
+              <CtaButton hidden={!pastHero} />
             </nav>
           </>
         )}

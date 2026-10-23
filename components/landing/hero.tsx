@@ -1,4 +1,4 @@
-import { APP_URL } from "@/lib/site";
+import { CtaButton } from "@/components/landing/cta-button";
 
 // Full-viewport hero. Transparent, so the fixed night sky (sky.tsx) shows through.
 export function Hero() {
@@ -12,9 +12,7 @@ export function Hero() {
           AI can write your code. Bugdr challenges you to understand it, find
           what broke, and prove your fix works.
         </p>
-        <a href={APP_URL} className="btn-action mt-10 px-6 py-3.5 text-base">
-          Start now
-        </a>
+        <CtaButton className="mt-10" />
       </div>
 
       <a

@@ -1,5 +1,5 @@
 import { Section } from "@/components/landing/section";
-import { APP_URL } from "@/lib/site";
+import { CtaButton } from "@/components/landing/cta-button";
 
 // Every plan's CTA opens the app. Paid plans could later deep-link to
 // app.bugdr.app/checkout?plan=own-key|pro|max.
@@ -105,16 +105,7 @@ export function Pricing() {
               ))}
             </ul>
 
-            <a
-              href={APP_URL}
-              className={
-                p.featured
-                  ? "btn-action mt-auto w-full"
-                  : "mt-auto inline-flex w-full items-center justify-center rounded-btn border border-white/[0.12] px-5 py-3 text-sm font-semibold text-text transition-colors hover:border-action/50 hover:text-action"
-              }
-            >
-              Start now
-            </a>
+            <CtaButton className="mt-auto w-full" />
           </article>
         ))}
       </div>

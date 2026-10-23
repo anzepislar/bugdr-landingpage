@@ -1,5 +1,5 @@
 import { Paras, Section } from "@/components/landing/section";
-import { APP_URL } from "@/lib/site";
+import { CtaButton } from "@/components/landing/cta-button";
 
 const details = [
   "Same case for every participant.",
@@ -40,9 +40,7 @@ export function Hackathons() {
             </li>
           ))}
         </ul>
-        <a href={APP_URL} className="link-action mt-8 inline-block">
-          Start now →
-        </a>
+        <CtaButton className="mt-8" />
       </article>
       <p className="mt-4 text-xs italic text-muted2">Hackathon details revealed at launch.</p>
     </Section>

@@ -97,6 +97,36 @@ code {
     box-shadow: 0 0 24px rgba(139, 172, 255, 0.35);
   }
 
+  /* Grey CTA with glowing action outline and a round arrow badge. */
+  .btn-cta {
+    @apply inline-flex items-center gap-3 rounded-full border border-action/60 bg-surface py-1 pl-4 pr-1 text-sm font-semibold text-text;
+    box-shadow: 0 0 14px rgba(139, 172, 255, 0.22);
+    /* Slow ease back to rest once the cursor leaves. */
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms, border-color 200ms;
+  }
+  /* Snappy while following the cursor (set by CtaButton). */
+  .btn-cta[data-following] {
+    transition: transform 150ms ease-out, box-shadow 200ms, border-color 200ms;
+  }
+  .btn-cta:hover {
+    @apply border-action;
+    box-shadow: 0 0 22px rgba(139, 172, 255, 0.4);
+  }
+  .btn-cta-arrow {
+    @apply flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-action text-canvas;
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .btn-cta-arrow:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 18px rgba(139, 172, 255, 0.7);
+  }
+  .btn-cta-arrow:hover svg {
+    animation: arrow-swap 450ms ease-in-out;
+  }
+  .btn-cta:active .btn-cta-arrow {
+    transform: scale(0.92);
+  }
+
   .link-action {
     @apply text-sm font-medium text-action transition-opacity hover:opacity-80;
   }
@@ -213,4 +243,12 @@ code {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
+}
+
+/* Arrow exits right, re-enters from the left. */
+@keyframes arrow-swap {
+  0% { transform: translateX(0); }
+  49% { transform: translateX(160%); }
+  50% { transform: translateX(-160%); }
+  100% { transform: translateX(0); }
 }
