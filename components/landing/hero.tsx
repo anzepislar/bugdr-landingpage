@@ -1,4 +1,15 @@
 import { CtaButton } from "@/components/landing/cta-button";
+import { APP_URL } from "@/lib/site";
+
+// "Where do you want to work?" chips. The app reads ?company= on signup.
+const companies = [
+  { name: "Stripe", slug: "stripe", domain: "stripe.com" },
+  { name: "Google", slug: "google", domain: "google.com" },
+  { name: "Meta", slug: "meta", domain: "meta.com" },
+  { name: "Airbnb", slug: "airbnb", domain: "airbnb.com" },
+  { name: "Netflix", slug: "netflix", domain: "netflix.com" },
+  { name: "Shopify", slug: "shopify", domain: "shopify.com" },
+];
 
 // Full-viewport hero. Transparent, so the fixed night sky (sky.tsx) shows through.
 export function Hero() {
@@ -13,6 +24,37 @@ export function Hero() {
           what broke, and prove your fix works.
         </p>
         <CtaButton className="mt-10" />
+
+        <div className="mt-14">
+          <h2 className="font-display text-xl font-bold text-text">Where do you want to work?</h2>
+          <p className="mt-1.5 text-sm text-muted">Pick a company and start fixing their real bugs.</p>
+          <ul className="mt-5 flex flex-wrap items-center gap-2.5">
+            {companies.map((c) => (
+              <li key={c.slug}>
+                <a
+                  href={`${APP_URL}/signup?company=${c.slug}`}
+                  className="flex items-center gap-2 rounded-full border border-white/[0.12] bg-surface/70 px-3.5 py-1.5 text-sm font-medium text-text transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-action/50 hover:shadow-[0_0_16px_rgba(139,172,255,0.2)]"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- external favicon, static export */}
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${c.domain}&sz=32`}
+                    alt=""
+                    width={16}
+                    height={16}
+                    loading="lazy"
+                    className="h-4 w-4 rounded-sm"
+                  />
+                  {c.name}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={`${APP_URL}/signup`} className="px-1 text-sm text-muted transition-colors hover:text-text">
+                + more
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <a
