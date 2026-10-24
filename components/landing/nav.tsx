@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "@/lib/asset-path";
-import { Countdown } from "@/components/landing/countdown";
 import { CtaButton } from "@/components/landing/cta-button";
 
 // Sticky top nav. "home": transparent over the hero, glass once the page
@@ -15,38 +14,6 @@ const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
 ];
-
-// Launch hackathon teaser. "inline" sits in the bar on lg+; "strip" is a
-// slim full-width row under the bar on smaller screens.
-function HackathonBadge({ variant }: { variant: "inline" | "strip" }) {
-  const inline = variant === "inline";
-  return (
-    <a
-      href="#hackathons"
-      className={
-        inline
-          ? "group hidden items-center gap-2.5 rounded-full border border-action/25 bg-action/[0.06] px-3.5 py-1.5 text-xs transition-colors hover:border-action/50 lg:inline-flex"
-          : "flex items-center justify-center gap-2.5 border-t border-white/[0.06] bg-action/[0.06] px-5 py-2 text-xs lg:hidden"
-      }
-    >
-      <span aria-hidden className="relative flex h-1.5 w-1.5">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-action opacity-70 motion-safe:animate-ping" />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-action" />
-      </span>
-      <span className="font-medium text-text">Launch hackathon</span>
-      <span className="text-muted">
-        Oct 21{inline && <> · 20:00 CEST</>}
-      </span>
-      <span aria-hidden className="h-3 w-px bg-white/15" />
-      <span className="text-muted">
-        <span className={inline ? "" : "hidden sm:inline"}>Starts in </span>
-        <span className="text-action">
-          <Countdown />
-        </span>
-      </span>
-    </a>
-  );
-}
 
 function Logo({ href }: { href: string }) {
   return (
@@ -99,7 +66,6 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
         ) : (
           <>
             <Logo href="#top" />
-            <HackathonBadge variant="inline" />
             <nav aria-label="Primary" className="flex items-center gap-6">
               {links.map((l) => (
                 <a
@@ -115,7 +81,6 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
           </>
         )}
       </div>
-      {variant === "home" && <HackathonBadge variant="strip" />}
     </header>
   );
 }

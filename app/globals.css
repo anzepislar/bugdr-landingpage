@@ -32,12 +32,6 @@ body {
 section[id] {
   scroll-margin-top: 72px;
 }
-/* Below lg the nav carries the hackathon strip, so it's ~33px taller. */
-@media (max-width: 1023px) {
-  section[id] {
-    scroll-margin-top: 108px;
-  }
-}
 
 pre,
 code {
