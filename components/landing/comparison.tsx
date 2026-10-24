@@ -1,3 +1,4 @@
+import { Wordmark } from "@/components/landing/wordmark";
 import { Section } from "@/components/landing/section";
 
 const rows = [
@@ -12,11 +13,11 @@ export function Comparison() {
   return (
     <Section
       id="why"
-      label="Why Bugdr"
+      label={<>Why <Wordmark /></>}
       heading="Writing an answer is one skill. Finding the failure is another."
       intro={
         <p>
-          Coding puzzles ask you to solve a defined problem. Bugdr asks you to
+          Coding puzzles ask you to solve a defined problem. <Wordmark /> asks you to
           investigate what went wrong in an existing codebase.
         </p>
       }
@@ -33,7 +34,7 @@ export function Comparison() {
                 Coding puzzle
               </th>
               <th scope="col" className="px-5 py-4 font-semibold text-action md:px-6">
-                Bugdr
+                <Wordmark />
               </th>
             </tr>
           </thead>

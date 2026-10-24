@@ -1,3 +1,4 @@
+import { Brandify } from "@/components/landing/wordmark";
 import { Section } from "@/components/landing/section";
 import { CtaButton } from "@/components/landing/cta-button";
 
@@ -100,7 +101,9 @@ export function Pricing() {
                   <svg aria-hidden width="14" height="14" viewBox="0 0 14 14" className="mt-[3px] shrink-0 text-action">
                     <path d="M3 7.5l2.5 2.5L11 4.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  {item}
+                  <span>
+                    <Brandify>{item}</Brandify>
+                  </span>
                 </li>
               ))}
             </ul>

@@ -1,3 +1,4 @@
+import { Wordmark } from "@/components/landing/wordmark";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/landing/container";
@@ -25,7 +26,9 @@ export function Footer() {
           </nav>
         </div>
         <div className="space-y-1 text-xs text-muted2">
-          <p>© 2026 Bugdr. All rights reserved.</p>
+          <p>
+            © 2026 <Wordmark />. All rights reserved.
+          </p>
           <OperatorLine className="text-xs text-muted2" />
         </div>
       </Container>

@@ -1,3 +1,4 @@
+import { Wordmark } from "@/components/landing/wordmark";
 import { Paras, Screenshot, Section, ShareCard } from "@/components/landing/section";
 
 const stats = [
@@ -30,7 +31,9 @@ export function AIFeedback() {
             <span className="sr-only">You: </span>It passes. What could I do better?
           </div>
           <div className="w-fit max-w-[85%] rounded-xl rounded-bl-sm border border-white/[0.07] bg-surface2 px-4 py-2.5 text-text">
-            <span className="mb-1 block text-xs font-medium text-action">Bugdr</span>
+            <span className="mb-1 block text-xs font-medium text-action">
+              <Wordmark />
+            </span>
             You fixed the failure. Now tighten the investigation.
           </div>
         </div>

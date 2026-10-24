@@ -1,3 +1,4 @@
+import { Wordmark } from "@/components/landing/wordmark";
 import { CtaButton } from "@/components/landing/cta-button";
 import { APP_URL } from "@/lib/site";
 
@@ -20,7 +21,7 @@ export function Hero() {
           Your title doesn&apos;t fix bugs.
         </h1>
         <p className="mt-8 max-w-[52ch] text-lg leading-relaxed text-muted md:text-xl">
-          AI can write your code. Bugdr challenges you to understand it, find
+          AI can write your code. <Wordmark /> challenges you to understand it, find
           what broke, and prove your fix works.
         </p>
         <CtaButton className="mt-10" />

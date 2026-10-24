@@ -1,3 +1,4 @@
+import { Brandify } from "@/components/landing/wordmark";
 import { Container } from "@/components/landing/container";
 import { assetPath } from "@/lib/asset-path";
 
@@ -11,7 +12,7 @@ export function Section({
   children,
 }: {
   id?: string;
-  label: string;
+  label: React.ReactNode;
   heading?: string;
   intro?: React.ReactNode;
   children?: React.ReactNode;
@@ -41,11 +42,14 @@ export function Section({
 }
 
 // Body copy with line breaks kept from the source copy: each string is a paragraph.
+// "Bugdr" renders as the inline logo.
 export function Paras({ children }: { children: string[] }) {
   return (
     <>
       {children.map((p) => (
-        <p key={p}>{p}</p>
+        <p key={p}>
+          <Brandify>{p}</Brandify>
+        </p>
       ))}
     </>
   );
