@@ -11,7 +11,15 @@ import { APP_URL } from "@/lib/site";
 const RANGE = 110;
 const PULL = 0.3;
 
-export function CtaButton({ className = "", hidden = false }: { className?: string; hidden?: boolean }) {
+export function CtaButton({
+  className = "",
+  hidden = false,
+  label = "Start now",
+}: {
+  className?: string;
+  hidden?: boolean;
+  label?: string;
+}) {
   const wrapRef = useRef<HTMLSpanElement>(null);
   const linkRef = useRef<HTMLAnchorElement>(null);
 
@@ -61,7 +69,7 @@ export function CtaButton({ className = "", hidden = false }: { className?: stri
         tabIndex={hidden ? -1 : undefined}
         className="btn-cta w-full justify-between"
       >
-        Start now
+        {label}
         <span aria-hidden className="btn-cta-arrow">
           <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

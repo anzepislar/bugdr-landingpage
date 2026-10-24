@@ -6,8 +6,8 @@ import Link from "next/link";
 import { assetPath } from "@/lib/asset-path";
 import { CtaButton } from "@/components/landing/cta-button";
 
-// Sticky top nav. "home": transparent over the hero, glass once the page
-// scrolls; section links hide on mobile. "legal": logo and
+// Sticky full-width top nav. "home": always transparent; section links hide
+// on mobile. "legal": logo and
 // a link back home (privacy / terms pages).
 
 const links = [
@@ -31,16 +31,12 @@ function Logo({ href }: { href: string }) {
 }
 
 export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
-  const [scrolled, setScrolled] = useState(variant === "legal");
   const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     if (variant !== "home") return;
     // Hero is one viewport tall (100svh); past it minus the 64px bar = hero is gone.
-    const update = () => {
-      setScrolled(window.scrollY > 8);
-      setPastHero(window.scrollY > window.innerHeight - 64);
-    };
+    const update = () => setPastHero(window.scrollY > window.innerHeight - 64);
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
@@ -49,13 +45,14 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300",
-        scrolled
-          ? "border-white/[0.07] bg-canvas/70 backdrop-blur-xl"
-          : "border-transparent",
-      ].join(" ")}
+        "fixed inset-x-0 top-0 z-50 overflow-x-clip",
+        // Home stays transparent; legal pages keep the bar so text doesn't run under the logo.
+        variant === "legal" && "border-b border-white/[0.07] bg-canvas/70 backdrop-blur-xl",
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      <div className="mx-auto flex h-16 max-w-[1100px] items-center justify-between gap-4 px-5 md:px-8">
+      <div className="flex h-16 items-center justify-between gap-4 px-5 md:px-8">
         {variant === "legal" ? (
           <>
             <Logo href="/" />
@@ -76,7 +73,18 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
                   {l.label}
                 </a>
               ))}
-              <CtaButton hidden={!pastHero} />
+              {/* Column animates 0fr -> 1fr: the links slide left as the CTA comes in.
+                  -ml-6/pl-6 cancel the nav gap while collapsed. */}
+              <div
+                className={[
+                  "-ml-6 grid transition-[grid-template-columns] duration-500 ease-out",
+                  pastHero ? "grid-cols-[1fr]" : "grid-cols-[0fr]",
+                ].join(" ")}
+              >
+                <div className="min-w-0 pl-6">
+                  <CtaButton hidden={!pastHero} label="Login" />
+                </div>
+              </div>
             </nav>
           </>
         )}
