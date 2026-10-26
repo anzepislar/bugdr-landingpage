@@ -22,7 +22,7 @@ const plans: Plan[] = [
     unit: "/month",
     items: [
       "All difficulty levels.",
-      "30 AI prompts per day.",
+      "40,000 tokens / day.",
       "Basic AI assistant: Haiku.",
       "Efficiency scoring.",
       "Public leaderboard.",
@@ -30,13 +30,13 @@ const plans: Plan[] = [
   },
   {
     name: "Pro",
-    price: "€19.99",
+    price: "€29.99",
     unit: "/month",
-    alt: "or €159/year",
-    lead: "€13.25/month when billed annually. Save ~€81/year.",
+    alt: "or €239/year",
+    lead: "~€19.92/month when billed annually. Save 33%.",
     items: [
       "Everything in Free.",
-      "150 AI prompts per day.",
+      "100,000 tokens / day.",
       "Claude Sonnet or GPT-4o.",
       "Career paths.",
       "AI feedback after every solve.",
@@ -52,7 +52,7 @@ const plans: Plan[] = [
     items: [
       "Everything in Pro.",
       "Claude Opus.",
-      "150 AI prompts per day, with a hard cap.",
+      "200,000 tokens / day, with a hard cap.",
       "Elite efficiency scoring.",
     ],
   },
@@ -65,7 +65,7 @@ const plans: Plan[] = [
       "Everything in Pro.",
       "Bring your Anthropic or OpenAI API key.",
       "Choose a supported model through your provider.",
-      "Unlimited prompts on Bugdr, subject to your provider's limits.",
+      "Unlimited tokens on Bugdr, subject to your provider's limits.",
       "Provider AI usage charges are paid separately.",
     ],
   },
@@ -113,7 +113,8 @@ export function Pricing() {
         ))}
       </div>
 
-      <p className="mt-8 text-center text-sm text-muted">Payments open after launch.</p>
+      <p className="mt-8 text-center text-sm text-muted">Tokens measure how much of the codebase the AI reads. Better engineers use fewer.</p>
+      <p className="mt-2 text-center text-sm text-muted">Payments open after launch.</p>
     </Section>
   );
 }

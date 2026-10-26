@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "What does Pro include?",
-    a: "Career paths, AI feedback after each solve, additional daily prompts, and the listed Pro model options. €19.99 monthly or €159 yearly.",
+    a: "Career paths, AI feedback after each solve, a higher daily token limit, and the listed Pro model options. €29.99 monthly or €239 yearly.",
   },
   {
     q: "Will a path get me a job?",
