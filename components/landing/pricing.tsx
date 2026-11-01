@@ -48,7 +48,7 @@ const plans: Plan[] = [
     name: "Max",
     price: "€199",
     unit: "/month",
-    lead: "For those who want the Opus option.",
+    lead: "Every Claude model, one daily budget.",
     items: [
       "Everything in Pro.",
       "Pick your model in the chat, one daily budget:",
