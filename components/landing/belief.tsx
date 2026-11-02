@@ -5,14 +5,13 @@ export function Belief() {
     <Section
       id="belief"
       label="The belief"
-      heading="The code doesn't care what's on your CV."
+      heading="3am, broken code, you and your agent"
       intro={
         <Paras>
           {[
-            "Something broke. A customer is waiting. Your first fix looks convincing.",
-            "Does it actually work?",
-            "Bugdr gives you practice codebases built around failures you could face at work. Read the report. Follow the evidence. Use AI. Test your changes.",
-            "You own the fix.",
+            "When you don't write the code and something’s broken. Where do you start?",
+            "Bugdr puts you and your AI agent inside a codebase that big tech companies work with. Learn what matters, give your agent useful context, challenge its suggestions, and check that the fix works.",
+            "Use AI. Own the code.",
           ]}
         </Paras>
       }

@@ -3,27 +3,23 @@ import { Paras, Screenshot, Section } from "@/components/landing/section";
 const steps = [
   {
     n: "01",
-    title: "Read the scene.",
+    title: "Get dropped into unfamiliar code.",
     body: [
-      "Start with the bug report and explore the codebase. Learn what should happen and what happens instead. The cause is yours to find.",
-      "The timer starts when you start the case.",
+      "Choose a case built around a real-world failure. Read the report and explore the codebase. You know what’s broken. Finding out “why” is your first challenge.",
     ],
   },
   {
     n: "02",
-    title: "Follow the evidence.",
+    title: "Investigate together.",
     body: [
-      "The editor, terminal, and AI assistant run in your browser.",
-      "Trace the failure. Ask questions. Try a focused change. Run the code.",
-      "Your prompts, token usage, and test runs are recorded during the session.",
+      "Use the editor, terminal, and AI agent in your browser. Decide what to inspect, what context to share, and which changes to make. Bugdr records your prompts, token usage, time, and test runs.",
     ],
   },
   {
     n: "03",
-    title: "Make the fix hold.",
+    title: "Fix it, without breaking it.",
     body: [
-      "Run the acceptance checks. Solve the reported problem and keep the rest working.",
-      "Your first successful result is saved. Replaying the case won't replace it with a higher score.",
+      "Pass the acceptance checks without breaking existing code. Your first successful result is saved. See what your approach took—and what you can improve next time.",
     ],
   },
 ];
@@ -40,7 +36,7 @@ const checks = [
 
 export function HowItWorks() {
   return (
-    <Section id="how-it-works" label="How it works" heading="One case. Your investigation.">
+    <Section id="how-it-works" label="How it works" heading="Enter the codebase. Lead your agent.">
       <ol className="mt-12 grid gap-4 md:grid-cols-3">
         {steps.map((s) => (
           <li key={s.n} className="card flex flex-col p-6 md:p-7">

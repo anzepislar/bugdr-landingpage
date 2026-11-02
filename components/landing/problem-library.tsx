@@ -16,12 +16,11 @@ export function ProblemLibrary() {
     <Section
       id="library"
       label="Problem library"
-      heading="Something's broken. Pick your case."
+      heading="A codebase you don’t know and a bug you need to fix."
       intro={
         <Paras>
           {[
-            "Duplicate charges. Slow queries. Failed deployments.",
-            "Browse by role, topic, and difficulty. Every case gives you a brief and acceptance checks, so you know what the fix needs to achieve.",
+            "Explore cases by role, topic, and difficulty, or choose bugs rebuilt from companies’ open-source projects. Each case gives you a report and acceptance checks. You and your agent work out the rest.",
           ]}
         </Paras>
       }

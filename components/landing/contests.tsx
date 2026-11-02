@@ -5,12 +5,12 @@ export function Contests() {
     <Section
       id="contests"
       label="Contests and dashboard"
-      heading="Same failure. Different approaches."
+      heading="Same codebase. Same bug. Different AI skills."
       intro={
         <Paras>
           {[
-            "Daily, weekly, and monthly contests put participants on the same case. Bring your own approach and see how it compares.",
-            "Your dashboard keeps your next case and progress in view.",
+            "Take on the same case as other participants. Compare your results and the time, prompts, and tokens your approach required.",
+            "Your dashboard keeps your next challenge and progress in view.",
           ]}
         </Paras>
       }

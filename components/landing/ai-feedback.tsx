@@ -12,12 +12,12 @@ export function AIFeedback() {
     <Section
       id="feedback"
       label="Session feedback"
-      heading="It passes. Now understand how you got there."
+      heading="See how well you and your agent worked."
       intro={
         <Paras>
           {[
-            "After a solve, your session debrief looks at your prompts, tokens, and test runs. Compare your approach with other participants on that case and find something useful to try next time.",
-            "A working fix matters. So does learning a process you can repeat.",
+            "A working fix is the result. Your session shows how you reached it: the time you took, prompts you sent, tokens you used, and tests you ran.",
+            "Compare your approach with other participants on the same case. Learn where clearer context, better investigation, or a more focused change could have saved time and effort.",
           ]}
         </Paras>
       }

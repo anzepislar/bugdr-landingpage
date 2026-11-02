@@ -13,12 +13,13 @@ export function CareerPaths() {
     <Section
       id="career-paths"
       label="Career paths"
-      heading="Pick the work. Practice your way toward it."
+      heading="Practise the code you want to work with."
       intro={
         <p>
-          Choose a target role and follow a structured path through relevant
-          cases. Start with focused bugs, then take on failures that require a
-          deeper investigation.
+          Choose a target role and which industry you want to work in, then
+          walk through unfamiliar codebases with your AI agent. Start with
+          focused bugs, and then failures that demand deeper investigation and
+          more deliberate AI use.
         </p>
       }
     >

@@ -2,11 +2,11 @@ import { Wordmark } from "@/components/landing/wordmark";
 import { Section } from "@/components/landing/section";
 
 const rows = [
-  ["The task", "Solve a standalone problem.", "Investigate a failure in existing code."],
-  ["AI", "Rules depend on the assessment.", "Available in the workspace."],
-  ["The work", "Build a solution from the prompt.", "Read, diagnose, change, and test."],
-  ["The checks", "Does the solution produce the expected output?", "Is the failure fixed without breaking the rest?"],
-  ["What you show", "Your solution.", "Your fix and the investigation behind it."],
+  ["The task", "Solve a standalone problem.", "Investigate a bug in an unfamiliar codebase."],
+  ["AI", "Rules depend on the assessment.", "Your agent works alongside you."],
+  ["The work", "Build a solution from the prompt.", "Explore the code, direct your agent, and test changes."],
+  ["The checks", "Does your answer produce the expected output?", "Is the bug fixed without breaking the rest?"],
+  ["What you show", "Your solution.", "Your fix, investigation, and AI efficiency."],
 ];
 
 export function Comparison() {
@@ -14,11 +14,12 @@ export function Comparison() {
     <Section
       id="why"
       label={<>Why <Wordmark /></>}
-      heading="Writing an answer is one skill. Finding the failure is another."
+      heading="Anyone can prompt BUT can you lead the investigation?"
       intro={
         <p>
-          Coding puzzles ask you to solve a defined problem. <Wordmark /> asks you to
-          investigate what went wrong in an existing codebase.
+          Working with AI gets harder when you don&rsquo;t know the codebase&mdash;or
+          where the bug is hiding. <Wordmark /> gives you that challenge and scores how
+          you handle it.
         </p>
       }
     >
