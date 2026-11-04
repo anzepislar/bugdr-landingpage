@@ -24,7 +24,7 @@ export function Hero() {
           AI can write your code. <Wordmark /> challenges you to understand it, find
           what broke, and prove your fix works.
         </p>
-        <CtaButton className="mt-10" />
+        <CtaButton className="mt-10" variant="b" />
 
         <div className="mt-14">
           <h2 className="font-display text-xl font-bold text-text">Where do you want to work?</h2>

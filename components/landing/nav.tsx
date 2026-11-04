@@ -82,7 +82,7 @@ export function Nav({ variant = "home" }: { variant?: "home" | "legal" }) {
                 ].join(" ")}
               >
                 <div className="min-w-0 pl-6">
-                  <CtaButton hidden={!pastHero} label="Login" />
+                  <CtaButton hidden={!pastHero} label="Login" variant="b" small />
                 </div>
               </div>
             </nav>

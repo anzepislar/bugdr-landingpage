@@ -67,7 +67,6 @@ export function ProblemLibrary() {
 
       <div className="mt-8 flex flex-col items-center gap-3 text-center">
         <p className="text-sm text-muted">More cases coming at launch, October 21.</p>
-        <a href="#waitlist" className="link-action">Get the launch link →</a>
       </div>
     </Section>
   );

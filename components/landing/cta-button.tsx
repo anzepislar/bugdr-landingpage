@@ -15,10 +15,15 @@ export function CtaButton({
   className = "",
   hidden = false,
   label = "Start now",
+  variant,
+  small = false,
 }: {
   className?: string;
   hidden?: boolean;
   label?: string;
+  // a: pill with amber arrow (pricing). b: solid amber (hero). Unset: nav "Login" style.
+  variant?: "a" | "b";
+  small?: boolean;
 }) {
   const wrapRef = useRef<HTMLSpanElement>(null);
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -67,14 +72,22 @@ export function CtaButton({
         href={APP_URL}
         aria-hidden={hidden || undefined}
         tabIndex={hidden ? -1 : undefined}
-        className="btn-cta w-full justify-between"
+        className={variant ? `cta-${variant}${small ? ` cta-${variant}--sm` : ""}` : "btn-cta w-full justify-between"}
       >
         {label}
-        <span aria-hidden className="btn-cta-arrow">
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+        {variant ? (
+          <span aria-hidden className={`cta-${variant}__icon`}>
+            <svg width={variant === "a" ? 18 : 16} height={variant === "a" ? 18 : 16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={variant === "a" ? 2.5 : 2.75} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </span>
+        ) : (
+          <span aria-hidden className="btn-cta-arrow">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        )}
       </a>
     </span>
   );

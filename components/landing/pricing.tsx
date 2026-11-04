@@ -110,7 +110,7 @@ export function Pricing() {
               ))}
             </ul>
 
-            <CtaButton className="mt-auto w-full" />
+            <CtaButton className="mt-auto w-full" variant="a" />
           </article>
         ))}
       </div>

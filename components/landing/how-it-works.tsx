@@ -75,10 +75,6 @@ export function HowItWorks() {
           </div>
         </div>
       </div>
-
-      <div className="mt-8 text-center">
-        <a href="#waitlist" className="link-action">Get the launch link →</a>
-      </div>
     </Section>
   );
 }

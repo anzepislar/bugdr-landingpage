@@ -12,7 +12,6 @@ import { Contests } from "@/components/landing/contests";
 import { Hackathons } from "@/components/landing/hackathons";
 import { RanksSection } from "@/components/landing/ranks-section";
 import { Pricing } from "@/components/landing/pricing";
-import { Waitlist } from "@/components/landing/waitlist";
 import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
 import { SITE_URL } from "@/lib/site";
@@ -69,7 +68,6 @@ export default function Page() {
         <Hackathons />
         <RanksSection />
         <Pricing />
-        <Waitlist />
         <Faq />
       </main>
       <Footer />
