@@ -3,13 +3,17 @@
 import { useEffect, useRef } from "react";
 import { APP_URL } from "@/lib/site";
 
-// "Start now" pill. Hovering arms it; while armed it drifts toward the cursor
-// as long as the cursor stays within RANGE px of its edge. Past that it eases
-// back (slow return transition lives in .btn-cta) and waits for the next hover.
+// Magnetic CTA. Hovering arms it; while armed it is pulled toward the cursor
+// as long as the cursor stays within RANGE px of its edge. Past that (or when
+// the cursor leaves the page) it eases back to rest and waits for the next hover.
+// Movement is lerped per animation frame and applied via the CSS `translate`
+// property, so it never fights the buttons' own `transform` (:active press)
+// or their CSS transitions, and never touches layout.
 // The wrapper never moves, so measuring it gives a stable resting center
 // (measuring the moving link itself makes it jitter).
 const RANGE = 110;
 const PULL = 0.3;
+const EASE = 0.18; // fraction of the remaining distance covered per frame
 
 export function CtaButton({
   className = "",
@@ -32,13 +36,34 @@ export function CtaButton({
     const wrap = wrapRef.current;
     const link = linkRef.current;
     if (!wrap || !link || hidden) return;
-    if (!matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
+    // Mouse/trackpad only: touch devices and reduced-motion users get plain buttons.
+    if (!matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
+    let armed = false;
+    let tx = 0, ty = 0; // target offset
+    let x = 0, y = 0; // current offset
+    let raf = 0;
+    const tick = () => {
+      x += (tx - x) * EASE;
+      y += (ty - y) * EASE;
+      if (Math.abs(tx - x) < 0.1 && Math.abs(ty - y) < 0.1) {
+        x = tx;
+        y = ty;
+        raf = 0;
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+      link.style.translate = x || y ? `${x}px ${y}px` : "";
+    };
+    const animate = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
     const release = () => {
-      delete link.dataset.following;
-      link.style.transform = "";
+      armed = false;
+      tx = ty = 0;
+      animate();
     };
     const move = (e: PointerEvent) => {
-      if (!("following" in link.dataset)) return;
+      if (!armed || e.pointerType !== "mouse") return;
       const r = wrap.getBoundingClientRect();
       const dx = e.clientX - (r.left + r.width / 2);
       const dy = e.clientY - (r.top + r.height / 2);
@@ -46,9 +71,13 @@ export function CtaButton({
       const ex = Math.max(Math.abs(dx) - r.width / 2, 0);
       const ey = Math.max(Math.abs(dy) - r.height / 2, 0);
       if (Math.hypot(ex, ey) > RANGE) return release();
-      link.style.transform = `translate(${dx * PULL}px, ${dy * PULL}px)`;
+      tx = dx * PULL;
+      ty = dy * PULL;
+      animate();
     };
-    const arm = () => (link.dataset.following = "");
+    const arm = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") armed = true;
+    };
     link.addEventListener("pointerenter", arm);
     window.addEventListener("pointermove", move, { passive: true });
     document.documentElement.addEventListener("pointerleave", release);
@@ -56,7 +85,8 @@ export function CtaButton({
       link.removeEventListener("pointerenter", arm);
       window.removeEventListener("pointermove", move);
       document.documentElement.removeEventListener("pointerleave", release);
-      release();
+      cancelAnimationFrame(raf);
+      link.style.translate = "";
     };
   }, [hidden]);
 
