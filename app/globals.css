@@ -23,8 +23,8 @@ html {
   scroll-behavior: smooth;
 }
 
-/* No body background: it would paint over the fixed .sky (z-index -1).
-   The html background covers pages without the sky. */
+/* No body background: it would paint over the hero's .sky (z-index -1).
+   The html background is the page canvas. */
 body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -133,11 +133,15 @@ code {
   50% { transform: translateY(4px); }
 }
 
-/* ── Home background: night sky, stars, clouds (fixed) ─────────────── */
+/* ── Hero background: night sky, stars, clouds ──────────────────────── */
 
+/* Fills the hero only (rendered inside it) and fades out at the bottom
+   into the page canvas. */
 .sky {
-  position: fixed;
+  position: absolute;
   inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 75%, transparent);
+  mask-image: linear-gradient(to bottom, #000 75%, transparent);
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
@@ -313,8 +317,167 @@ code {
 .cta-b--sm .cta-b__icon { width: 24px; height: 24px; border-radius: 7px; }
 .cta-b--sm .cta-b__icon svg { width: 12px; height: 12px; }
 
+/* Phones: hero and pricing CTAs a size down (nav CTA untouched). */
+@media (max-width: 639px) {
+  .cta-a { padding: 5px 5px 5px 22px; font-size: 16px; }
+  .cta-a__icon { width: 38px; height: 38px; }
+  .cta-a__icon svg { width: 16px; height: 16px; }
+  .cta-b:not(.cta-b--sm) { gap: 12px; padding: 12px 14px 12px 22px; border-radius: 12px; font-size: 16px; }
+  .cta-b:not(.cta-b--sm) .cta-b__icon { width: 28px; height: 28px; border-radius: 8px; }
+  .cta-b:not(.cta-b--sm) .cta-b__icon svg { width: 14px; height: 14px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cta-a, .cta-a__icon, .cta-b, .cta-b::after, .cta-b__icon { transition: none; }
+}
+
+/* ---------- Feature sections ---------- */
+/* Padding scales with the viewport: 200/100px on wide screens down to 96/20px on phones. */
+.feature-section {
+  box-sizing: border-box;
+  padding: clamp(96px, 14vw, 200px) clamp(20px, 7.8vw, 100px);
+}
+.feature-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+}
+
+/* Per-section background treatments, all on the canvas. */
+.feature-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.fs-bg-problems::before { background: radial-gradient(circle 500px at 50% 0%, rgba(139, 172, 255, 0.04), transparent); }
+.fs-bg-codebases::before {
+  background-image: radial-gradient(circle, rgba(56, 60, 67, 0.6) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.4;
+}
+.fs-bg-ai::before {
+  background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(139, 172, 255, 0.015) 40px, rgba(139, 172, 255, 0.015) 41px);
+}
+.fs-bg-feedback::before { background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139, 172, 255, 0.05), transparent); }
+.fs-bg-share::before { background: radial-gradient(ellipse 50% 60% at 25% 50%, rgba(139, 172, 255, 0.05), transparent); }
+.fs-bg-pricing::before { background: radial-gradient(ellipse 60% 45% at 50% 35%, rgba(139, 172, 255, 0.05), transparent); }
+.fs-bg-faq::before { background: radial-gradient(ellipse 40% 50% at 15% 30%, rgba(139, 172, 255, 0.04), transparent); }
+.fs-bg-cv::before { background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(139, 172, 255, 0.07), transparent); }
+.fs-bg-hackathons::before { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(139, 172, 255, 0.05), transparent); }
+
+/* Outlined ∞ behind the problems marquee. */
+.ghost-infinity {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  transform: translate(-50%, -40%);
+  /* 220px renders the glyph icon-sized; this large it reads as a watermark. */
+  font-size: clamp(260px, 45vw, 560px);
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(56, 60, 67, 0.6);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Glowing line between the two feedback cards: vertical side by side, horizontal stacked. */
+.feedback-divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--canvas), var(--action), var(--canvas));
+}
+@media (min-width: 768px) {
+  .feedback-divider {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    background: linear-gradient(to bottom, var(--canvas), var(--action), var(--canvas));
+  }
+}
+
+
+/* Scroll reveal: .rv children of a hidden section fade + rise in,
+   staggered 80ms by their --i index (set by FeatureSections). */
+.rv {
+  transition: opacity .6s ease, transform .6s ease;
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+[data-reveal="hidden"] .rv { opacity: 0; transform: translateY(24px); }
+
+/* Ranks: track items stagger in, card rises after the text, bar fills. */
+.rank-item {
+  transition: opacity .4s ease, transform .4s ease;
+  transition-delay: calc(200ms + var(--i, 0) * 60ms);
+}
+[data-reveal="hidden"] .rank-item { opacity: 0; transform: translateY(12px); }
+.rankup-card {
+  transition: opacity .6s ease, transform .6s ease;
+  transition-delay: .1s;
+}
+[data-reveal="hidden"] .rankup-card { opacity: 0; transform: translateY(20px); }
+.rank-fill {
+  width: 68%;
+  transition: width 1s ease-out .3s;
+}
+[data-reveal="hidden"] .rank-fill { width: 0; }
+.rank-fill::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--action);
+  box-shadow: 0 0 6px var(--action);
+  transform: translateY(-50%);
+}
+.rankup-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(circle, rgba(139, 172, 255, 0.1), transparent 60%);
+  pointer-events: none;
+}
+.rankup-sub::before,
+.rankup-sub::after {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Bug pills scrolling sideways (Never run out of problems). */
+.bug-marquee {
+  position: relative;
+  overflow: hidden;
+}
+.bug-marquee::before,
+.bug-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 15%;
+  pointer-events: none;
+}
+.bug-marquee::before { left: 0; background: linear-gradient(90deg, var(--canvas), transparent); }
+.bug-marquee::after { right: 0; background: linear-gradient(-90deg, var(--canvas), transparent); }
+.bug-marquee-row {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: bug-drift 30s linear infinite;
+}
+/* Row content is doubled; the trailing gap keeps the -50% loop seamless. */
+.bug-marquee-row > span:last-child { margin-right: 12px; }
+.bug-marquee-row--rev { animation-direction: reverse; animation-duration: 40s; }
+.bug-marquee-row--mid { animation-duration: 35s; }
+@keyframes bug-drift {
+  to { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -323,7 +486,8 @@ code {
   }
   .scroll-hint,
   .stars-b,
-  .cloud-row {
+  .cloud-row,
+  .bug-marquee-row {
     animation: none;
   }
   .card:hover {

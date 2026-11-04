@@ -1,16 +1,6 @@
 import { Nav } from "@/components/landing/nav";
 import { Hero } from "@/components/landing/hero";
-import { Sky } from "@/components/landing/sky";
-import { Belief } from "@/components/landing/belief";
-import { Comparison } from "@/components/landing/comparison";
-import { HowItWorks } from "@/components/landing/how-it-works";
-import { AIFeedback } from "@/components/landing/ai-feedback";
-import { CareerPaths } from "@/components/landing/career-paths";
-import { Roles } from "@/components/landing/roles-and-profile";
-import { ProblemLibrary } from "@/components/landing/problem-library";
-import { Contests } from "@/components/landing/contests";
-import { Hackathons } from "@/components/landing/hackathons";
-import { RanksSection } from "@/components/landing/ranks-section";
+import { FeatureSections } from "@/components/landing/feature-sections";
 import { Pricing } from "@/components/landing/pricing";
 import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
@@ -53,21 +43,13 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <Sky />
       <Nav />
       <main id="top">
         <Hero />
-        <Belief />
-        <Comparison />
-        <HowItWorks />
-        <AIFeedback />
-        <CareerPaths />
-        <Roles />
-        <ProblemLibrary />
-        <Contests />
-        <Hackathons />
-        <RanksSection />
+        <FeatureSections />
+        <div aria-hidden className="feature-divider" />
         <Pricing />
+        <div aria-hidden className="feature-divider" />
         <Faq />
       </main>
       <Footer />

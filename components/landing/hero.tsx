@@ -1,6 +1,6 @@
-import { Wordmark } from "@/components/landing/wordmark";
 import { CtaButton } from "@/components/landing/cta-button";
 import { APP_URL } from "@/lib/site";
+import { Sky } from "@/components/landing/sky";
 
 // "Where do you want to work?" chips. The app reads ?company= on signup.
 const companies = [
@@ -12,19 +12,22 @@ const companies = [
   { name: "Shopify", slug: "shopify", domain: "shopify.com" },
 ];
 
-// Full-viewport hero. Transparent, so the fixed night sky (sky.tsx) shows through.
+// Full-viewport hero over the night sky (sky.tsx), which only covers the hero.
 export function Hero() {
   return (
     <section className="relative flex min-h-[100svh] items-center">
+      <Sky />
       <div className="relative mx-auto w-full max-w-[1100px] px-5 pb-24 pt-32 md:px-8">
-        <h1 className="max-w-[12ch] font-display text-5xl font-extrabold leading-[0.95] tracking-[-0.03em] text-text sm:text-7xl md:text-8xl">
-          Your title doesn&apos;t fix bugs.
+        <h1 className="font-display text-5xl font-semibold leading-[0.95] tracking-[-0.02em] text-text sm:text-7xl md:text-8xl">
+          Solve what
+          <br />
+          actually matters
         </h1>
-        <p className="mt-8 max-w-[52ch] text-lg leading-relaxed text-muted md:text-xl">
-          AI can write your code. <Wordmark /> challenges you to understand it, find
-          what broke, and prove your fix works.
+        <p className="mt-10 max-w-[52ch] text-[19px] leading-relaxed text-text/75 md:text-[22px]">
+          Fix bugs in real production codebases — with AI assistance. Build a
+          portfolio that shows you can actually ship.
         </p>
-        <CtaButton className="mt-10" variant="b" />
+        <CtaButton className="mt-12" variant="b" />
 
         <div className="mt-14">
           <h2 className="font-display text-xl font-bold text-text">Where do you want to work?</h2>
@@ -59,7 +62,7 @@ export function Hero() {
       </div>
 
       <a
-        href="#belief"
+        href="#how-it-works"
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-muted2 transition-colors hover:text-muted"
       >
         Scroll

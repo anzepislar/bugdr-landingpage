@@ -1,7 +1,6 @@
-// Fixed home-page background: night-sky gradient, two star layers (one
-// drifting), and blurred clouds drifting at different speeds. Styles in
-// globals.css (.sky). All sections are transparent, so it shows behind
-// the whole page.
+// Hero background: night-sky gradient, two star layers (one drifting), and
+// blurred clouds drifting at different speeds. Rendered inside the hero and
+// sized to it; styles in globals.css (.sky).
 
 function Cloud({ opacity, blur }: { opacity: number; blur: number }) {
   return (

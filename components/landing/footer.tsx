@@ -9,7 +9,8 @@ import { assetPath } from "@/lib/asset-path";
 // it's the site's legal operator disclosure.
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.07]">
+    <footer>
+      <div aria-hidden className="feature-divider" />
       <Container className="flex flex-col gap-6 py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Image
