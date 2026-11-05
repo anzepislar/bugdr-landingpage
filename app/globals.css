@@ -233,8 +233,9 @@ code {
   padding: 6px 6px 6px 28px;
   border-radius: 999px;
   background: var(--surface);
-  border: 1px solid color-mix(in srgb, var(--cta) 55%, transparent);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--cta) 8%, transparent), 0 0 18px color-mix(in srgb, var(--cta) 18%, transparent);
+  /* Blue glow around the pill; the arrow circle stays amber. */
+  border: 1px solid color-mix(in srgb, var(--action) 55%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--action) 8%, transparent), 0 0 18px color-mix(in srgb, var(--action) 18%, transparent);
   color: var(--text);
   font-size: 18px;
   font-weight: 500;
@@ -255,8 +256,8 @@ code {
   transition: transform .2s, background .2s;
 }
 .cta-a:hover {
-  border-color: var(--cta);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--cta) 20%, transparent), 0 0 28px color-mix(in srgb, var(--cta) 32%, transparent);
+  border-color: var(--action);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--action) 20%, transparent), 0 0 28px color-mix(in srgb, var(--action) 32%, transparent);
 }
 .cta-a:hover .cta-a__icon { transform: translateX(3px); background: var(--cta-hover); }
 .cta-a:active { transform: scale(.98); }
@@ -363,6 +364,7 @@ code {
 .fs-bg-share::before { background: radial-gradient(ellipse 50% 60% at 25% 50%, rgba(139, 172, 255, 0.05), transparent); }
 .fs-bg-pricing::before { background: radial-gradient(ellipse 60% 45% at 50% 35%, rgba(139, 172, 255, 0.05), transparent); }
 .fs-bg-faq::before { background: radial-gradient(ellipse 40% 50% at 15% 30%, rgba(139, 172, 255, 0.04), transparent); }
+.fs-bg-companies::before { background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(139, 172, 255, 0.05), transparent); }
 .fs-bg-cv::before { background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(139, 172, 255, 0.07), transparent); }
 .fs-bg-hackathons::before { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(139, 172, 255, 0.05), transparent); }
 
@@ -447,6 +449,48 @@ code {
   width: 20px;
   height: 1px;
   background: var(--border);
+}
+
+/* Company cards (Real companies. Real bugs.). The wrapper handles the
+   staggered reveal so it doesn't fight the card's own hover lift. */
+.company-reveal {
+  transition: opacity .5s ease, transform .5s ease;
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+[data-reveal="hidden"] .company-reveal { opacity: 0; transform: translateY(20px); }
+.company-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+}
+.company-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139, 172, 255, 0.05), transparent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.company-card:hover {
+  border-color: rgba(139, 172, 255, 0.4);
+  box-shadow: 0 0 0 1px rgba(139, 172, 255, 0.1), 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+.company-card:hover::before { opacity: 1; }
+.company-card:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .company-card:hover { transform: none; }
 }
 
 /* Bug pills scrolling sideways (Never run out of problems). */

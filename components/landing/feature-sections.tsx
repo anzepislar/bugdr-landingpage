@@ -574,6 +574,111 @@ function CvShowcase() {
   );
 }
 
+// ── Company problems ───────────────────────────────────────────────────
+const COMPANIES = [
+  {
+    name: "Netflix",
+    domain: "netflix.com",
+    bg: "#E50914",
+    tagline: "Streaming infrastructure at scale",
+    description:
+      "Video delivery, resilience tooling, and the chaos engineering stack that keeps 260M subscribers watching.",
+    stack: ["Java", "Python", "Node.js", "Go"],
+  },
+  {
+    name: "Shopify",
+    domain: "shopify.com",
+    bg: "#96BF48",
+    tagline: "Commerce platform for merchants",
+    description:
+      "Ruby monolith, React storefront, distributed checkout — bugs here affect millions of merchants and billions in GMV.",
+    stack: ["Ruby", "Go", "React", "TypeScript"],
+  },
+  {
+    name: "Google",
+    domain: "google.com",
+    bg: "#4285F4",
+    tagline: "Search, cloud and open source",
+    description:
+      "Open source tooling from the team behind Go, Kubernetes, and gVisor. High-complexity, high-impact fixes.",
+    stack: ["Go", "C++", "Python", "Java"],
+  },
+  {
+    name: "Airbnb",
+    domain: "airbnb.com",
+    bg: "#FF5A5F",
+    tagline: "Travel marketplace with strong OSS culture",
+    description:
+      "React Native, Ruby services, and an active open source culture. Broad surface area, real production exposure.",
+    stack: ["React", "Ruby", "Java", "TypeScript"],
+  },
+];
+
+const PRICING_URL = "https://app.bugdr.app/pricing";
+
+function CompanyProblems() {
+  return (
+    <FeatureSection id="company-problems" bg="fs-bg-companies">
+      <Centered>
+        <Label dot="blue">Real codebases</Label>
+        <Heading>
+          Real companies.
+          <br />
+          Real bugs.
+        </Heading>
+        <Body className="max-w-[520px]">
+          Pick a company, pick a codebase, start fixing. Every bug is pulled from real open source repos — the same code
+          running in production.
+        </Body>
+      </Centered>
+      <ul className="mx-auto mt-12 grid max-w-[900px] gap-5 md:grid-cols-2">
+        {COMPANIES.map((c, i) => (
+          <li key={c.name} className="company-reveal" style={delay(i)}>
+            <a href={PRICING_URL} target="_blank" rel="noopener noreferrer" className="company-card">
+              <div className="relative flex items-center gap-3.5">
+                <span
+                  aria-hidden
+                  className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl"
+                  style={{ background: c.bg }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- external favicon, static export */}
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${c.domain}&sz=64`}
+                    alt=""
+                    width={28}
+                    height={28}
+                    loading="lazy"
+                    className="h-7 w-7 rounded-md bg-white/90 p-0.5"
+                  />
+                </span>
+                <span className="flex flex-col">
+                  <span className="text-[18px] font-semibold text-text">{c.name}</span>
+                  <span className="text-[13px] text-muted">{c.tagline}</span>
+                </span>
+              </div>
+              <p className="relative text-[14px] leading-[1.6] text-muted">{c.description}</p>
+              <ul className="relative flex flex-wrap gap-2">
+                {c.stack.map((t) => (
+                  <li key={t} className="rounded-md border border-border px-2.5 py-1 text-[11px] text-muted">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="relative mt-auto flex items-center justify-between border-t border-border pt-4">
+                <span className="flex items-center gap-1.5 text-[12px] text-muted">
+                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-passed" />
+                  Open for fixes
+                </span>
+                <span className="text-[12px] font-medium text-action">View problems →</span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </FeatureSection>
+  );
+}
+
 // ── 7. Hackathons ──────────────────────────────────────────────────────
 const FOCUS = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cta)]";
 
@@ -666,6 +771,7 @@ export function FeatureSections() {
       </div>
     </FeatureSection>,
     <CvShowcase key="cv" />,
+    <CompanyProblems key="companies" />,
     <Hackathons key="hackathons" />,
   ];
   // Thin gradient divider between sections.
