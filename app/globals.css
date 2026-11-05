@@ -352,6 +352,11 @@ code {
   pointer-events: none;
 }
 .fs-bg-problems::before { background: radial-gradient(circle 500px at 50% 0%, rgba(139, 172, 255, 0.04), transparent); }
+/* This section rises over the fading hero: fade its glow in from the top edge so there is no seam. */
+.fs-bg-problems::before {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35vh);
+  mask-image: linear-gradient(to bottom, transparent, #000 35vh);
+}
 .fs-bg-codebases::before {
   background-image: radial-gradient(circle, rgba(56, 60, 67, 0.6) 1px, transparent 1px);
   background-size: 24px 24px;

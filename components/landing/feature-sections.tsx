@@ -238,7 +238,7 @@ function BugMarquee() {
 
 function InfiniteProblems() {
   return (
-    <FeatureSection id="how-it-works" bg="fs-bg-problems" decor={<span aria-hidden className="ghost-infinity">∞</span>}>
+    <FeatureSection id="how-it-works" bg="fs-bg-problems" className="z-10 -mt-[100svh] bg-[linear-gradient(to_bottom,transparent,var(--canvas)_35vh)]" decor={<span aria-hidden className="ghost-infinity">∞</span>}>
       <Centered>
         <Label dot="blue">Infinite problems</Label>
         <Heading big>Never run out of problems.</Heading>
