@@ -3,7 +3,7 @@ import { Centered, FeatureSection, Heading, Label } from "@/components/landing/f
 import { CtaButton } from "@/components/landing/cta-button";
 
 // Every plan's CTA opens the app. Paid plans could later deep-link to
-// app.bugdr.app/checkout?plan=own-key|pro|max.
+// app.bugdr.app/checkout?plan=freedom|pro|max.
 
 type Plan = {
   name: string;
@@ -17,15 +17,16 @@ type Plan = {
 
 const plans: Plan[] = [
   {
-    name: "Free",
-    price: "€0",
+    name: "Freedom",
+    price: "€12.99",
     unit: "/month",
+    lead: "For engineers who run their own AI stack.",
     items: [
-      "All difficulty levels.",
-      "150,000 tokens / day.",
-      "AI assistant: Claude Haiku.",
-      "Efficiency scoring.",
-      "Public leaderboard.",
+      "Everything in Pro.",
+      "Bring your Anthropic or OpenAI API key.",
+      "Choose a supported model through your provider.",
+      "Unlimited tokens on Bugdr, subject to your provider's limits.",
+      "Provider AI usage charges are paid separately.",
     ],
   },
   {
@@ -59,16 +60,15 @@ const plans: Plan[] = [
     ],
   },
   {
-    name: "Own Key",
-    price: "€12.99",
+    name: "Free",
+    price: "€0",
     unit: "/month",
-    lead: "For engineers who run their own AI stack.",
     items: [
-      "Everything in Pro.",
-      "Bring your Anthropic or OpenAI API key.",
-      "Choose a supported model through your provider.",
-      "Unlimited tokens on Bugdr, subject to your provider's limits.",
-      "Provider AI usage charges are paid separately.",
+      "All difficulty levels.",
+      "150,000 tokens / day.",
+      "AI assistant: Claude Haiku.",
+      "Efficiency scoring.",
+      "Public leaderboard.",
     ],
   },
 ];
