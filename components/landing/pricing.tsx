@@ -31,10 +31,10 @@ const plans: Plan[] = [
   },
   {
     name: "Pro",
-    price: "€29.99",
+    price: "€21.99",
     unit: "/month",
-    alt: "or €239/year",
-    lead: "~€19.92/month when billed annually. Save 33%.",
+    alt: "or €189.99/year",
+    lead: "~€15.83/month when billed annually. Save 28%.",
     items: [
       "Everything in Free.",
       "1,000,000 tokens / day.",
