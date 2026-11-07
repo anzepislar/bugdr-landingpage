@@ -77,7 +77,7 @@ export function Hero() {
                 {companies.map((c) => (
                   <li key={c.slug}>
                     <a
-                      href={`${APP_URL}/signup?company=${c.slug}`}
+                      href={`${APP_URL}/signup?company=${c.slug}&ref=landing`}
                       className="flex items-center gap-2 rounded-full border border-white/[0.12] bg-surface/70 px-3.5 py-1.5 text-sm font-medium text-text transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-action/50 hover:shadow-[0_0_16px_rgba(139,172,255,0.2)]"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element -- external favicon, static export */}
@@ -94,7 +94,7 @@ export function Hero() {
                   </li>
                 ))}
                 <li>
-                  <a href={`${APP_URL}/signup`} className="px-1 text-sm text-muted transition-colors hover:text-text">
+                  <a href={`${APP_URL}/signup?ref=landing`} className="px-1 text-sm text-muted transition-colors hover:text-text">
                     + more
                   </a>
                 </li>

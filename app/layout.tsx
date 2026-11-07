@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
+import { LandingBeacon } from "@/components/landing/landing-beacon";
 
 // Inter (body) and Syne (display), downloaded from Google Fonts and
 // self-hosted instead of next/font/google: Turbopack fails the build with
@@ -108,6 +109,7 @@ export default function RootLayout({
     >
       <body className="text-text font-sans antialiased min-h-screen">
         {children}
+        <LandingBeacon />
       </body>
     </html>
   );

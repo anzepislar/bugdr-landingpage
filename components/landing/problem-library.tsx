@@ -31,7 +31,7 @@ export function ProblemLibrary() {
           return (
             <li key={p.slug}>
               <a
-                href={`${APP_URL}/problems/${p.slug}`}
+                href={`${APP_URL}/problems/${p.slug}?ref=landing`}
                 className="card group flex h-full flex-col gap-3 p-5"
               >
                 <div className="flex items-start justify-between gap-3">

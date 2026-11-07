@@ -99,7 +99,7 @@ export function CtaButton({
     >
       <a
         ref={linkRef}
-        href={APP_URL}
+        href={`${APP_URL}?ref=landing`}
         aria-hidden={hidden || undefined}
         tabIndex={hidden ? -1 : undefined}
         className={variant ? `cta-${variant}${small ? ` cta-${variant}--sm` : ""}` : "btn-cta w-full justify-between"}

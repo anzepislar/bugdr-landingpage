@@ -614,7 +614,7 @@ const COMPANIES = [
   },
 ];
 
-const PRICING_URL = "https://app.bugdr.app/pricing";
+const PRICING_URL = "https://app.bugdr.app/pricing?ref=landing";
 
 function CompanyProblems() {
   return (
@@ -703,7 +703,7 @@ function Hackathons() {
             </p>
             <div className="mt-auto pt-8">
               <a
-                href={APP_URL}
+                href={`${APP_URL}?ref=landing`}
                 className={`inline-flex rounded-lg border border-border px-5 py-2.5 text-[14px] font-semibold text-text transition-colors hover:border-action ${FOCUS}`}
               >
                 Get notified
