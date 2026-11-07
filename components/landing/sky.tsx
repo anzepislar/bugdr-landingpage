@@ -25,8 +25,6 @@ const clouds = [
 export function Sky() {
   return (
     <div aria-hidden className="sky">
-      <div className="stars stars-a" />
-      <div className="stars stars-b" />
       {clouds.map((c, i) => (
         <div
           key={i}
@@ -38,6 +36,10 @@ export function Sky() {
           <Cloud opacity={c.opacity} blur={c.blur} />
         </div>
       ))}
+      {/* Fixed tint over the drifting clouds: CTA amber left, original right. */}
+      <div className="cloud-tint" />
+      <div className="stars stars-a" />
+      <div className="stars stars-b" />
     </div>
   );
 }

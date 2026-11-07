@@ -203,6 +203,46 @@ code {
   to { transform: translateX(-50%); }
 }
 
+/* Multiply leaves the dark sky as is and tints only the white clouds. */
+.cloud-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--cta) 0%, var(--cta) 35%, #fff 65%, #fff 100%);
+  mix-blend-mode: multiply;
+}
+
+/* Enlarged video popup (native <dialog>, see Video in feature-sections). */
+.video-zoom[open] { animation: video-zoom-in .22s cubic-bezier(.2,.8,.2,1); }
+.video-zoom::backdrop { background: rgba(21, 22, 24, 0.85); backdrop-filter: blur(6px); }
+@keyframes video-zoom-in { from { opacity: 0; transform: scale(.94); } }
+@media (prefers-reduced-motion: reduce) { .video-zoom[open] { animation: none; } }
+
+/* Footer: oversized "Bugdr" behind a faint blue spotlight, fading out at
+   the bottom; the footer clips the overflow. */
+.footer-brand {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-syne), sans-serif;
+  font-weight: 800;
+  font-size: clamp(120px, 20vw, 260px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  background: linear-gradient(to bottom, #f2f3f5 0%, rgba(242, 243, 245, 0.15) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.footer-brand::before {
+  content: "";
+  position: absolute;
+  inset: -20% 10%;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(139, 172, 255, 0.08), transparent 70%);
+}
+
 /* ── FAQ: native <details> accordion ───────────────────────────────── */
 
 .faq summary {

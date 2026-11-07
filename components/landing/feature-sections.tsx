@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { assetPath } from "@/lib/asset-path";
 import { APP_URL } from "@/lib/site";
 import { Brandify } from "@/components/landing/wordmark";
@@ -70,8 +70,28 @@ type Clip = [start: number, end: number];
 
 // `clip` = [start, end] in seconds: plays and loops only that part of the file.
 // `rate` = playback speed (1.5 = 1.5x).
-function Video({ file, className, clip, rate = 1 }: { file: string; className: string; clip?: Clip; rate?: number }) {
+// Click (or Enter/Space) opens it bigger in a native <dialog>; clicking the
+// backdrop or Esc closes it. `zoomable={false}` is the enlarged copy itself.
+function Video({
+  file,
+  className,
+  clip,
+  rate = 1,
+  zoomable = true,
+}: {
+  file: string;
+  className: string;
+  clip?: Clip;
+  rate?: number;
+  zoomable?: boolean;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [open, setOpen] = useState(false);
+  const enlarge = () => {
+    setOpen(true);
+    dialogRef.current?.showModal();
+  };
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
@@ -93,7 +113,7 @@ function Video({ file, className, clip, rate = 1 }: { file: string; className: s
       v.removeEventListener("pause", loopClip);
     };
   }, [clip, rate]);
-  return (
+  const video = (
     <video
       ref={ref}
       src={assetPath(`/screenshots/${encodeURIComponent(file)}`) + (clip ? `#t=${clip[0]},${clip[1]}` : "")}
@@ -102,9 +122,37 @@ function Video({ file, className, clip, rate = 1 }: { file: string; className: s
       loop={!clip}
       playsInline
       preload="metadata"
-      aria-hidden
-      className={className}
+      {...(zoomable
+        ? {
+            role: "button",
+            tabIndex: 0,
+            "aria-label": "Enlarge video",
+            onClick: enlarge,
+            onKeyDown: (e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                enlarge();
+              }
+            },
+          }
+        : { "aria-hidden": true })}
+      className={zoomable ? `${className} cursor-zoom-in` : className}
     />
+  );
+  if (!zoomable) return video;
+  return (
+    <>
+      {video}
+      <dialog
+        ref={dialogRef}
+        onClose={() => setOpen(false)}
+        // Only the backdrop (the dialog itself) closes it, not the video.
+        onClick={(e) => e.target === e.currentTarget && dialogRef.current?.close()}
+        className="video-zoom w-[min(92vw,1600px)] max-w-none cursor-zoom-out overflow-hidden rounded-[12px] border border-border bg-canvas p-0"
+      >
+        {open && <Video file={file} clip={clip} rate={rate} zoomable={false} className="block aspect-video w-full" />}
+      </dialog>
+    </>
   );
 }
 
@@ -133,7 +181,7 @@ export function FeatureSection({
 }) {
   const ref = useReveal<HTMLElement>();
   return (
-    <section ref={ref} id={id} className={`feature-section relative isolate overflow-hidden ${bg} ${className}`}>
+    <section ref={ref} id={id} className={`feature-section relative isolate z-[2] overflow-hidden ${bg} ${className}`}>
       {decor}
       <div className="relative z-[1] mx-auto w-full max-w-[1200px]">{children}</div>
     </section>
