@@ -230,6 +230,8 @@ code {
   text-align: center;
   white-space: nowrap;
   user-select: none;
+  /* Decorative; its glow overlaps the link row above and must not eat clicks. */
+  pointer-events: none;
   background: linear-gradient(to bottom, #f2f3f5 0%, rgba(242, 243, 245, 0.15) 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -241,6 +243,45 @@ code {
   inset: -20% 10%;
   z-index: -1;
   background: radial-gradient(ellipse at center, rgba(139, 172, 255, 0.08), transparent 70%);
+}
+
+/* Journey lines (journey-lines.tsx): brand-blue traces between sections.
+   Dim glowing base + a brighter pulse travelling toward the next section. */
+.journey {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(139, 172, 255, 0.75));
+}
+.journey-base {
+  fill: none;
+  stroke: #8bacff;
+  stroke-width: 1.25;
+  stroke-opacity: 0.35;
+  animation: journey-breathe 4s ease-in-out infinite alternate;
+}
+.journey-pulse {
+  fill: none;
+  stroke: #8bacff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 0.12 1;
+  animation: journey-flow 5.2s linear infinite;
+}
+.journey-dot { fill: #8bacff; }
+@keyframes journey-flow {
+  from { stroke-dashoffset: 0.12; }
+  to { stroke-dashoffset: -1; }
+}
+@keyframes journey-breathe {
+  to { stroke-opacity: 0.6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journey-base { animation: none; }
+  .journey-pulse { display: none; }
 }
 
 /* ── FAQ: native <details> accordion ───────────────────────────────── */

@@ -5,6 +5,7 @@ import { Pricing } from "@/components/landing/pricing";
 import { Faq } from "@/components/landing/faq";
 import { Footer } from "@/components/landing/footer";
 import { SITE_URL } from "@/lib/site";
+import { JourneyLines } from "@/components/landing/journey-lines";
 
 // Structured data. No aggregateRating until there are real reviews, and
 // no SearchAction: /problems doesn't exist on this site yet.
@@ -44,13 +45,14 @@ export default function Page() {
         }}
       />
       <Nav />
-      <main id="top">
+      <main id="top" className="relative">
         <Hero />
         <FeatureSections />
         <div aria-hidden className="feature-divider" />
         <Pricing />
         <div aria-hidden className="feature-divider" />
         <Faq />
+        <JourneyLines />
       </main>
       <Footer />
     </>

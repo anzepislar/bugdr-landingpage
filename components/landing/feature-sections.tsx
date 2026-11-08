@@ -43,7 +43,7 @@ const DOT = { blue: "bg-action", amber: "bg-[var(--cta)]", green: "bg-passed" } 
 
 export function Label({ dot, glow, children }: { dot: keyof typeof DOT; glow?: boolean; children: ReactNode }) {
   return (
-    <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
+    <span data-journey className="mb-7 inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
       <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${DOT[dot]} ${glow ? "shadow-[0_0_8px_var(--action)]" : ""}`} />
       {children}
     </span>
@@ -679,7 +679,8 @@ function CompanyProblems() {
           running in production.
         </Body>
       </Centered>
-      <ul className="mx-auto mt-12 grid max-w-[900px] gap-5 md:grid-cols-2">
+      {/* data-journey-split: the journey line forks to each card column (journey-lines.tsx). */}
+      <ul data-journey-split className="mx-auto mt-12 grid max-w-[900px] gap-5 md:grid-cols-2">
         {COMPANIES.map((c, i) => (
           <li key={c.name} className="company-reveal" style={delay(i)}>
             <a href={PRICING_URL} target="_blank" rel="noopener noreferrer" className="company-card">
