@@ -107,6 +107,16 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${syne.variable} ${geistMono.variable}`}
     >
+      <head>
+        {/* AffiliateBase referral tracking. data-cookie-domain makes the referral
+            cookie apex-wide so app.bugdr.app sees it too (not in their docs). */}
+        <script
+          async
+          src="https://app.affiliatebase.io/track.js"
+          data-account-id="379b5cf9-7640-4f39-b095-8713711ad4d8"
+          data-cookie-domain="bugdr.app"
+        />
+      </head>
       <body className="text-text font-sans antialiased min-h-screen">
         {children}
         <LandingBeacon />
