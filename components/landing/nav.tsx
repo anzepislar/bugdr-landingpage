@@ -13,6 +13,7 @@ import { CtaButton } from "@/components/landing/cta-button";
 const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
+  { href: assetPath("/b2b/"), label: "Companies" },
 ];
 
 function Logo({ href }: { href: string }) {

@@ -1,0 +1,67 @@
+/* /b2b only: command-center details. Tokens come from tailwind.config.ts. */
+
+.t-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* #6B7280 fails AA on the canvas for small text; this is the lightest
+   "dim" that still reads as tertiary and passes 4.5:1. */
+.t-dim {
+  color: #8c93a1;
+}
+
+.t-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 80%);
+}
+
+.t-dot {
+  position: relative;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 9999px;
+  background: currentColor;
+}
+.t-dot.t-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: t-ping 2s ease-out infinite;
+}
+@keyframes t-ping {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(2.8); opacity: 0; }
+}
+
+/* Scroll reveal with no JS: browsers without scroll timelines just show
+   the content, so nothing can get stuck invisible. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .t-reveal {
+      animation: t-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes t-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-dot.t-pulse::after { animation: none; }
+}
