@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
 import { LandingBeacon } from "@/components/landing/landing-beacon";
@@ -115,6 +116,12 @@ export default function RootLayout({
           src="https://app.affiliatebase.io/track.js"
           data-account-id="379b5cf9-7640-4f39-b095-8713711ad4d8"
           data-cookie-domain="bugdr.app"
+        />
+        {/* Endorsely referral tracking (second affiliate program). */}
+        <Script
+          src="https://assets.endorsely.com/endorsely.js"
+          data-endorsely="934924de-d539-4449-a5ed-87373ad0347d"
+          strategy="afterInteractive"
         />
       </head>
       <body className="text-text font-sans antialiased min-h-screen">
