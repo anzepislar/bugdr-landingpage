@@ -65,3 +65,8 @@
 @media (prefers-reduced-motion: reduce) {
   .t-dot.t-pulse::after { animation: none; }
 }
+
+/* The intro fades up once on load, like the video's opening. */
+@media (prefers-reduced-motion: no-preference) {
+  .t-intro { animation: t-rise 0.9s ease-out both; }
+}
