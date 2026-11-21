@@ -31,15 +31,15 @@ Frontend, Backend, Full Stack, Mobile, DevOps/Infra, and more.
 
 ## Career paths
 
-Frontend Engineer, Backend Engineer, Full Stack Engineer,
-Mobile Engineer, DevOps / Infra Engineer, Staff Engineer.
+Full Stack, Backend and Frontend: Easy → Medium → Hard → Get a job.
+Each stage unlocks once your recent solves are efficient enough (Pro and Max).
 
 ## Why Bugdr vs LeetCode
 
 LeetCode trains algorithm thinking. Bugdr trains debugging — reading
 unfamiliar code, understanding context, isolating a fault, and writing
 a targeted fix. These are the skills engineers use daily on the job
-and in real technical interviews at product companies.
+and in real technical interviews.
 
 ## Tech stack (for developers evaluating the platform)
 

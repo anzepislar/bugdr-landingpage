@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     q: "Are these actual production codebases?",
-    a: "They're practice codebases built around failures you could encounter at work. You get incident context and room to investigate without touching a live customer system.",
+    a: "Yes. Every problem is a real bug from a real open-source repository. You get the whole codebase at the commit the bug was in and an incident report written like a user complaint, never a hint of the cause.",
   },
   {
     q: "Which languages and tools are covered?",
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "What affects my score?",
-    a: "A working, reliable fix matters most. Scoring also considers code quality, testing, time, and AI usage. Fewer tokens or fewer lines do not automatically mean better engineering.",
+    a: "Points = speed × AI efficiency × code quality. AI efficiency looks at tokens, prompts, iterations and first-run success. Code quality comes from an AI review of your fix.",
   },
   {
     q: "Can I retry for a better score?",
@@ -31,7 +31,11 @@ const faqs = [
   },
   {
     q: "What does Pro include?",
-    a: "Career paths, AI feedback after each solve, a higher daily token limit, and the listed Pro model options. €21.99 monthly or €189.99 yearly.",
+    a: "1M AI tokens a day with Claude Haiku (about 25 solves), career paths, AI feedback after every solve and rank up emails. €19.99 a month, or €219 a year (€18.25/month).",
+  },
+  {
+    q: "Do I need an account to start?",
+    a: "No. Answer a short onboarding, then fix a guided first bug. Create the account afterwards to keep the points. Sign in with Google or email.",
   },
   {
     q: "Will a path get me a job?",

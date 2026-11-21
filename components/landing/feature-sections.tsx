@@ -2,11 +2,10 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { assetPath } from "@/lib/asset-path";
-import { APP_URL } from "@/lib/site";
 import { Brandify } from "@/components/landing/wordmark";
 
 // Feature sections directly under the hero. Centered sections (problems,
-// feedback, CV, hackathons) alternate with two-column sections. Each section
+// feedback, CV, career paths) alternate with two-column sections. Each section
 // gets its own faint background treatment (.fs-bg-* in globals.css).
 
 // ── Scroll reveal ──────────────────────────────────────────────────────
@@ -291,7 +290,7 @@ function InfiniteProblems() {
         <Label dot="blue">Infinite problems</Label>
         <Heading big>Never run out of problems.</Heading>
         <Body className="max-w-[480px]">
-          New bugs from real repos every day. Pick a company, pick a repo, start fixing.
+          New bugs from real open-source repos every day. Pick a bug, open it in the browser, start fixing.
         </Body>
         <StatRow
           stats={[
@@ -367,8 +366,8 @@ function AiFeedback() {
         <Label dot="amber">AI feedback</Label>
         <Heading big>Feedback that actually teaches.</Heading>
         <Body className="max-w-[520px]">
-          After every fix, AI reviews your approach — what worked, what didn&apos;t, and what a senior engineer would
-          have done differently.
+          After every solve, AI feedback tells you what went well and how to use fewer prompts next time. On Pro and
+          Max.
         </Body>
         <div className="mt-12 w-full max-w-[1200px] overflow-hidden rounded-[20px] border border-border shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)]">
           {/* The AI feedback screen at the end of the solve recording (1:38–1:42). */}
@@ -563,8 +562,8 @@ function Ranks() {
             <span className="text-action">ranked up.</span>
           </h2>
           <Body>
-            Every bug closed earns points. Climb from Junior to Staff to Principal. Your rank reflects real debugging
-            ability, not quiz scores.
+            Every bug closed earns points. Climb the levels from Intern to Doctor, each with its own rank badge, and
+            keep your streak going. Your rank reflects real debugging ability, not quiz scores.
           </Body>
           <RankTrack />
         </div>
@@ -601,8 +600,8 @@ function CvShowcase() {
         <Label dot="green">CV showcase</Label>
         <Heading>Your bugs become your CV.</Heading>
         <Body className="max-w-[480px]">
-          Every fix is logged to your public profile. Drop bugdr.app/u/yourname in your resume — let employers see what
-          you can actually do.
+          Your public profile shows your level, streak and solved problems. Drop bugdr.app/u/yourname in your resume —
+          let employers see what you can actually do.
         </Body>
         <p className="mt-10 break-all font-mono text-[clamp(18px,2.6vw,32px)] font-semibold tracking-[-0.01em]">
           <span className="text-muted">bugdr.app/u/</span>
@@ -622,144 +621,27 @@ function CvShowcase() {
   );
 }
 
-// ── Company problems ───────────────────────────────────────────────────
-const COMPANIES = [
-  {
-    name: "Netflix",
-    domain: "netflix.com",
-    bg: "#E50914",
-    tagline: "Streaming infrastructure at scale",
-    description:
-      "Video delivery, resilience tooling, and the chaos engineering stack that keeps 260M subscribers watching.",
-    stack: ["Java", "Python", "Node.js", "Go"],
-  },
-  {
-    name: "Shopify",
-    domain: "shopify.com",
-    bg: "#96BF48",
-    tagline: "Commerce platform for merchants",
-    description:
-      "Ruby monolith, React storefront, distributed checkout — bugs here affect millions of merchants and billions in GMV.",
-    stack: ["Ruby", "Go", "React", "TypeScript"],
-  },
-  {
-    name: "Google",
-    domain: "google.com",
-    bg: "#4285F4",
-    tagline: "Search, cloud and open source",
-    description:
-      "Open source tooling from the team behind Go, Kubernetes, and gVisor. High-complexity, high-impact fixes.",
-    stack: ["Go", "C++", "Python", "Java"],
-  },
-  {
-    name: "Airbnb",
-    domain: "airbnb.com",
-    bg: "#FF5A5F",
-    tagline: "Travel marketplace with strong OSS culture",
-    description:
-      "React Native, Ruby services, and an active open source culture. Broad surface area, real production exposure.",
-    stack: ["React", "Ruby", "Java", "TypeScript"],
-  },
-];
+// ── Career paths ───────────────────────────────────────────────────────
+const STAGES = ["Easy", "Medium", "Hard", "Get a job"];
 
-const PRICING_URL = "https://app.bugdr.app/pricing?ref=landing";
-
-function CompanyProblems() {
+function CareerPaths() {
   return (
-    <FeatureSection id="company-problems" bg="fs-bg-companies">
+    <FeatureSection id="career-paths" bg="fs-bg-paths">
       <Centered>
-        <Label dot="blue">Real codebases</Label>
-        <Heading>
-          Real companies.
-          <br />
-          Real bugs.
-        </Heading>
+        <Label dot="green">Career paths</Label>
+        <Heading>From Easy to Get a job.</Heading>
         <Body className="max-w-[520px]">
-          Pick a company, pick a codebase, start fixing. Every bug is pulled from real open source repos — the same code
-          running in production.
+          Pick Full Stack, Backend or Frontend. Each stage unlocks once your recent solves are efficient enough. On Pro
+          and Max.
         </Body>
-      </Centered>
-      {/* data-journey-split: the journey line forks to each card column (journey-lines.tsx). */}
-      <ul data-journey-split className="mx-auto mt-12 grid max-w-[900px] gap-5 md:grid-cols-2">
-        {COMPANIES.map((c, i) => (
-          <li key={c.name} className="company-reveal" style={delay(i)}>
-            <a href={PRICING_URL} target="_blank" rel="noopener noreferrer" className="company-card">
-              <div className="relative flex items-center gap-3.5">
-                <span
-                  aria-hidden
-                  className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl"
-                  style={{ background: c.bg }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element -- external favicon, static export */}
-                  <img
-                    src={`https://www.google.com/s2/favicons?domain=${c.domain}&sz=64`}
-                    alt=""
-                    width={28}
-                    height={28}
-                    loading="lazy"
-                    className="h-7 w-7 rounded-md bg-white/90 p-0.5"
-                  />
-                </span>
-                <span className="flex flex-col">
-                  <span className="text-[18px] font-semibold text-text">{c.name}</span>
-                  <span className="text-[13px] text-muted">{c.tagline}</span>
-                </span>
-              </div>
-              <p className="relative text-[14px] leading-[1.6] text-muted">{c.description}</p>
-              <ul className="relative flex flex-wrap gap-2">
-                {c.stack.map((t) => (
-                  <li key={t} className="rounded-md border border-border px-2.5 py-1 text-[11px] text-muted">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              <div className="relative mt-auto flex items-center justify-between border-t border-border pt-4">
-                <span className="flex items-center gap-1.5 text-[12px] text-muted">
-                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-passed" />
-                  Open for fixes
-                </span>
-                <span className="text-[12px] font-medium text-action">View problems →</span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </FeatureSection>
-  );
-}
-
-// ── 7. Hackathons ──────────────────────────────────────────────────────
-const FOCUS = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cta)]";
-
-function Hackathons() {
-  return (
-    <FeatureSection bg="fs-bg-hackathons">
-      <Centered>
-        <Label dot="amber">Hackathons</Label>
-        <Heading big>Compete. Win. Get noticed.</Heading>
-        <Body className="max-w-[480px]">
-          Monthly hackathons where the best debuggers go head to head. Top finishers get featured, some get hired.
-        </Body>
-        <div className="mt-12 w-full max-w-[520px] text-left">
-          <article className="flex flex-col rounded-[20px] border border-border bg-surface p-8">
-            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-action">
-              <span aria-hidden className="h-2 w-2 rounded-full bg-action" />
-              Dec 1
-            </span>
-            <h3 className="mt-5 text-[clamp(20px,2vw,24px)] font-bold text-text">Open Source Rescue</h3>
-            <p className="mt-3 text-[15px] leading-[1.6] text-muted">
-              Fix critical bugs in 3 OSS projects. Top fixers get offers.
-            </p>
-            <div className="mt-auto pt-8">
-              <a
-                href={`${APP_URL}?ref=landing`}
-                className={`inline-flex rounded-lg border border-border px-5 py-2.5 text-[14px] font-semibold text-text transition-colors hover:border-action ${FOCUS}`}
-              >
-                Get notified
-              </a>
-            </div>
-          </article>
-        </div>
+        <ol className="mt-12 flex flex-wrap items-center justify-center gap-2.5">
+          {STAGES.map((st, i) => (
+            <li key={st} className="flex items-center gap-2.5 text-[14px] font-semibold text-text">
+              {i > 0 && <span aria-hidden className="text-muted2">→</span>}
+              <span className="rounded-full border border-border bg-surface px-4 py-2">{st}</span>
+            </li>
+          ))}
+        </ol>
       </Centered>
     </FeatureSection>
   );
@@ -774,8 +656,9 @@ export function FeatureSections() {
         <Label dot="blue">Real codebases</Label>
         <Heading>Real codebases. Real stakes.</Heading>
         <Body>
-          Paste any public GitHub repo and we&apos;ll surface open issues from actual production code. No toy examples, no
-          made-up scenarios.
+          You get the whole codebase at the commit the bug was in, plus an incident report written like a user
+          complaint, never a hint of the cause. Editor, file explorer, terminal and a run button, all in the browser.
+          Hidden checks decide when the bug is fixed.
         </Body>
         <StackChips />
       </TwoCol>
@@ -785,8 +668,9 @@ export function FeatureSections() {
         <Label dot="blue">AI problem solving</Label>
         <Heading>Debug with AI, not Google.</Heading>
         <Body>
-          Work through bugs with an AI assistant that knows the codebase. It guides you toward the fix — it doesn&apos;t
-          hand it to you.
+          The built-in AI chat reads the repository like your IDE and can propose edits you accept or reject. Your
+          points = speed × AI efficiency (tokens, prompts, iterations, first-run success) × code quality, judged by an AI
+          review of your fix.
         </Body>
         <DiffHint />
       </TwoCol>
@@ -798,8 +682,8 @@ export function FeatureSections() {
         <Label dot="amber">Share your rank</Label>
         <Heading>Show the climb.</Heading>
         <Body>
-          Every rank-up comes with a card. Download it, or post it straight to LinkedIn and X — proof your network can
-          see.
+          Every solve and every level up comes with a share card. Download it, or post it straight to LinkedIn and X —
+          proof your network can see.
         </Body>
       </TwoCol>
       <div className="mt-24 lg:mt-32">
@@ -820,8 +704,7 @@ export function FeatureSections() {
       </div>
     </FeatureSection>,
     <CvShowcase key="cv" />,
-    <CompanyProblems key="companies" />,
-    <Hackathons key="hackathons" />,
+    <CareerPaths key="paths" />,
   ];
   // Thin gradient divider between sections.
   return <>{sections.flatMap((s, i) => (i ? [<div key={`d${i}`} aria-hidden className="feature-divider" />, s] : [s]))}</>;

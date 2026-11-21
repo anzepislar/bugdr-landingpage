@@ -11,7 +11,7 @@
 - Problems are sourced from real GitHub pull requests (merged bug fixes)
 - Engineers read a buggy codebase, reproduce the bug, and submit a fix
 - Difficulty levels: Easy, Medium, Hard, and "Get a Job" (staff-level)
-- Career paths: Frontend, Backend, Full Stack, Mobile, DevOps/Infra
+- Career paths: Full Stack, Backend, Frontend
 - Points and rankings based on bug difficulty
 
 ## Who it is for
@@ -27,7 +27,7 @@
 2. Get the buggy codebase (standalone, no setup required)
 3. Reproduce the failing test, fix the bug, submit your solution
 4. Automated checks verify the fix against hidden tests
-5. Earn points and climb the leaderboard
+5. Earn points (speed × AI efficiency × code quality) and level up from Intern to Doctor
 
 ## Links
 

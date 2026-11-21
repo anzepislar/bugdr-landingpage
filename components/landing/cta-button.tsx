@@ -21,6 +21,7 @@ export function CtaButton({
   label = "Start now",
   variant,
   small = false,
+  href = `${APP_URL}/onboarding?ref=landing`,
 }: {
   className?: string;
   hidden?: boolean;
@@ -28,6 +29,7 @@ export function CtaButton({
   // a: pill with amber arrow (pricing). b: solid amber (hero). Unset: nav "Login" style.
   variant?: "a" | "b";
   small?: boolean;
+  href?: string;
 }) {
   const wrapRef = useRef<HTMLSpanElement>(null);
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -99,7 +101,7 @@ export function CtaButton({
     >
       <a
         ref={linkRef}
-        href={`${APP_URL}/onboarding?ref=landing`}
+        href={href}
         aria-hidden={hidden || undefined}
         tabIndex={hidden ? -1 : undefined}
         className={variant ? `cta-${variant}${small ? ` cta-${variant}--sm` : ""}` : "btn-cta w-full justify-between"}
